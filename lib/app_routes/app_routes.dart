@@ -1,0 +1,93 @@
+import 'dart:async';
+
+import 'package:blueark_flutter/screens/home/home_view.dart';
+import 'package:blueark_flutter/widgets/layouts/top_bar.dart';
+import 'package:blueark_flutter/widgets/students/student_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import '../models/models.dart';
+import '../screens/screens.dart';
+
+List<GoRoute> buildRoutes(bool Function() shoudConfirmExit) {
+  /*
+  final FutureOr<bool> Function(BuildContext) onExit = (BuildContext context) {
+    if (!shoudConfirmExit()) return true;
+    return showPopUp<bool>(
+      context,
+      ConfirmationDialog(
+        title: 'Exit?',
+        mainAction: 'Yes',
+        secondaryAction: 'No',
+        onConfirm: () => Navigator.of(context).pop(true),
+      ),
+    ).then((value) => value ?? false);
+  };*/
+
+  return [
+    GoRoute(path: '/', redirect: (context, state) => '/home'),
+    GoRoute(
+      path: '/home',
+      //onExit: onExit,
+      builder: (context, state) {
+        return const HomeView();
+      },
+    ),
+    GoRoute(
+      path: '/student/:id',
+      redirect: _parseIdOr404,
+      builder: (context, state) => StudentWidget(
+        int.parse(state.pathParameters['id']!),
+        state.uri.queryParameters['image'],
+      ),
+    ),
+  ];
+}
+
+class AppRoutes {
+  static const initialRoute = '/home';
+
+  static const home = '/home';
+
+  static const notFound = '/404';
+
+  static String student(int id, [String? image]) =>
+      '/student/$id${image != null ? "?image=$image" : ""}';
+
+// Hay que implementarlo esto es para cuando no encuentre la ruta
+// en caso de que sean rutas dinámicas
+  static Route<dynamic> onGenerateRoute(RouteSettings settings) {
+    return MaterialPageRoute(builder: (context) => const HomeScreen());
+  }
+}
+
+String? _parseIdOr404(BuildContext _, GoRouterState state) =>
+    int.tryParse(state.pathParameters['id'] ?? '') == null ? '404' : null;
+
+class NotFoundView extends StatelessWidget {
+  const NotFoundView({required this.canPop});
+
+  final bool canPop;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: TopBar(title: 'Not Found', canPop: canPop),
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              '404 Not Found',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            TextButton(
+              child: const Text('Go Home'),
+              onPressed: () => context.go(AppRoutes.home),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
