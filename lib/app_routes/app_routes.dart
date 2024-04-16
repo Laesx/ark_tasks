@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:blueark_flutter/screens/home/home_view.dart';
-import 'package:blueark_flutter/widgets/layouts/top_bar.dart';
-import 'package:blueark_flutter/widgets/students/student_widget.dart';
+import 'package:ark_jots/screens/home/home_view.dart';
+import 'package:ark_jots/widgets/layouts/top_bar.dart';
+import 'package:ark_jots/widgets/students/student_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

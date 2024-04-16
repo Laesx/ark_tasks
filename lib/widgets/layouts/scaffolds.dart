@@ -1,5 +1,5 @@
-import 'package:blueark_flutter/widgets/layouts/floating_bar.dart';
-import 'package:blueark_flutter/widgets/layouts/top_bar.dart';
+import 'package:ark_jots/widgets/layouts/floating_bar.dart';
+import 'package:ark_jots/widgets/layouts/top_bar.dart';
 import 'package:flutter/material.dart';
 
 /// Simple wrapper around [Scaffold], only supporting a bottom bar.

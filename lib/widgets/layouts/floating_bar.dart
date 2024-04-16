@@ -1,5 +1,5 @@
-import 'package:blueark_flutter/utils/consts.dart';
-import 'package:blueark_flutter/widgets/drag_detector.dart';
+import 'package:ark_jots/utils/consts.dart';
+import 'package:ark_jots/widgets/drag_detector.dart';
 import 'package:flutter/material.dart';
 
 /// Hides the [child] on scroll-down and reveals it on scroll-up.

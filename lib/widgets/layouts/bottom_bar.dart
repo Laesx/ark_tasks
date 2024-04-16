@@ -1,4 +1,4 @@
-import 'package:blueark_flutter/utils/consts.dart';
+import 'package:ark_jots/utils/consts.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavBar extends StatefulWidget {

@@ -1,4 +1,4 @@
-import 'package:blueark_flutter/services/services.dart';
+import 'package:ark_jots/services/services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

@@ -1,4 +1,4 @@
-import 'package:blueark_flutter/theme/app_theme.dart';
+import 'package:ark_jots/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'screens.dart';
 

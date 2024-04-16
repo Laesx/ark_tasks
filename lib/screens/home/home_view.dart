@@ -1,7 +1,7 @@
-import 'package:blueark_flutter/screens/home/home_provider.dart';
-import 'package:blueark_flutter/widgets/students/student_list_widget.dart';
-import 'package:blueark_flutter/widgets/layouts/bottom_bar.dart';
-import 'package:blueark_flutter/widgets/layouts/scaffolds.dart';
+import 'package:ark_jots/screens/home/home_provider.dart';
+import 'package:ark_jots/widgets/students/student_list_widget.dart';
+import 'package:ark_jots/widgets/layouts/bottom_bar.dart';
+import 'package:ark_jots/widgets/layouts/scaffolds.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatefulWidget {

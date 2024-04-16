@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:blueark_flutter/models/models.dart';
+import 'package:ark_jots/models/models.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:blueark_flutter/services/student_service.dart';
+import 'package:ark_jots/services/student_service.dart';
 
 final studentProvider = FutureProvider.autoDispose.family<Student, int>(
   (ref, studentId) async {

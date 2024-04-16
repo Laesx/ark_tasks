@@ -1,6 +1,6 @@
-import 'package:blueark_flutter/app_routes/app_routes.dart';
-import 'package:blueark_flutter/services/services.dart';
-import 'package:blueark_flutter/widgets/students/student_provider.dart';
+import 'package:ark_jots/app_routes/app_routes.dart';
+import 'package:ark_jots/services/services.dart';
+import 'package:ark_jots/widgets/students/student_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

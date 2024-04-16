@@ -1,4 +1,4 @@
-import 'package:blueark_flutter/models/models.dart';
+import 'package:ark_jots/models/models.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;

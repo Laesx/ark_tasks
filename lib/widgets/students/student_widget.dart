@@ -1,6 +1,6 @@
-import 'package:blueark_flutter/models/models.dart';
-import 'package:blueark_flutter/widgets/layouts/scaffolds.dart';
-import 'package:blueark_flutter/widgets/students/student_provider.dart';
+import 'package:ark_jots/models/models.dart';
+import 'package:ark_jots/widgets/layouts/scaffolds.dart';
+import 'package:ark_jots/widgets/students/student_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
