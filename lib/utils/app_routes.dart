@@ -1,13 +1,10 @@
 import 'dart:async';
 
-import 'package:ark_jots/screens/home/home_view.dart';
+import 'package:ark_jots/modules/home/home_view.dart';
+import 'package:ark_jots/screens/home_screen.dart';
 import 'package:ark_jots/widgets/layouts/top_bar.dart';
-import 'package:ark_jots/widgets/students/student_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
-import '../models/models.dart';
-import '../screens/screens.dart';
 
 List<GoRoute> buildRoutes(bool Function() shoudConfirmExit) {
   /*
@@ -32,14 +29,6 @@ List<GoRoute> buildRoutes(bool Function() shoudConfirmExit) {
       builder: (context, state) {
         return const HomeView();
       },
-    ),
-    GoRoute(
-      path: '/student/:id',
-      redirect: _parseIdOr404,
-      builder: (context, state) => StudentWidget(
-        int.parse(state.pathParameters['id']!),
-        state.uri.queryParameters['image'],
-      ),
     ),
   ];
 }

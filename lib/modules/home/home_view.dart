@@ -1,8 +1,7 @@
-import 'package:ark_jots/screens/home/home_provider.dart';
-import 'package:ark_jots/widgets/students/student_list_widget.dart';
+import 'package:ark_jots/modules/home/home_provider.dart';
 import 'package:ark_jots/widgets/layouts/bottom_bar.dart';
 import 'package:ark_jots/widgets/layouts/scaffolds.dart';
-import 'package:ark_jots/widgets/tasks/tasks_list_widget.dart';
+import 'package:ark_jots/modules/tasks/tasks_list_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatefulWidget {
@@ -52,7 +51,7 @@ class _HomeViewState extends State<HomeView>
             }),
         child: TabBarView(controller: _tabCtrl, children: [
           const Center(child: Text('Home')),
-          StudentListWidget(),
+          const Center(child: Text('Home')),
           TasksListWidget(ScrollController()),
           const Center(child: Text('Something')),
           const Center(child: Text('Settings')),

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:ark_jots/models/priority.dart';
+import 'package:ark_jots/modules/tasks/priority.dart';
 
 class Task {
   int id;
