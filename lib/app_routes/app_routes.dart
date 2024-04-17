@@ -54,6 +54,8 @@ class AppRoutes {
   static String student(int id, [String? image]) =>
       '/student/$id${image != null ? "?image=$image" : ""}';
 
+  static String task(int id) => '/task/$id';
+
 // Hay que implementarlo esto es para cuando no encuentre la ruta
 // en caso de que sean rutas dinámicas
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
