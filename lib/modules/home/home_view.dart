@@ -52,7 +52,7 @@ class _HomeViewState extends State<HomeView>
         child: TabBarView(controller: _tabCtrl, children: [
           const Center(child: Text('Home')),
           const Center(child: Text('Home')),
-          TasksListWidget(ScrollController()),
+          TasksView(ScrollController()),
           const Center(child: Text('Something')),
           const Center(child: Text('Settings')),
         ]));

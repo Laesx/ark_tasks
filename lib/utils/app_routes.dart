@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:ark_jots/modules/home/home_view.dart';
 import 'package:ark_jots/screens/home_screen.dart';
 import 'package:ark_jots/widgets/layouts/top_bar.dart';

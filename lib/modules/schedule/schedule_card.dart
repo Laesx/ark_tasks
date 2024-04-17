@@ -2,10 +2,10 @@ import 'package:ark_jots/modules/tasks/task_model.dart';
 import 'package:ark_jots/utils/consts.dart';
 import 'package:flutter/material.dart';
 
-class TaskCard extends StatelessWidget {
+class ScheduleCard extends StatelessWidget {
   final Task task;
 
-  const TaskCard({super.key, required this.task});
+  const ScheduleCard({super.key, required this.task});
 
   @override
   Widget build(BuildContext context) {
