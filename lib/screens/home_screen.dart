@@ -1,6 +1,5 @@
-import 'package:ark_jots/theme/app_theme.dart';
+import 'package:ark_jots/utils/app_theme.dart';
 import 'package:flutter/material.dart';
-import 'screens.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);

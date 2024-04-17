@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'app_routes/app_routes.dart';
-import 'theme/app_theme.dart';
+import 'utils/app_theme.dart';
 
 //void main() => runApp(MyApp());
 Future<void> main() async {
@@ -37,10 +37,17 @@ class AppState extends ConsumerState<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    // Preliminary theme data, possibly add several themes
+    final data = themeDataFrom(ColorScheme.fromSeed(
+        seedColor: Color(0xFFB4ABF5),
+        brightness: Brightness.dark,
+        background: Colors.black));
+
     return MaterialApp.router(
-      title: 'BlueArk',
+      title: 'Ark Jots',
       routerConfig: _router,
-      theme: AppTheme.darkTheme,
+      //theme: AppTheme.darkTheme,
+      theme: data,
       //darkTheme: AppTheme.darkTheme, // TODO: Implementar tema oscuro
       debugShowCheckedModeBanner: false,
     );

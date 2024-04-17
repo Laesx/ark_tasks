@@ -1,4 +1,5 @@
 import 'package:ark_jots/models/task.dart';
+import 'package:ark_jots/utils/consts.dart';
 import 'package:flutter/material.dart';
 
 class TaskWidget extends StatelessWidget {
@@ -13,12 +14,11 @@ class TaskWidget extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: 70,
-        margin: const EdgeInsets.only(top: 10, bottom: 10),
+        margin: const EdgeInsets.only(top: 7, bottom: 7),
         decoration: BoxDecoration(
+            // TODO: Remove this color and use the theme color
             color: const Color.fromARGB(255, 52, 52, 52),
-            // o poner el Borde Simple...
-            borderRadius: const BorderRadius.only(
-                topRight: Radius.circular(20), bottomLeft: Radius.circular(20)),
+            borderRadius: Consts.borderRadiusMin,
             boxShadow: [
               BoxShadow(
                 color: Colors.purple.withOpacity(0.3),
@@ -57,39 +57,13 @@ class _TaskCheckboxState extends State<_TaskCheckbox> {
   @override
   Widget build(BuildContext context) {
     return Checkbox(
-      checkColor: Colors.white,
+      //checkColor: Colors.white,
       value: widget.isComplete,
       onChanged: (bool? value) {
         setState(() {
           widget.isComplete = value!;
         });
       },
-    );
-  }
-}
-
-class _TagDescription extends StatelessWidget {
-  final String descripcion;
-
-  const _TagDescription({
-    super.key,
-    required this.descripcion,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 100,
-      height: 70,
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-          color: Colors.indigo,
-          borderRadius: BorderRadius.only(
-              topRight: Radius.circular(25), bottomLeft: Radius.circular(25))),
-      child: Text(
-        '$descripcion€',
-        style: TextStyle(fontSize: 20, color: Colors.white),
-      ),
     );
   }
 }
@@ -113,14 +87,13 @@ class _TaskDetails extends StatelessWidget {
       children: [
         Text(
           task.title,
-          style: TextStyle(
-              fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
         Text(
           task.description ?? "",
-          style: TextStyle(fontSize: 14, color: Colors.white),
+          //style: TextStyle(fontSize: 14, color: Colors.white),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
