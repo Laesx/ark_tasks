@@ -1,3 +1,4 @@
+import 'package:ark_jots/utils/options.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -6,6 +7,9 @@ import 'utils/app_theme.dart';
 
 //void main() => runApp(MyApp());
 Future<void> main() async {
+  await Options.init();
+  //await SharedPrefs().init();
+
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -32,6 +36,7 @@ class AppState extends ConsumerState<MyApp> {
 
   @override
   void dispose() {
+    Options().dispose();
     super.dispose();
   }
 

@@ -4,14 +4,14 @@ enum HomeTab {
   home,
   students,
   tasks,
-  something,
+  schedule,
   settings;
 
   String get title => switch (this) {
         home => 'Home',
         students => 'Students',
         tasks => 'Tasks',
-        something => 'NIL',
+        schedule => 'Schedule',
         settings => 'Settings',
       };
 
@@ -19,7 +19,7 @@ enum HomeTab {
         home => Icons.home,
         students => Icons.people_alt_outlined,
         tasks => Icons.task_alt_outlined,
-        something => Icons.abc_outlined,
+        schedule => Icons.schedule_outlined,
         settings => Icons.settings_outlined,
       };
 }

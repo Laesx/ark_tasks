@@ -8,6 +8,8 @@ class DatabaseHelper {
   static const table = 'task';
 
   // Maybe make this more modular to be able to support multiple tables
+
+  // Or try to use https://isar.dev/tutorials/quickstart.html
   static const columnId = 'id';
   static const columnTitle = 'title';
   static const columnData = 'data';

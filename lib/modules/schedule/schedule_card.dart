@@ -1,11 +1,12 @@
+import 'package:ark_jots/modules/schedule/schedule_models.dart';
 import 'package:ark_jots/modules/tasks/task_model.dart';
 import 'package:ark_jots/utils/consts.dart';
 import 'package:flutter/material.dart';
 
 class ScheduleCard extends StatelessWidget {
-  final Task task;
+  final Schedule schedule;
 
-  const ScheduleCard({super.key, required this.task});
+  const ScheduleCard({super.key, required this.schedule});
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +30,8 @@ class ScheduleCard extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            _TaskCheckbox(task.isComplete),
-            _TaskDetails(task),
+            //_TaskCheckbox(schedule.isComplete),
+            //_TaskDetails(schedule),
           ],
         ),
       ),
