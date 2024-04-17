@@ -1,9 +1,9 @@
 import 'package:ark_jots/widgets/layouts/floating_bar.dart';
 import 'package:ark_jots/widgets/layouts/scaffolds.dart';
 import 'package:ark_jots/widgets/layouts/top_bar.dart';
-import 'package:ark_jots/modules/tasks/task_widget.dart';
+import 'package:ark_jots/modules/tasks/task_card.dart';
 import 'package:flutter/material.dart';
-import 'package:ark_jots/modules/tasks/task.dart';
+import 'package:ark_jots/modules/tasks/task_model.dart';
 
 class TasksListWidget extends StatelessWidget {
   final List<Task> tasks = [

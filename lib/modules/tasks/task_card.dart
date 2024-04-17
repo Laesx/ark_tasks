@@ -1,4 +1,4 @@
-import 'package:ark_jots/modules/tasks/task.dart';
+import 'package:ark_jots/modules/tasks/task_model.dart';
 import 'package:ark_jots/utils/consts.dart';
 import 'package:flutter/material.dart';
 

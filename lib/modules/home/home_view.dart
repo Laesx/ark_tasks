@@ -1,7 +1,7 @@
 import 'package:ark_jots/modules/home/home_provider.dart';
 import 'package:ark_jots/widgets/layouts/bottom_bar.dart';
 import 'package:ark_jots/widgets/layouts/scaffolds.dart';
-import 'package:ark_jots/modules/tasks/tasks_list_widget.dart';
+import 'package:ark_jots/modules/tasks/tasks_view.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatefulWidget {
