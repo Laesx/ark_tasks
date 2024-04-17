@@ -1,4 +1,4 @@
-# ark_jots
+# Ark Notes
 
 A new Flutter project.
 
