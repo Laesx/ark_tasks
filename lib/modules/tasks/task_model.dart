@@ -1,9 +1,13 @@
 import 'dart:convert';
 
 import 'package:ark_jots/models/priority.dart';
+import 'package:floor/floor.dart';
+import 'package:hive/hive.dart';
 
+@entity
 class Task {
-  int id;
+  @PrimaryKey(autoGenerate: true)
+  int? id;
   String title;
   String? description;
   DateTime createdAt;
@@ -11,7 +15,7 @@ class Task {
   bool isComplete = false;
   // Tags
   // Priority
-  Priority? priority;
+  Priority priority;
   // Due Date
   DateTime? dueDate;
   // Start Date in case it's a project or event
@@ -22,13 +26,13 @@ class Task {
   String? notes;
 
   Task({
-    required this.id,
+    this.id,
     required this.title,
     this.description,
     required this.createdAt,
     required this.lastUpdated,
     this.isComplete = false,
-    this.priority,
+    this.priority = Priority.low,
     this.dueDate,
     this.startDate,
     this.reminders,

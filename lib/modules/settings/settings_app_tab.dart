@@ -51,6 +51,15 @@ class SettingsAppTab extends StatelessWidget {
             ),
           ],
         ),
+        const SizedBox(height: 20),
+        const TextField(
+          decoration: InputDecoration(
+            labelText: 'OpenAI API Key',
+            hintText: 'Api key',
+            helperText: 'Your own API key to use more advanced options.',
+            suffixIcon: Icon(Icons.arrow_drop_down),
+          ),
+        ),
       ],
     );
   }

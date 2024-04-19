@@ -16,6 +16,8 @@ class Priority {
 
   static List<Priority> get priorities => [low, medium, high];
 
+  int get index => priorities.indexOf(this);
+
   static Priority fromValue(int value) {
     return priorities.firstWhere((element) => element.value == value);
   }

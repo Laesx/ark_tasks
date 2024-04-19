@@ -224,12 +224,10 @@ class Options extends ChangeNotifier {
     for (int i = 0; i < _accounts.length; i++) {
       final account = _accounts[i];
       if (account.id == id) {
-        if (account.name != name || account.avatarUrl != avatarUrl) {
+        if (account.name != name) {
           _accounts[i] = Account(
             id: id,
             name: name,
-            avatarUrl: avatarUrl,
-            expiration: account.expiration,
           );
         }
         return;

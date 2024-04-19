@@ -2,6 +2,8 @@ import 'package:ark_jots/modules/settings/settings_app_tab.dart';
 import 'package:ark_jots/widgets/layouts/scaffolds.dart';
 import 'package:flutter/material.dart';
 
+import '../../widgets/layouts/top_bar.dart';
+
 class SettingsView extends StatefulWidget {
   const SettingsView({super.key});
 
@@ -29,6 +31,7 @@ class _SettingsViewState extends State<SettingsView>
 
   @override
   Widget build(BuildContext context) {
+    // Not needed since Settings will be a single tab for now
     final children = [
       SettingsAppTab(scrollCtrl),
       const Text('Appearance'),
@@ -36,7 +39,11 @@ class _SettingsViewState extends State<SettingsView>
       const Text('About'),
     ];
 
-    return PageScaffold(
-        child: TabBarView(controller: _tabCtrl, children: children));
+    return TabScaffold(
+        topBar: TopBar(
+          title: 'Settings',
+          canPop: false,
+        ),
+        child: SettingsAppTab(scrollCtrl));
   }
 }
