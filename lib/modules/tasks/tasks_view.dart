@@ -5,6 +5,7 @@ import 'package:ark_jots/widgets/layouts/top_bar.dart';
 import 'package:ark_jots/modules/tasks/task_card.dart';
 import 'package:flutter/material.dart';
 import 'package:ark_jots/modules/tasks/task_model.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class TasksView extends StatelessWidget {
@@ -39,14 +40,17 @@ class TasksView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var state = context.watch<TaskProvider>();
+    final state = context.watch<TaskProvider>();
 
     return TabScaffold(
       floatingBar: FloatingBar(scrollCtrl: scrollCtrl, children: [
         ActionButton(
             icon: Icons.note_add_outlined,
             tooltip: "New Note",
-            onTap: () => null)
+            onTap: () {
+              state.selectedTask = null;
+              context.push('/task');
+            }),
       ]),
       topBar: TopBar(
         canPop: false,

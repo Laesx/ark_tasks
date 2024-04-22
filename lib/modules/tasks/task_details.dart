@@ -5,52 +5,52 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class TaskDetailScreen extends StatelessWidget {
-  final int id;
-
-  TaskDetailScreen(this.id, {Key? key}) : super(key: key);
+  TaskDetailScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final taskProvider = Provider.of<TaskProvider>(context);
+    //final taskProvider = Provider.of<TaskProvider>(context);
     //final tasks = context.watch(tasksProvider);
-
-    return ChangeNotifierProvider(
-        create: (context) => taskProvider,
-        child: _TaskDetailsBody(taskProvider: taskProvider));
+    return _TaskDetailsBody();
   }
 }
 
 class _TaskDetailsBody extends StatelessWidget {
   const _TaskDetailsBody({
     super.key,
-    required this.taskProvider,
   });
-
-  final TaskProvider taskProvider;
 
   @override
   Widget build(BuildContext context) {
+    final taskProvider = context.watch<TaskProvider>();
+
+    final task = taskProvider.selectedTask ??
+        Task(title: '', createdAt: DateTime.now(), lastUpdated: DateTime.now());
+
     return Scaffold(
         appBar: TopBar(
           trailing: [
             IconButton(icon: const Icon(Icons.edit), onPressed: () => null)
           ],
           canPop: false,
-          title: taskProvider.selectedTask?.title ?? '',
+          title: task.title,
         ),
         body: Container(
           child: Form(
             child: Column(
               children: [
                 TextFormField(
+                  initialValue: task.title,
+                  onChanged: (value) => task.title = value,
                   decoration: const InputDecoration(labelText: 'Title'),
                 ),
                 TextFormField(
+                  initialValue: task.description,
+                  onChanged: (value) => task.description = value,
                   decoration: const InputDecoration(labelText: 'Description'),
                 ),
                 ElevatedButton(
-                    onPressed: () => taskProvider
-                        .updateOrCreateTask(taskProvider.selectedTask),
+                    onPressed: () => taskProvider.updateOrCreateTask(task),
                     child: const Text('Save'))
               ],
             ),

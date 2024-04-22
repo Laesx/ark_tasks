@@ -1,8 +1,10 @@
 import 'package:ark_jots/modules/tasks/task_model.dart';
+import 'package:ark_jots/modules/tasks/task_providers.dart';
 import 'package:ark_jots/utils/app_routes.dart';
 import 'package:ark_jots/utils/consts.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 class TaskCard extends StatelessWidget {
   final Task task;
@@ -11,10 +13,14 @@ class TaskCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final tasks = context.watch<TaskProvider>();
+
     return GestureDetector(
       onTap: () {
         //Navigator.pushNamed(context, '/task/${task.id}');
-        context.push(AppRoutes.task(task.id!));
+        // We select the task here and push the route to the task details screen
+        tasks.selectedTask = task;
+        context.push(AppRoutes.task());
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5),

@@ -29,11 +29,12 @@ List<GoRoute> buildRoutes(bool Function() shoudConfirmExit) {
         return const HomeView();
       },
     ),
+    // TODO: Unnecessary
     GoRoute(
-        path: "/task/:id",
+        path: "/task",
         builder: (context, state) {
-          final id = int.parse(state.pathParameters['id']!);
-          return TaskDetailScreen(id);
+          //final id = int.parse(state.pathParameters['id']!);
+          return TaskDetailScreen();
         }),
   ];
 }
@@ -48,7 +49,7 @@ class AppRoutes {
   static String student(int id, [String? image]) =>
       '/student/$id${image != null ? "?image=$image" : ""}';
 
-  static String task(int id) => '/task/$id';
+  static String task() => '/task';
 
 // Hay que implementarlo esto es para cuando no encuentre la ruta
 // en caso de que sean rutas dinámicas
