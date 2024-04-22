@@ -1,7 +1,8 @@
 import 'package:ark_jots/utils/options.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'modules/tasks/task_providers.dart';
 import 'utils/app_routes.dart';
 import 'utils/app_theme.dart';
 
@@ -10,18 +11,23 @@ Future<void> main() async {
   await Options.init();
   //await SharedPrefs().init();
 
-  runApp(const ProviderScope(child: MyApp()));
+  runApp(MultiProvider(providers: [
+    //ChangeNotifierProvider(create: (context) => HomeProvider()),
+    ChangeNotifierProvider(create: (context) => TaskProvider()),
+    //ChangeNotifierProvider(create: (context) => ScheduleProvider()),
+    //ChangeNotifierProvider(create: (context) => SettingsProvider()),
+  ], child: const MyApp()));
 }
 
 //void main() {initializeDateFormatting().then((_) => runApp(MyApp()));}
-class MyApp extends ConsumerStatefulWidget {
+class MyApp extends StatefulWidget {
   const MyApp();
 
   @override
   AppState createState() => AppState();
 }
 
-class AppState extends ConsumerState<MyApp> {
+class AppState extends State<MyApp> {
   late final GoRouter _router;
 
   @override
