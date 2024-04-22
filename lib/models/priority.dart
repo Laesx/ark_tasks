@@ -1,9 +1,31 @@
-enum PriorityEnum {
+import 'package:hive/hive.dart';
+
+part 'priority.g.dart';
+
+@HiveType(typeId: 0)
+enum Priority {
+  @HiveField(0)
   low,
+  @HiveField(1)
   medium,
+  @HiveField(2)
   high,
 }
 
+Priority priorityFromString(String str) {
+  switch (str) {
+    case 'low':
+      return Priority.low;
+    case 'medium':
+      return Priority.medium;
+    case 'high':
+      return Priority.high;
+    default:
+      throw ArgumentError('Invalid priority: $str');
+  }
+}
+
+/*
 class Priority {
   final String name;
   final int value;
@@ -35,3 +57,4 @@ class Priority {
     }
   }
 }
+*/

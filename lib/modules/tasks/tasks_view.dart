@@ -1,12 +1,14 @@
+import 'package:ark_jots/modules/tasks/task_providers.dart';
 import 'package:ark_jots/widgets/layouts/floating_bar.dart';
 import 'package:ark_jots/widgets/layouts/scaffolds.dart';
 import 'package:ark_jots/widgets/layouts/top_bar.dart';
 import 'package:ark_jots/modules/tasks/task_card.dart';
 import 'package:flutter/material.dart';
 import 'package:ark_jots/modules/tasks/task_model.dart';
+import 'package:provider/provider.dart';
 
 class TasksView extends StatelessWidget {
-  final List<Task> tasks = [
+  final List<Task> demoTasks = [
     Task(
       id: 1,
       title: 'Task 1',
@@ -37,6 +39,8 @@ class TasksView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var state = context.watch<TaskProvider>();
+
     return TabScaffold(
       floatingBar: FloatingBar(scrollCtrl: scrollCtrl, children: [
         ActionButton(
@@ -52,9 +56,9 @@ class TasksView extends StatelessWidget {
         // This padding should be done more elegantly so I don't have to put it everywhere
         padding: const EdgeInsets.only(top: TopBar.height),
         child: ListView.builder(
-          itemCount: tasks.length,
+          itemCount: state.tasks.length,
           itemBuilder: (context, index) {
-            final task = tasks[index];
+            final task = state.tasks[index];
             return TaskCard(task: task);
           },
         ),

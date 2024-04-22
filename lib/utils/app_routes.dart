@@ -1,4 +1,5 @@
 import 'package:ark_jots/modules/home/home_view.dart';
+import 'package:ark_jots/modules/tasks/task_details.dart';
 import 'package:ark_jots/screens/home_screen.dart';
 import 'package:ark_jots/widgets/layouts/top_bar.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,12 @@ List<GoRoute> buildRoutes(bool Function() shoudConfirmExit) {
         return const HomeView();
       },
     ),
+    GoRoute(
+        path: "/task/:id",
+        builder: (context, state) {
+          final id = int.parse(state.pathParameters['id']!);
+          return TaskDetailScreen(id);
+        }),
   ];
 }
 

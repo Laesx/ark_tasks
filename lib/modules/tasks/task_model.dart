@@ -1,28 +1,39 @@
 import 'dart:convert';
 
 import 'package:ark_jots/models/priority.dart';
-import 'package:floor/floor.dart';
 import 'package:hive/hive.dart';
 
-@entity
-class Task {
-  @PrimaryKey(autoGenerate: true)
+part 'task_model.g.dart';
+
+@HiveType(typeId: 1)
+class Task extends HiveObject {
+  @HiveField(0)
   int? id;
+  @HiveField(1)
   String title;
+  @HiveField(2)
   String? description;
+  @HiveField(3)
   DateTime createdAt;
+  @HiveField(4)
   DateTime lastUpdated;
+  @HiveField(5)
   bool isComplete = false;
   // Tags
   // Priority
+  @HiveField(6)
   Priority priority;
   // Due Date
+  @HiveField(7)
   DateTime? dueDate;
   // Start Date in case it's a project or event
+  @HiveField(8)
   DateTime? startDate;
   // Reminder Dates
+  @HiveField(9)
   List<DateTime>? reminders;
   // Notes
+  @HiveField(10)
   String? notes;
 
   Task({
@@ -50,7 +61,7 @@ class Task {
         createdAt: DateTime.parse(json["created_at"]),
         lastUpdated: DateTime.parse(json["last_updated"]),
         isComplete: json["isComplete"],
-        priority: Priority.fromValue(json["priority"]),
+        priority: priorityFromString(json["priority"]),
         dueDate: DateTime.parse(json["due_date"]),
         startDate: DateTime.parse(json["start_date"]),
         reminders: List<DateTime>.from(

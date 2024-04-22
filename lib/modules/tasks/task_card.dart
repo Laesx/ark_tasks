@@ -1,6 +1,8 @@
 import 'package:ark_jots/modules/tasks/task_model.dart';
+import 'package:ark_jots/utils/app_routes.dart';
 import 'package:ark_jots/utils/consts.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class TaskCard extends StatelessWidget {
   final Task task;
@@ -9,29 +11,35 @@ class TaskCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5),
-      child: Container(
-        width: double.infinity,
-        height: 70,
-        margin: const EdgeInsets.only(top: 7, bottom: 7),
-        decoration: BoxDecoration(
-            // TODO: Remove this color and use the theme color
-            color: const Color.fromARGB(255, 52, 52, 52),
-            borderRadius: Consts.borderRadiusMin,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.purple.withOpacity(0.3),
-                offset: Offset(0, 7),
-                blurRadius: 10,
-              )
-            ]),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            _TaskCheckbox(task.isComplete),
-            _TaskDetails(task),
-          ],
+    return GestureDetector(
+      onTap: () {
+        //Navigator.pushNamed(context, '/task/${task.id}');
+        context.push(AppRoutes.task(task.id!));
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 5),
+        child: Container(
+          width: double.infinity,
+          height: 70,
+          margin: const EdgeInsets.only(top: 7, bottom: 7),
+          decoration: BoxDecoration(
+              // TODO: Remove this color and use the theme color
+              color: const Color.fromARGB(255, 52, 52, 52),
+              borderRadius: Consts.borderRadiusMin,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.purple.withOpacity(0.3),
+                  offset: Offset(0, 7),
+                  blurRadius: 10,
+                )
+              ]),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              _TaskCheckbox(task.isComplete),
+              _TaskDetails(task),
+            ],
+          ),
         ),
       ),
     );
