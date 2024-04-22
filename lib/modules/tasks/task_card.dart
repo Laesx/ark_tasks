@@ -42,7 +42,7 @@ class TaskCard extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              _TaskCheckbox(task.isComplete),
+              TaskCheckbox(task.isComplete),
               _TaskDetails(task),
             ],
           ),
@@ -53,19 +53,19 @@ class TaskCard extends StatelessWidget {
 }
 
 // ignore: must_be_immutable
-class _TaskCheckbox extends StatefulWidget {
+class TaskCheckbox extends StatefulWidget {
   bool isComplete;
 
-  _TaskCheckbox(
+  TaskCheckbox(
     this.isComplete, {
     super.key,
   });
 
   @override
-  State<_TaskCheckbox> createState() => _TaskCheckboxState();
+  State<TaskCheckbox> createState() => _TaskCheckboxState();
 }
 
-class _TaskCheckboxState extends State<_TaskCheckbox> {
+class _TaskCheckboxState extends State<TaskCheckbox> {
   //bool isComplete = ;
 
   @override
