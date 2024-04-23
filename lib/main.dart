@@ -1,3 +1,4 @@
+import 'package:ark_jots/services/ai_service.dart';
 import 'package:ark_jots/utils/options.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -12,6 +13,9 @@ Future<void> main() async {
   await Options.init();
   //await initializeDateFormatting();
   //await SharedPrefs().init();
+
+  // Initializes the AI service
+  await AiService.init();
 
   runApp(MultiProvider(providers: [
     //ChangeNotifierProvider(create: (context) => HomeProvider()),
