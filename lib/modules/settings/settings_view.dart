@@ -32,12 +32,12 @@ class _SettingsViewState extends State<SettingsView>
   @override
   Widget build(BuildContext context) {
     // Not needed since Settings will be a single tab for now
-    final children = [
+    /* final children = [
       SettingsAppTab(scrollCtrl),
       const Text('Appearance'),
       const Text('Notifications'),
       const Text('About'),
-    ];
+    ]; */
 
     return TabScaffold(
         topBar: TopBar(

@@ -1,7 +1,6 @@
 import 'package:ark_jots/models/priority.dart';
 import 'package:ark_jots/modules/tasks/task_model.dart';
 import 'package:hive/hive.dart';
-import 'package:provider/provider.dart';
 
 import 'package:flutter/material.dart';
 
@@ -23,11 +22,17 @@ class TaskProvider extends ChangeNotifier {
     // Register Hive adapters.
     Hive.registerAdapter(TaskAdapter());
     Hive.registerAdapter(PriorityAdapter());
+    Hive.registerAdapter(SubtaskAdapter());
     // Load tasks from Hive.
     Hive.openBox<Task>(_tasksBoxKey).then((box) {
       _tasks.addAll(box.values);
       notifyListeners();
     });
+  }
+
+  // BE CAREFUL WITH THIS FUNCTION. IT WILL DELETE ALL TASKS.
+  static void deleteTasksBox() {
+    Hive.deleteBoxFromDisk(_tasksBoxKey);
   }
 
   void addTask(Task task) {

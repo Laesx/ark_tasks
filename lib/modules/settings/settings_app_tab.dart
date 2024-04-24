@@ -1,3 +1,4 @@
+import 'package:ark_jots/modules/tasks/task_providers.dart';
 import 'package:ark_jots/utils/options.dart';
 import 'package:ark_jots/widgets/layouts/top_bar.dart';
 import 'package:flutter/material.dart';
@@ -60,6 +61,10 @@ class SettingsAppTab extends StatelessWidget {
             suffixIcon: Icon(Icons.arrow_drop_down),
           ),
         ),
+        const SizedBox(height: 20),
+        ElevatedButton(
+            onPressed: () => TaskProvider.deleteTasksBox(),
+            child: Text('Delete Tasks Box')),
       ],
     );
   }

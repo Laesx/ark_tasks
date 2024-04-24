@@ -31,10 +31,12 @@ class Task extends HiveObject {
   DateTime? startDate;
   // Reminder Dates
   @HiveField(9)
-  List<DateTime>? reminders;
+  List<DateTime> reminders = [];
   // Notes
   @HiveField(10)
   String? notes;
+  @HiveField(11)
+  List<Subtask> subtasks = [];
 
   Task({
     this.id,
@@ -46,8 +48,9 @@ class Task extends HiveObject {
     this.priority = Priority.low,
     this.dueDate,
     this.startDate,
-    this.reminders,
+    //this.reminders = const [],
     this.notes,
+    //this.subtasks = const [],
   });
 
   factory Task.fromJson(String str) => Task.fromMap(json.decode(str));
@@ -64,8 +67,7 @@ class Task extends HiveObject {
         priority: priorityFromString(json["priority"]),
         dueDate: DateTime.parse(json["due_date"]),
         startDate: DateTime.parse(json["start_date"]),
-        reminders: List<DateTime>.from(
-            json["reminders"].map((x) => DateTime.parse(x))),
+        //reminders: List<DateTime>.from(json["reminders"].map((x) => DateTime.parse(x))),
         notes: json["notes"],
       );
 
@@ -79,9 +81,21 @@ class Task extends HiveObject {
         "priority": priority.toString(),
         "due_date": dueDate?.toIso8601String(),
         "start_date": startDate?.toIso8601String(),
-        "reminders": List<dynamic>.from(
-            reminders?.map((x) => x.toIso8601String()) ??
-                []), // This is a null check operator
+        "reminders": List<dynamic>.from(reminders
+            .map((x) => x.toIso8601String())), // This is a null check operator
         "notes": notes,
       };
+}
+
+@HiveType(typeId: 2)
+class Subtask {
+  @HiveField(0)
+  bool isComplete;
+  @HiveField(1)
+  String title;
+
+  Subtask({
+    this.isComplete = false,
+    required this.title,
+  });
 }

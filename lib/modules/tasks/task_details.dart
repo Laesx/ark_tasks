@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:ark_jots/modules/tasks/task_card.dart';
 import 'package:ark_jots/modules/tasks/task_model.dart';
 import 'package:ark_jots/modules/tasks/task_providers.dart';
@@ -6,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:ark_jots/utils/tools.dart';
 
@@ -13,8 +16,11 @@ import 'dart:async';
 
 import '../../services/ai_service.dart';
 
+// ignore: must_be_immutable
 class TaskDetailScreen extends StatefulWidget {
   TaskDetailScreen({Key? key}) : super(key: key);
+
+  bool showAllSubtasks = false;
 
   @override
   State<TaskDetailScreen> createState() => _TaskDetailScreenState();
@@ -23,11 +29,15 @@ class TaskDetailScreen extends StatefulWidget {
 class _TaskDetailScreenState extends State<TaskDetailScreen> {
   @override
   Widget build(BuildContext context) {
+    // Controller for the subtasks so I can empty it after one is created
+    final TextEditingController _controller = TextEditingController();
+
     final taskProvider = context.watch<TaskProvider>();
 
     final task = taskProvider.selectedTask ??
         Task(title: '', createdAt: DateTime.now(), lastUpdated: DateTime.now());
 
+    // This is for the submenu to appear on the center of the screen
     final screenSize = MediaQuery.of(context).size;
     final xOffSet = screenSize.width * 0.25;
 
@@ -35,16 +45,19 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
         appBar: TopBar(
           trailing: [
             IconButton(
-                icon: const Icon(Icons.bolt_outlined),
-                onPressed: () => aiDialog(context, task))
+              icon: const Icon(Icons.bolt_outlined),
+              //onPressed: () => aiDialog(context, task)
+              onPressed: () => null,
+            )
           ],
           canPop: true,
           title: task.title,
         ),
         body: Form(
           child: ListView(
+            padding: const EdgeInsets.all(5),
             children: [
-              const SizedBox(height: 20),
+              //const SizedBox(height: 20),
               Row(children: [
                 TaskCheckbox(task.isComplete),
                 Flexible(
@@ -57,8 +70,11 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                   ),
                 ),
               ]),
-              // TODO: Add subtasks functionality
-              const Text('Add subtask'),
+              // Subtasks functionality
+              _SubtasksSection(
+                  widget: widget, task: task, controller: _controller),
+
+              // AI Subtask Suggestions
               ExpansionTile(
                   title: const Text('AI Subtask Suggestions'),
                   children: [
@@ -173,7 +189,7 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
         ));
   }
 
-  Future<String?> aiDialog(BuildContext context, Task task) async {
+  /* Future<String?> aiDialog(BuildContext context, Task task) async {
     // Returns a null Future
     if (task.title.isEmpty) return Future(() => null);
 
@@ -193,7 +209,10 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
             children: <Widget>[
               Wrap(
                 children: subtasks
-                    .map((subtask) => _MyButton(text: subtask))
+                    .asMap()
+                    .map((index, subtask) =>
+                        MapEntry(index, _MyButton(id: index, text: subtask)))
+                    .values
                     .toList(),
               ),
               const Text('This is a typical dialog.'),
@@ -208,6 +227,90 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
           ),
         ),
       ),
+    );
+  } */
+}
+
+class _SubtasksSection extends StatefulWidget {
+  const _SubtasksSection({
+    super.key,
+    required this.widget,
+    required this.task,
+    required TextEditingController controller,
+  }) : _controller = controller;
+
+  final TaskDetailScreen widget;
+  final Task task;
+  final TextEditingController _controller;
+
+  @override
+  State<_SubtasksSection> createState() => _SubtasksSectionState();
+}
+
+class _SubtasksSectionState extends State<_SubtasksSection> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ListView.builder(
+          shrinkWrap: true,
+          itemCount: widget.widget.showAllSubtasks
+              ? widget.task.subtasks.length
+              : min(3, widget.task.subtasks.length),
+          itemBuilder: (context, index) {
+            final subtask = widget.task.subtasks[index];
+            return ListTile(
+                // TODO: Make this a TextField to be able to edit it
+                title: Text(subtask.title),
+                leading: TaskCheckbox(subtask.isComplete),
+                trailing: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      widget.task.subtasks.removeAt(index);
+                    });
+                  },
+                  icon: Icon(Icons.close),
+                ),
+                shape: Border(
+                  bottom: BorderSide(color: Colors.grey.shade300),
+                ));
+          },
+        ),
+        Row(
+          children: [
+            const Icon(Icons.add),
+            Flexible(
+              child: TextField(
+                controller: widget._controller,
+                decoration: const InputDecoration(
+                  hintText: 'Add subtask',
+                ),
+                onSubmitted: (value) {
+                  widget.task.subtasks.add(Subtask(title: value));
+                  widget._controller.clear();
+                  //setState(() {});
+                },
+              ),
+            ),
+          ],
+        ),
+        if (widget.task.subtasks.length > 3 && !widget.widget.showAllSubtasks)
+          TextButton(
+            child: const Text('Show more'),
+            onPressed: () {
+              widget.widget.showAllSubtasks = true;
+              setState(() {});
+            },
+          ),
+        if (widget.task.subtasks.length > 3 && widget.widget.showAllSubtasks)
+          TextButton(
+            child: const Text('Show less'),
+            onPressed: () {
+              widget.widget.showAllSubtasks = false;
+              setState(() {});
+            },
+          ),
+      ],
     );
   }
 }
@@ -234,7 +337,10 @@ class SubtastkSuggestions extends StatelessWidget {
               subtasks = snapshot.data ?? [];
               return Wrap(
                 children: subtasks
-                    .map((subtask) => _MyButton(text: subtask))
+                    .asMap()
+                    .map((index, subtask) =>
+                        MapEntry(index, _MyButton(id: index, text: subtask)))
+                    .values
                     .toList(),
               );
             } else {
@@ -248,8 +354,9 @@ class SubtastkSuggestions extends StatelessWidget {
 }
 
 class _MyButton extends StatefulWidget {
-  _MyButton({Key? key, required this.text}) : super(key: key);
+  _MyButton({Key? key, required this.text, required this.id}) : super(key: key);
 
+  final int id;
   final String text;
 
   @override

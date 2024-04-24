@@ -2,7 +2,7 @@ import 'package:ark_jots/services/ai_service.dart';
 import 'package:ark_jots/utils/options.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/date_symbol_data_file.dart';
+//import 'package:intl/date_symbol_data_file.dart';
 import 'package:provider/provider.dart';
 import 'modules/tasks/task_providers.dart';
 import 'utils/app_routes.dart';
