@@ -1,13 +1,31 @@
-class Schedule {
+import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+
+//part 'schedule_models.g.dart';
+
+@HiveType(typeId: 3)
+class Schedule extends HiveObject {
+  @HiveField(0)
   final String id;
-  final String name;
-  final String description;
-  final String color;
-  final String timeStart;
-  final String location;
-  final String timeEnd;
-  final String category;
-  final String status;
+  @HiveField(1)
+  String name;
+  @HiveField(2)
+  String description;
+  @HiveField(3)
+  String color;
+  @HiveField(4)
+  String timeStart;
+  @HiveField(5)
+  String location;
+  @HiveField(6)
+  String timeEnd;
+  @HiveField(7)
+  String instructor;
+
+  TimeOfDay get startTime {
+    final time = timeStart.split(':');
+    return TimeOfDay(hour: int.parse(time[0]), minute: int.parse(time[1]));
+  }
 
   Schedule({
     required this.id,
@@ -17,8 +35,7 @@ class Schedule {
     required this.timeStart,
     required this.location,
     required this.timeEnd,
-    required this.category,
-    required this.status,
+    required this.instructor,
   });
 
   factory Schedule.fromJson(Map<String, dynamic> json) {
@@ -30,8 +47,7 @@ class Schedule {
       timeStart: json['time'],
       location: json['location'],
       timeEnd: json['image'],
-      category: json['category'],
-      status: json['status'],
+      instructor: json['instructor'],
     );
   }
 }
