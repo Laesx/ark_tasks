@@ -1,4 +1,5 @@
 import 'package:ark_jots/modules/home/home_provider.dart';
+import 'package:ark_jots/modules/schedule/schedule_view.dart';
 import 'package:ark_jots/modules/settings/settings_view.dart';
 import 'package:ark_jots/widgets/layouts/bottom_bar.dart';
 import 'package:ark_jots/widgets/layouts/scaffolds.dart';
@@ -54,7 +55,7 @@ class _HomeViewState extends State<HomeView>
           const Center(child: Text('Home')),
           const Center(child: Text('Home')),
           TasksView(ScrollController()),
-          const Center(child: Text('Something')),
+          ScheduleView(ScrollController()),
           SettingsView(),
         ]));
   }

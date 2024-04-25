@@ -1,34 +1,16 @@
+import 'package:ark_jots/modules/schedule/schedule_card.dart';
+import 'package:ark_jots/modules/schedule/schedule_models.dart';
 import 'package:ark_jots/widgets/layouts/floating_bar.dart';
 import 'package:ark_jots/widgets/layouts/scaffolds.dart';
 import 'package:ark_jots/widgets/layouts/top_bar.dart';
-import 'package:ark_jots/modules/tasks/task_card.dart';
 import 'package:flutter/material.dart';
-import 'package:ark_jots/modules/tasks/task_model.dart';
 
 class ScheduleView extends StatelessWidget {
-  final List<Task> tasks = [
-    Task(
-      id: 1,
-      title: 'Task 1',
-      description: "Description 1",
-      createdAt: DateTime.now(),
-      lastUpdated: DateTime.now(),
-    ),
-    Task(
-      id: 2,
-      title: 'Task 2',
-      description: 'Description 2',
-      createdAt: DateTime.now(),
-      lastUpdated: DateTime.now(),
-      isComplete: true,
-    ),
-    Task(
-      id: 3,
-      title: 'Task 3',
-      description: 'Description 3',
-      createdAt: DateTime.now(),
-      lastUpdated: DateTime.now(),
-    ),
+  final List<Schedule> schedule = [
+    Schedule(name: "Lesson 1", timeStart: "08:00", timeEnd: "09:00"),
+    Schedule(name: "Lesson 2", timeStart: "09:00", timeEnd: "10:00"),
+    Schedule(name: "Lesson 3", timeStart: "10:00", timeEnd: "11:00"),
+    Schedule(name: "Lesson 4", timeStart: "11:00", timeEnd: "12:00"),
   ];
 
   final ScrollController scrollCtrl;
@@ -48,10 +30,10 @@ class ScheduleView extends StatelessWidget {
         // This padding should be done more elegantly so I don't have to put it everywhere
         padding: const EdgeInsets.only(top: TopBar.height),
         child: ListView.builder(
-          itemCount: tasks.length,
+          itemCount: schedule.length,
           itemBuilder: (context, index) {
-            final task = tasks[index];
-            return TaskCard(task: task);
+            //final task = schedule[index];
+            return ScheduleCard(schedule: schedule[index]);
           },
         ),
       ),

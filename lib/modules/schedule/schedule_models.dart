@@ -6,21 +6,21 @@ import 'package:hive/hive.dart';
 @HiveType(typeId: 3)
 class Schedule extends HiveObject {
   @HiveField(0)
-  final String id;
+  String? id;
   @HiveField(1)
   String name;
   @HiveField(2)
-  String description;
+  String? description;
   @HiveField(3)
-  String color;
+  String? color;
   @HiveField(4)
   String timeStart;
   @HiveField(5)
-  String location;
+  String? location;
   @HiveField(6)
   String timeEnd;
   @HiveField(7)
-  String instructor;
+  String? instructor;
 
   TimeOfDay get startTime {
     final time = timeStart.split(':');
@@ -28,14 +28,14 @@ class Schedule extends HiveObject {
   }
 
   Schedule({
-    required this.id,
+    this.id,
     required this.name,
-    required this.description,
-    required this.color,
+    this.description,
+    this.color,
     required this.timeStart,
-    required this.location,
+    this.location,
     required this.timeEnd,
-    required this.instructor,
+    this.instructor,
   });
 
   factory Schedule.fromJson(Map<String, dynamic> json) {

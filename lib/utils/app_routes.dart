@@ -36,6 +36,13 @@ List<GoRoute> buildRoutes(bool Function() shoudConfirmExit) {
           //final id = int.parse(state.pathParameters['id']!);
           return TaskDetailScreen();
         }),
+    GoRoute(
+      path: '/schedule',
+      //TODO: Change this to the schedule details
+      builder: (context, state) {
+        return const NotFoundView(canPop: true);
+      },
+    ),
   ];
 }
 
@@ -50,6 +57,8 @@ class AppRoutes {
       '/student/$id${image != null ? "?image=$image" : ""}';
 
   static String task() => '/task';
+
+  static String schedule() => '/schedule';
 
 // Hay que implementarlo esto es para cuando no encuentre la ruta
 // en caso de que sean rutas dinámicas

@@ -4,17 +4,11 @@ import 'package:ark_jots/modules/tasks/task_card.dart';
 import 'package:ark_jots/modules/tasks/task_model.dart';
 import 'package:ark_jots/modules/tasks/task_providers.dart';
 import 'package:ark_jots/widgets/layouts/top_bar.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:ark_jots/utils/tools.dart';
 
-import 'dart:async';
-
-import '../../services/ai_service.dart';
+import '../../utils/ai_service.dart';
 
 // ignore: must_be_immutable
 class TaskDetailScreen extends StatefulWidget {
@@ -316,13 +310,9 @@ class _SubtasksSectionState extends State<_SubtasksSection> {
 }
 
 class SubtastkSuggestions extends StatelessWidget {
-  SubtastkSuggestions({super.key, required this.task});
+  const SubtastkSuggestions({super.key, required this.task});
 
   final Task task;
-
-  Future<List<String>> getSubtasks() async {
-    return await AiService.getSubtasks(task.title);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -331,7 +321,7 @@ class SubtastkSuggestions extends StatelessWidget {
     return Scrollable(
       viewportBuilder: (context, offset) {
         return FutureBuilder<List<String>>(
-          future: getSubtasks(),
+          future: AiService.getSubtasks(task.title),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               subtasks = snapshot.data ?? [];

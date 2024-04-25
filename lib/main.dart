@@ -1,4 +1,5 @@
-import 'package:ark_jots/services/ai_service.dart';
+import 'package:ark_jots/modules/schedule/schedule_providers.dart';
+import 'package:ark_jots/utils/ai_service.dart';
 import 'package:ark_jots/utils/options.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -20,7 +21,7 @@ Future<void> main() async {
   runApp(MultiProvider(providers: [
     //ChangeNotifierProvider(create: (context) => HomeProvider()),
     ChangeNotifierProvider(create: (context) => TaskProvider()),
-    //ChangeNotifierProvider(create: (context) => ScheduleProvider()),
+    ChangeNotifierProvider(create: (context) => ScheduleProvider()),
     //ChangeNotifierProvider(create: (context) => SettingsProvider()),
   ], child: const MyApp()));
 }
