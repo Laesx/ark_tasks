@@ -135,16 +135,30 @@ class AiService extends ChangeNotifier {
     return completion;
   }
 
+  // TODO: This is really sensitive, should probably be handled better.
   static Future<Stream<String?>> getSummaryStreamString(String message) async {
-    /* if (AiService().previousResults.containsKey(message)) {
-      return AiService().previousResults[message]!;
-    } */
-
     return getSummaryStream(message).then((value) {
       return value.map((event) {
-        return event.choices.first.delta.content!.first!.text;
+        return event.choices.first.delta.content?.first?.text ?? "";
       });
     });
+  }
+
+  // SUMMARY SECTION
+  bool _hasSummaryInit = false;
+  String _summary = "";
+  get summary {
+    if (!_hasSummaryInit) {
+      _hasSummaryInit = true;
+      getSummaryStreamString("Make up an example summary of whatever.")
+          .then((value) {
+        value.listen((event) {
+          _summary += event ?? "";
+          notifyListeners();
+        });
+      });
+    }
+    return _summary;
   }
 } // class AiService
 

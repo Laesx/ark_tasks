@@ -22,6 +22,7 @@ Future<void> main() async {
     //ChangeNotifierProvider(create: (context) => HomeProvider()),
     ChangeNotifierProvider(create: (context) => TaskProvider()),
     ChangeNotifierProvider(create: (context) => ScheduleProvider()),
+    ChangeNotifierProvider(create: (context) => AiService()),
     //ChangeNotifierProvider(create: (context) => SettingsProvider()),
   ], child: const MyApp()));
 }
