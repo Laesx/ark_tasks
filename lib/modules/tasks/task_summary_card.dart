@@ -17,7 +17,6 @@ class _TaskSummaryCardState extends State<TaskSummaryCard> {
 
     return Container(
       width: double.infinity,
-      height: 400,
       margin: EdgeInsets.only(top: 30, bottom: 50),
       decoration: BoxDecoration(
           // TODO: Remove this color and use the theme color
@@ -30,7 +29,10 @@ class _TaskSummaryCardState extends State<TaskSummaryCard> {
               blurRadius: 10,
             )
           ]),
-      child: Text(provider.summary ?? "Loading summary..."),
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Text(provider.summary ?? "Loading summary..."),
+      ),
     );
   }
 }

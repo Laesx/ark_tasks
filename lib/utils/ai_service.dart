@@ -147,6 +147,8 @@ class AiService extends ChangeNotifier {
   // SUMMARY SECTION
   bool _hasSummaryInit = false;
   String _summary = "";
+  // This fills the summary with the data from the AI and stores it.
+  // So we don't have to call it again everytime the widgets rebuild.
   get summary {
     if (!_hasSummaryInit) {
       _hasSummaryInit = true;
