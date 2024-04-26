@@ -24,163 +24,95 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
   @override
   Widget build(BuildContext context) {
     // Controller for the subtasks so I can empty it after one is created
-    final TextEditingController _controller = TextEditingController();
+    final TextEditingController textController = TextEditingController();
 
     final taskProvider = context.watch<TaskProvider>();
 
-    final task = taskProvider.selectedTask ??
-        Task(title: '', createdAt: DateTime.now(), lastUpdated: DateTime.now());
+    final task = taskProvider.selectedTask!;
 
     // This is for the submenu to appear on the center of the screen
     final screenSize = MediaQuery.of(context).size;
     final xOffSet = screenSize.width * 0.25;
 
-    return Scaffold(
-        appBar: TopBar(
-          trailing: [
-            IconButton(
-              icon: const Icon(Icons.bolt_outlined),
-              //onPressed: () => aiDialog(context, task)
-              onPressed: () => null,
-            )
-          ],
-          canPop: true,
-          title: task.title,
-        ),
-        body: Form(
-          child: ListView(
-            padding: const EdgeInsets.all(5),
-            children: [
-              //const SizedBox(height: 20),
-              Row(children: [
-                TaskCheckbox(task.isComplete),
-                Flexible(
-                  child: TextFormField(
-                    style: TextStyle(
-                      fontSize: 25,
-                    ),
-                    initialValue: task.title,
-                    onChanged: (value) => task.title = value,
-                  ),
-                ),
-              ]),
-              // Subtasks functionality
-              _SubtasksSection(
-                  widget: widget, task: task, controller: _controller),
-
-              // AI Subtask Suggestions
-              ExpansionTile(
-                  title: const Text('AI Subtask Suggestions'),
-                  children: [
-                    SubtastkSuggestions(task: task),
-                  ]),
-              // Due Date Menu
-              SubmenuButton(
-                alignmentOffset: Offset(xOffSet, 0),
-                menuChildren: [
-                  MenuItemButton(
-                      leadingIcon: Icon(Icons.calendar_today),
-                      child: Text(
-                          'Tomorrow (${Tools.getWeekday(Tools.getTomorrow())})'),
-                      onPressed: () {
-                        task.dueDate = Tools.getTomorrow();
-                        setState(() {});
-                      }),
-                  MenuItemButton(
-                      leadingIcon: Icon(Icons.edit_calendar_outlined),
-                      child: Text("Choose a date"),
-                      onPressed: () {
-                        showDatePicker(
-                                context: context,
-                                firstDate: DateTime.now(),
-                                lastDate: DateTime(2100))
-                            .then((value) {
-                          if (value != null) {
-                            task.dueDate = value;
-                            setState(() {});
-                          }
-                        });
-                        //submenuButtonKey.currentState!.closeMenu();
-                        //print(task.dueDate);
-                      }),
-                ],
-                trailingIcon: task.dueDate != null
-                    ? IconButton(
-                        onPressed: () {
-                          task.dueDate = null;
-                          setState(() {});
-                        },
-                        icon: Icon(Icons.close))
-                    : null,
-                child: Row(
-                  children: [
-                    Icon(Icons.calendar_month_outlined),
-                    SizedBox(width: 10),
-                    Text('Due date ${Tools.formatDateTime(task.dueDate)}'),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              // TODO: Reminders Menu
-              SubmenuButton(
-                alignmentOffset: Offset(xOffSet, 0),
-                menuChildren: [
-                  MenuItemButton(
-                      leadingIcon: Icon(Icons.calendar_today),
-                      child: Text(
-                          'Tomorrow (${Tools.getWeekday(Tools.getTomorrow())})'),
-                      onPressed: () {
-                        task.dueDate = Tools.getTomorrow();
-                        setState(() {});
-                      }),
-                  MenuItemButton(
-                      leadingIcon: Icon(Icons.edit_calendar_outlined),
-                      child: Text("Choose a date"),
-                      onPressed: () {
-                        showDatePicker(
-                                context: context,
-                                firstDate: DateTime.now(),
-                                lastDate: DateTime(2100))
-                            .then((value) {
-                          if (value != null) {
-                            task.dueDate = value;
-                            setState(() {});
-                          }
-                        });
-                        //submenuButtonKey.currentState!.closeMenu();
-                        //print(task.dueDate);
-                      }),
-                ],
-                trailingIcon: task.dueDate != null
-                    ? IconButton(
-                        onPressed: () {
-                          task.dueDate = null;
-                          setState(() {});
-                        },
-                        icon: Icon(Icons.close))
-                    : null,
-                child: Row(
-                  children: [
-                    Icon(Icons.calendar_month_outlined),
-                    SizedBox(width: 10),
-                    Text('Due date ${Tools.formatDateTime(task.dueDate)}'),
-                  ],
-                ),
-              ),
-              TextFormField(
-                initialValue: task.description,
-                onChanged: (value) => task.description = value,
-                decoration: const InputDecoration(labelText: 'Description'),
-              ),
-              // TODO: Make so this button is not necessary
-              ElevatedButton(
-                  onPressed: () => taskProvider.updateOrCreateTask(task),
-                  child: const Text('Save'))
+    return PopScope(
+      onPopInvoked: (didPop) {
+        print("Popped");
+        if (didPop) {
+          //taskProvider.selectedTask = null;
+          if (task.title.isNotEmpty) {
+            taskProvider.updateOrCreateTask(task);
+            //taskProvider.deleteTask(task);
+            //task.save();
+          }
+        }
+      },
+      child: Scaffold(
+          appBar: TopBar(
+            trailing: [
+              IconButton(
+                icon: const Icon(Icons.bolt_outlined),
+                //onPressed: () => aiDialog(context, task)
+                onPressed: () => null,
+              )
             ],
+            canPop: true,
+            title: task.title,
           ),
-        ));
+          body: Form(
+            child: ListView(
+              padding: const EdgeInsets.all(5),
+              children: [
+                //const SizedBox(height: 20),
+                Row(children: [
+                  TaskCheckbox(task),
+                  Flexible(
+                    child: TextFormField(
+                      style: const TextStyle(
+                        fontSize: 25,
+                      ),
+                      initialValue: task.title,
+                      onChanged: (value) => task.title = value,
+                      onTapOutside: (event) {
+                        FocusScopeNode currentFocus = FocusScope.of(context);
+                        if (!currentFocus.hasPrimaryFocus &&
+                            currentFocus.focusedChild != null) {
+                          currentFocus.focusedChild!.unfocus();
+                        }
+                      },
+                    ),
+                  ),
+                ]),
+                // Subtasks functionality
+                _SubtasksSection(
+                    widget: widget, task: task, controller: textController),
+
+                // AI Subtask Suggestions
+                ExpansionTile(
+                    title: const Text('AI Subtask Suggestions'),
+                    children: [
+                      _SubtastkSuggestions(task: task),
+                    ]),
+                // Due Date Menu
+                _DueDate(xOffSet: xOffSet, task: task),
+                const SizedBox(
+                  height: 20,
+                ),
+                // TODO: Reminders Menu
+                _Reminders(xOffSet: xOffSet, task: task),
+                TextFormField(
+                  initialValue: task.description,
+                  onChanged: (value) => task.description = value,
+                  decoration: const InputDecoration(labelText: 'Description'),
+                ),
+                // TODO: Make so this button is not necessary
+                ElevatedButton(
+                    onPressed: () => taskProvider.updateOrCreateTask(task),
+                    //onPressed: () => task.save(),
+                    child: const Text('Save'))
+              ],
+            ),
+          )),
+    );
   }
 
   /* Future<String?> aiDialog(BuildContext context, Task task) async {
@@ -225,6 +157,140 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
   } */
 }
 
+class _Reminders extends StatefulWidget {
+  const _Reminders({
+    super.key,
+    required this.xOffSet,
+    required this.task,
+  });
+
+  final double xOffSet;
+  final Task task;
+
+  @override
+  State<_Reminders> createState() => _RemindersState();
+}
+
+class _RemindersState extends State<_Reminders> {
+  @override
+  Widget build(BuildContext context) {
+    return SubmenuButton(
+      alignmentOffset: Offset(widget.xOffSet, 0),
+      menuChildren: [
+        MenuItemButton(
+            leadingIcon: const Icon(Icons.calendar_today),
+            child: Text('Tomorrow (${Tools.getWeekday(Tools.getTomorrow())})'),
+            onPressed: () {
+              widget.task.dueDate = Tools.getTomorrow();
+              setState(() {});
+            }),
+        MenuItemButton(
+            leadingIcon: const Icon(Icons.edit_calendar_outlined),
+            child: const Text("Choose a date"),
+            onPressed: () {
+              showDatePicker(
+                      context: context,
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime(2100))
+                  .then((value) {
+                if (value != null) {
+                  widget.task.dueDate = value;
+                  setState(() {});
+                }
+              });
+              //submenuButtonKey.currentState!.closeMenu();
+              //print(task.dueDate);
+            }),
+      ],
+      trailingIcon: widget.task.dueDate != null
+          ? IconButton(
+              onPressed: () {
+                widget.task.dueDate = null;
+                setState(() {});
+              },
+              icon: const Icon(Icons.close))
+          : null,
+      child: Row(
+        children: [
+          const Icon(Icons.calendar_month_outlined),
+          const SizedBox(width: 10),
+          Text('Reminder ${Tools.formatDateTime(widget.task.dueDate)}'),
+        ],
+      ),
+    );
+  }
+}
+
+class _DueDate extends StatefulWidget {
+  const _DueDate({
+    super.key,
+    required this.xOffSet,
+    required this.task,
+  });
+
+  final double xOffSet;
+  final Task task;
+
+  @override
+  State<_DueDate> createState() => _DueDateState();
+}
+
+class _DueDateState extends State<_DueDate> {
+  @override
+  Widget build(BuildContext context) {
+    return SubmenuButton(
+      alignmentOffset: Offset(widget.xOffSet, 0),
+      menuChildren: [
+        MenuItemButton(
+            leadingIcon: const Icon(Icons.calendar_today),
+            child: Text('Today (${Tools.getWeekday(DateTime.now())})'),
+            onPressed: () {
+              widget.task.dueDate = DateTime.now();
+              setState(() {});
+            }),
+        MenuItemButton(
+            leadingIcon: const Icon(Icons.calendar_today),
+            child: Text('Tomorrow (${Tools.getWeekday(Tools.getTomorrow())})'),
+            onPressed: () {
+              widget.task.dueDate = Tools.getTomorrow();
+              setState(() {});
+            }),
+        MenuItemButton(
+            leadingIcon: const Icon(Icons.edit_calendar_outlined),
+            child: const Text("Choose a date"),
+            onPressed: () {
+              showDatePicker(
+                      context: context,
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime(2100))
+                  .then((value) {
+                if (value != null) {
+                  widget.task.dueDate = value;
+                  setState(() {});
+                }
+              });
+              //submenuButtonKey.currentState!.closeMenu();
+            }),
+      ],
+      trailingIcon: widget.task.dueDate != null
+          ? IconButton(
+              onPressed: () {
+                widget.task.dueDate = null;
+                setState(() {});
+              },
+              icon: const Icon(Icons.close))
+          : null,
+      child: Row(
+        children: [
+          const Icon(Icons.calendar_month_outlined),
+          const SizedBox(width: 10),
+          Text('Due date ${Tools.formatDateTime(widget.task.dueDate)}'),
+        ],
+      ),
+    );
+  }
+}
+
 class _SubtasksSection extends StatefulWidget {
   const _SubtasksSection({
     super.key,
@@ -256,14 +322,14 @@ class _SubtasksSectionState extends State<_SubtasksSection> {
             return ListTile(
                 // TODO: Make this a TextField to be able to edit it
                 title: Text(subtask.title),
-                leading: TaskCheckbox(subtask.isComplete),
+                leading: TaskCheckbox(widget.task, subtask: subtask),
                 trailing: IconButton(
                   onPressed: () {
                     setState(() {
                       widget.task.subtasks.removeAt(index);
                     });
                   },
-                  icon: Icon(Icons.close),
+                  icon: const Icon(Icons.close),
                 ),
                 shape: Border(
                   bottom: BorderSide(color: Colors.grey.shade300),
@@ -309,8 +375,8 @@ class _SubtasksSectionState extends State<_SubtasksSection> {
   }
 }
 
-class SubtastkSuggestions extends StatelessWidget {
-  const SubtastkSuggestions({super.key, required this.task});
+class _SubtastkSuggestions extends StatelessWidget {
+  const _SubtastkSuggestions({super.key, required this.task});
 
   final Task task;
 

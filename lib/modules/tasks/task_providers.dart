@@ -35,6 +35,26 @@ class TaskProvider extends ChangeNotifier {
     Hive.deleteBoxFromDisk(_tasksBoxKey);
   }
 
+  List<Task> getTasksByPriority(Priority priority) {
+    return _tasks.where((task) => task.priority == priority).toList();
+  }
+
+  List<Task> getTasksByDate(DateTime date) {
+    return _tasks.where((task) {
+      if (task.dueDate != null) {
+        return task.dueDate!.isAtSameMomentAs(date);
+      }
+      return false;
+    }).toList();
+  }
+
+  // TODO: Test this function
+  List<Task> getLastTasksOrderedByDate(int count) {
+    return _tasks.where((task) => task.dueDate != null).toList()
+      ..sort((a, b) => a.dueDate!.compareTo(b.dueDate!))
+      ..take(count).toList();
+  }
+
   void addTask(Task task) {
     _tasks.add(task);
     _tasksBox.add(task);

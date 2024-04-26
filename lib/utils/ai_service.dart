@@ -101,6 +101,51 @@ class AiService extends ChangeNotifier {
 
     return completion;
   }
+
+  static Future<Stream<OpenAIStreamChatCompletionModel>> getSummaryStream(
+      String message) async {
+    // the user message that will be sent to the request.
+    final userMessage = OpenAIChatCompletionChoiceMessageModel(
+      content: [
+        OpenAIChatCompletionChoiceMessageContentItemModel.text(
+          message,
+        ),
+      ],
+      role: OpenAIChatMessageRole.user,
+    );
+
+    var systemMessage = SystemMessages.summary;
+
+    // all messages to be sent.
+    final requestMessages = [
+      systemMessage,
+      userMessage,
+    ];
+
+    var completion = await OpenAI.instance.chat.createStream(
+      model: "gpt-3.5-turbo",
+      messages: requestMessages,
+      maxTokens: 200,
+      temperature: 0.2,
+    );
+
+    // Setting the last message and result for caching.
+    // AiService().previousResults.addEntries([MapEntry(message, completion)]);
+
+    return completion;
+  }
+
+  static Future<Stream<String?>> getSummaryStreamString(String message) async {
+    /* if (AiService().previousResults.containsKey(message)) {
+      return AiService().previousResults[message]!;
+    } */
+
+    return getSummaryStream(message).then((value) {
+      return value.map((event) {
+        return event.choices.first.delta.content!.first!.text;
+      });
+    });
+  }
 } // class AiService
 
 // This are system messages that are used to communicate with the AI.

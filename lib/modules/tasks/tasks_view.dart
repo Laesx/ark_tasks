@@ -1,68 +1,71 @@
 import 'package:ark_jots/modules/tasks/task_providers.dart';
+import 'package:ark_jots/modules/tasks/tasks.dart';
 import 'package:ark_jots/widgets/layouts/floating_bar.dart';
 import 'package:ark_jots/widgets/layouts/scaffolds.dart';
 import 'package:ark_jots/widgets/layouts/top_bar.dart';
 import 'package:ark_jots/modules/tasks/task_card.dart';
 import 'package:flutter/material.dart';
-import 'package:ark_jots/modules/tasks/task_model.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-class TasksView extends StatelessWidget {
-  final List<Task> demoTasks = [
-    Task(
-      id: 1,
-      title: 'Task 1',
-      description: "Description 1",
-      createdAt: DateTime.now(),
-      lastUpdated: DateTime.now(),
-    ),
-    Task(
-      id: 2,
-      title: 'Task 2',
-      description: 'Description 2',
-      createdAt: DateTime.now(),
-      lastUpdated: DateTime.now(),
-      isComplete: true,
-    ),
-    Task(
-      id: 3,
-      title: 'Task 3',
-      description: 'Description 3',
-      createdAt: DateTime.now(),
-      lastUpdated: DateTime.now(),
-    ),
-  ];
-
+class TasksView extends StatefulWidget {
   final ScrollController scrollCtrl;
 
   TasksView(this.scrollCtrl, {super.key});
 
   @override
+  State<TasksView> createState() => _TasksViewState();
+}
+
+class _TasksViewState extends State<TasksView> {
+  @override
   Widget build(BuildContext context) {
-    final state = context.watch<TaskProvider>();
+    final taskProvider = context.watch<TaskProvider>();
 
     return TabScaffold(
-      floatingBar: FloatingBar(scrollCtrl: scrollCtrl, children: [
+      floatingBar: FloatingBar(scrollCtrl: widget.scrollCtrl, children: [
         ActionButton(
             icon: Icons.note_add_outlined,
             tooltip: "New Note",
             onTap: () {
-              state.selectedTask = null;
+              Task task = Task(
+                  title: '',
+                  createdAt: DateTime.now(),
+                  lastUpdated: DateTime.now());
+              taskProvider.updateOrCreateTask(task);
+              taskProvider.selectedTask = task;
               context.push('/task');
             }),
       ]),
       topBar: TopBar(
         canPop: false,
         title: "Tasks",
+        trailing: [
+          SubmenuButton(menuChildren: [
+            MenuItemButton(
+              child: const Text("Sort by date"),
+              onPressed: () {
+                taskProvider.tasks.sort((a, b) {
+                  if (a.dueDate == null || b.dueDate == null) {
+                    return -1;
+                  } else {
+                    return a.dueDate!.compareTo(b.dueDate!);
+                  }
+                  //return a.dueDate.compareTo(b.dueDate);
+                });
+                setState(() {});
+              },
+            ),
+          ], child: Icon(Icons.sort_outlined))
+        ],
       ),
       child: Padding(
         // This padding should be done more elegantly so I don't have to put it everywhere
         padding: const EdgeInsets.only(top: TopBar.height),
         child: ListView.builder(
-          itemCount: state.tasks.length,
+          itemCount: taskProvider.tasks.length,
           itemBuilder: (context, index) {
-            final task = state.tasks[index];
+            final task = taskProvider.tasks[index];
             return TaskCard(task: task);
           },
         ),

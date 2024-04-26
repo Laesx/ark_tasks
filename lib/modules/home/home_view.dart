@@ -1,9 +1,11 @@
 import 'package:ark_jots/modules/home/home_provider.dart';
 import 'package:ark_jots/modules/schedule/schedule_view.dart';
 import 'package:ark_jots/modules/settings/settings_view.dart';
+import 'package:ark_jots/modules/tasks/task_summary_card.dart';
 import 'package:ark_jots/widgets/layouts/bottom_bar.dart';
 import 'package:ark_jots/widgets/layouts/scaffolds.dart';
 import 'package:ark_jots/modules/tasks/tasks_view.dart';
+import 'package:ark_jots/widgets/layouts/top_bar.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatefulWidget {
@@ -53,10 +55,30 @@ class _HomeViewState extends State<HomeView>
             }),
         child: TabBarView(controller: _tabCtrl, children: [
           const Center(child: Text('Home')),
-          const Center(child: Text('Home')),
+          //const Center(child: Text('Home')),
+          HomeSomething(),
           TasksView(ScrollController()),
           ScheduleView(ScrollController()),
           SettingsView(),
+        ]));
+  }
+}
+
+class HomeSomething extends StatelessWidget {
+  const HomeSomething({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return TabScaffold(
+        topBar: TopBar(
+          canPop: false,
+          title: "Home",
+        ),
+        child: ListView(children: [
+          SizedBox(height: 30),
+          Container(
+            child: TaskSummaryCard(),
+          ),
         ]));
   }
 }

@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 
 class Tools {
   static String formatDateTime(DateTime? dateTime) {
-    return dateTime != null ? DateFormat('EEE, d/M').format(dateTime) : " ";
+    return dateTime != null ? DateFormat('EEE, d LLL').format(dateTime) : " ";
   }
 
   // Returns the weekday as a string

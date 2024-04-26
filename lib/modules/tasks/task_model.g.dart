@@ -26,10 +26,9 @@ class TaskAdapter extends TypeAdapter<Task> {
       priority: fields[6] as Priority,
       dueDate: fields[7] as DateTime?,
       startDate: fields[8] as DateTime?,
+      reminder: fields[12] as DateTime?,
       notes: fields[10] as String?,
-    )
-      ..reminders = (fields[9] as List).cast<DateTime>()
-      ..subtasks = (fields[11] as List).cast<Subtask>();
+    )..subtasks = (fields[11] as List).cast<Subtask>();
   }
 
   @override
@@ -54,8 +53,8 @@ class TaskAdapter extends TypeAdapter<Task> {
       ..write(obj.dueDate)
       ..writeByte(8)
       ..write(obj.startDate)
-      ..writeByte(9)
-      ..write(obj.reminders)
+      ..writeByte(12)
+      ..write(obj.reminder)
       ..writeByte(10)
       ..write(obj.notes)
       ..writeByte(11)

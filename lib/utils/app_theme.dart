@@ -15,7 +15,7 @@ class AppTheme {
       selectedColor: Colors.white,
       iconColor: Colors.white,
       textColor: Colors.white,
-      contentPadding: EdgeInsets.symmetric(horizontal: 20),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 20),
     ),
     inputDecorationTheme: const InputDecorationTheme(
         border: OutlineInputBorder(
@@ -63,6 +63,13 @@ ThemeData themeDataFrom(ColorScheme scheme) => ThemeData(
       unselectedWidgetColor: scheme.surface,
       splashColor: scheme.onBackground.withAlpha(20),
       highlightColor: Colors.transparent,
+      checkboxTheme: CheckboxThemeData(
+        shape:
+            const RoundedRectangleBorder(borderRadius: Consts.borderRadiusMax),
+        //fillColor: MaterialStateProperty.all(scheme.primary),
+        checkColor: MaterialStateProperty.all(scheme.onPrimary),
+        materialTapTargetSize: MaterialTapTargetSize.padded,
+      ),
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: {
           TargetPlatform.android: ZoomPageTransitionsBuilder(),
@@ -76,7 +83,7 @@ ThemeData themeDataFrom(ColorScheme scheme) => ThemeData(
       ),
       navigationBarTheme: NavigationBarThemeData(
         backgroundColor: scheme.surface.withAlpha(190),
-        labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+        labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
