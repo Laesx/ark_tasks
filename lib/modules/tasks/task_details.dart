@@ -5,6 +5,7 @@ import 'package:ark_jots/modules/tasks/task_model.dart';
 import 'package:ark_jots/modules/tasks/task_providers.dart';
 import 'package:ark_jots/widgets/layouts/top_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:ark_jots/utils/tools.dart';
 
@@ -56,7 +57,8 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
               )
             ],
             canPop: true,
-            title: task.title,
+            //title: task.title,
+            title: "Task Details",
           ),
           body: Form(
             child: ListView(
@@ -70,6 +72,11 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                       style: const TextStyle(
                         fontSize: 25,
                       ),
+                      decoration: const InputDecoration(counterText: ''),
+                      minLines: 1,
+                      maxLines: 5,
+                      maxLength: 250,
+                      //maxLengthEnforcement: MaxLengthEnforcement.enforced,
                       initialValue: task.title,
                       onChanged: (value) => task.title = value,
                       onTapOutside: (event) {

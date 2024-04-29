@@ -20,6 +20,10 @@ class ScheduleView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TabScaffold(
+      topBar: TopBar(
+        canPop: false,
+        title: "Schedule",
+      ),
       floatingBar: FloatingBar(scrollCtrl: scrollCtrl, children: [
         ActionButton(
             icon: Icons.edit_attributes_outlined,

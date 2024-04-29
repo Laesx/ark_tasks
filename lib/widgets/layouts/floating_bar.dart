@@ -83,7 +83,7 @@ class FloatingBarState extends State<FloatingBar>
         child: FadeTransition(
           opacity: _fadeAnimation,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.end,
             /*
             mainAxisAlignment: Options().leftHanded
                 ? MainAxisAlignment.start
