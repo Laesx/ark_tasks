@@ -1,11 +1,8 @@
-import 'package:ark_jots/modules/tasks/task_model.dart';
-import 'package:ark_jots/modules/tasks/task_providers.dart';
 import 'package:ark_jots/modules/tasks/tasks.dart';
 import 'package:ark_jots/utils/app_routes.dart';
 import 'package:ark_jots/utils/consts.dart';
 import 'package:ark_jots/utils/tools.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
@@ -31,30 +28,28 @@ class TaskCard extends StatelessWidget {
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5),
-        child: Flexible(
-          child: Container(
-            //width: double.infinity,
-            //height: 70,
-            margin: const EdgeInsets.only(top: 6, bottom: 6),
-            padding: EdgeInsets.all(7),
-            decoration: BoxDecoration(
-                // TODO: Remove this color and use the theme color
-                color: const Color.fromARGB(255, 52, 52, 52),
-                borderRadius: Consts.borderRadiusMin,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.purple.withOpacity(0.3),
-                    offset: Offset(0, 7),
-                    blurRadius: 10,
-                  )
-                ]),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                TaskCheckbox(task),
-                _TaskDetails(task),
-              ],
-            ),
+        child: Container(
+          //width: double.infinity,
+          //height: 70,
+          margin: const EdgeInsets.only(top: 6, bottom: 6),
+          padding: const EdgeInsets.all(7),
+          decoration: BoxDecoration(
+              // TODO: Remove this color and use the theme color
+              color: const Color.fromARGB(255, 52, 52, 52),
+              borderRadius: Consts.borderRadiusMin,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.purple.withOpacity(0.3),
+                  offset: const Offset(0, 7),
+                  blurRadius: 10,
+                )
+              ]),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              TaskCheckbox(task),
+              _TaskDetails(task),
+            ],
           ),
         ),
       ),

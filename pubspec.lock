@@ -637,6 +637,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  smart_select:
+    dependency: "direct main"
+    description:
+      name: smart_select
+      sha256: "0699efcf30e377f17614d9c60e9ad68393f24816bda927a5501ec162e27ed841"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.3.3"
   source_gen:
     dependency: transitive
     description:

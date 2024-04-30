@@ -2,6 +2,7 @@ import 'package:ark_jots/modules/home/home_provider.dart';
 import 'package:ark_jots/modules/schedule/schedule_view.dart';
 import 'package:ark_jots/modules/settings/settings_view.dart';
 import 'package:ark_jots/modules/tasks/task_summary_card.dart';
+import 'package:ark_jots/modules/tasks/tasks_today_card.dart';
 import 'package:ark_jots/utils/consts.dart';
 import 'package:ark_jots/widgets/layouts/bottom_bar.dart';
 import 'package:ark_jots/widgets/layouts/scaffolds.dart';
@@ -91,6 +92,26 @@ class HomeSomething extends StatelessWidget {
             ShortcutButton(tabCtrl: tabCtrl, index: 2),
             ShortcutButton(tabCtrl: tabCtrl, index: 3)
           ]),
+          SizedBox(height: 30),
+          Container(
+              decoration: BoxDecoration(
+                  // TODO: Remove this color and use the theme color
+                  color: const Color.fromARGB(255, 52, 52, 52),
+                  borderRadius: Consts.borderRadiusMin,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.purple.withOpacity(0.3),
+                      offset: Offset(0, 7),
+                      blurRadius: 10,
+                    )
+                  ]),
+              child: Column(
+                children: [
+                  SizedBox(height: 10),
+                  Text("Tasks Due Today", style: TextStyle(fontSize: 20)),
+                  Container(height: 250, child: TasksTodayCard()),
+                ],
+              ))
         ]));
   }
 }
