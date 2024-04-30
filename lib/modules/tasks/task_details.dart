@@ -385,16 +385,15 @@ class _SubtaskPromptState extends State<_SubtaskPrompt> {
                   title: const Text('Select Subtasks'),
                   automaticallyImplyLeading: false,
                   actionsBuilder: [
-                    // (state) {
-                    //   final values = snapshot.data!;
-                    //   return Checkbox(
-                    //     value: state.selectedMany(values),
-                    //     onChanged: state.onSelectedMany(values),
-                    //     tristate: true,
-                    //   );
-                    // },
+                    (state) {
+                      return IconButton(
+                        icon: const Icon(Icons.close),
+                        onPressed: state.clear,
+                      );
+                    },
                     ChoiceModal.createConfirmButton(),
                     ChoiceModal.createSpacer(width: 10),
+
                     // ChoiceModal.createSpacer(width: 25),
                   ],
                 ),
