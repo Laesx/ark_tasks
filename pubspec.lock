@@ -121,6 +121,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
+  choice:
+    dependency: "direct main"
+    description:
+      name: choice
+      sha256: "52d07065e8056beba5b26cff7786134cbfa24927b1f5bf60a05d50058597b2d9"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.3.2"
   clock:
     dependency: transitive
     description:
@@ -637,14 +645,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
-  smart_select:
-    dependency: "direct main"
-    description:
-      name: smart_select
-      sha256: "0699efcf30e377f17614d9c60e9ad68393f24816bda927a5501ec162e27ed841"
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.3.3"
   source_gen:
     dependency: transitive
     description:
