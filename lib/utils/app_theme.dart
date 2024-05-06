@@ -52,6 +52,7 @@ const colorSeeds = {
   'Forest': ColorSeed(Color(0xFF00FFA9)),
   'Wine': ColorSeed(Color(0xFF894771)),
   'Mustard': ColorSeed(Color(0xFFFFBF02)),
+  'Deep Purple': ColorSeed(Color(0xFF5C6BC0)),
 };
 
 ThemeData themeDataFrom(ColorScheme scheme) => ThemeData(

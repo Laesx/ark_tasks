@@ -1,5 +1,4 @@
 import 'package:ark_jots/utils/ai_service.dart';
-import 'package:ark_jots/utils/consts.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
@@ -26,7 +25,7 @@ class _TaskSummaryCardState extends State<TaskSummaryCard> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "AI Summary ",
+                  "Resumen por IA ",
                   style: TextStyle(fontSize: 20),
                 ),
                 Icon(Ionicons.color_wand_outline),

@@ -3,7 +3,6 @@ import 'package:ark_jots/modules/schedule/schedule_view.dart';
 import 'package:ark_jots/modules/settings/settings_view.dart';
 import 'package:ark_jots/modules/tasks/task_summary_card.dart';
 import 'package:ark_jots/modules/tasks/tasks_today_card.dart';
-import 'package:ark_jots/utils/consts.dart';
 import 'package:ark_jots/widgets/layouts/bottom_bar.dart';
 import 'package:ark_jots/widgets/layouts/scaffolds.dart';
 import 'package:ark_jots/modules/tasks/tasks_view.dart';
@@ -97,7 +96,7 @@ class HomeSomething extends StatelessWidget {
               child: Column(
             children: [
               SizedBox(height: 10),
-              Text("Tasks Due Today", style: TextStyle(fontSize: 20)),
+              Text("Tareas Pendientes Hoy", style: TextStyle(fontSize: 20)),
               Container(height: 250, child: TasksTodayCard()),
             ],
           ))

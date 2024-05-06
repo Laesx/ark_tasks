@@ -1,4 +1,3 @@
-import 'package:ark_jots/models/priority.dart';
 import 'package:ark_jots/modules/schedule/schedule_models.dart';
 import 'package:hive/hive.dart';
 

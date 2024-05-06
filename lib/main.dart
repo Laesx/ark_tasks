@@ -58,7 +58,8 @@ class AppState extends State<MyApp> {
   Widget build(BuildContext context) {
     // Preliminary theme data, possibly add several themes
     final data = themeDataFrom(ColorScheme.fromSeed(
-        seedColor: Color(0xFFB4ABF5),
+        //seedColor: Color(0xFFB4ABF5),
+        seedColor: Color.fromARGB(255, 142, 128, 246),
         brightness: Brightness.dark,
         background: Colors.black));
 

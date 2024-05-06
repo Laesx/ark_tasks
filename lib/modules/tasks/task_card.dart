@@ -1,6 +1,5 @@
 import 'package:ark_jots/modules/tasks/tasks.dart';
 import 'package:ark_jots/utils/app_routes.dart';
-import 'package:ark_jots/utils/consts.dart';
 import 'package:ark_jots/utils/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -118,6 +117,7 @@ class _TaskDetails extends StatelessWidget {
             maxLines: 20,
             overflow: TextOverflow.ellipsis,
           ),
+          const SizedBox(height: 5),
           Row(
             children: [
               if (task.dueDate != null) ...[
