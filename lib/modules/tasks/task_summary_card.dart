@@ -16,22 +16,10 @@ class _TaskSummaryCardState extends State<TaskSummaryCard> {
   Widget build(BuildContext context) {
     final provider = context.watch<AiService>();
 
-    return Container(
-      width: double.infinity,
-      margin: EdgeInsets.only(top: 30, bottom: 50),
-      decoration: BoxDecoration(
-          // TODO: Remove this color and use the theme color
-          color: const Color.fromARGB(255, 52, 52, 52),
-          borderRadius: Consts.borderRadiusMin,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.purple.withOpacity(0.3),
-              offset: Offset(0, 7),
-              blurRadius: 10,
-            )
-          ]),
+    return Card(
+      margin: EdgeInsets.only(top: 30, bottom: 30),
       child: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(15.0),
         child: Column(
           children: [
             const Row(

@@ -8,11 +8,11 @@ enum HomeTab {
   settings;
 
   String get title => switch (this) {
-        home => 'Home',
+        home => 'Inicio',
         missions => 'Missions',
-        tasks => 'Tasks',
-        schedule => 'Schedule',
-        settings => 'Settings',
+        tasks => 'Tareas',
+        schedule => 'Horario',
+        settings => 'Opciones',
       };
 
   IconData get iconData => switch (this) {

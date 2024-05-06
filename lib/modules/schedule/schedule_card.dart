@@ -24,28 +24,16 @@ class ScheduleCard extends StatelessWidget {
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5),
-        child: Container(
-          width: double.infinity,
-          height: 70,
+        child: Card(
           margin: const EdgeInsets.only(top: 7, bottom: 7),
-          decoration: BoxDecoration(
-              // TODO: Remove this color and use the theme color
-              color: const Color.fromARGB(255, 52, 52, 52),
-              borderRadius: Consts.borderRadiusMin,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.purple.withOpacity(0.3),
-                  offset: Offset(0, 7),
-                  blurRadius: 10,
-                )
-              ]),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              //TaskCheckbox(task.isComplete),
-              //_TaskDetails(task),
-              _ScheduleDetails(schedule),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                _ScheduleDetails(schedule),
+              ],
+            ),
           ),
         ),
       ),
@@ -53,11 +41,8 @@ class ScheduleCard extends StatelessWidget {
   }
 }
 
-// Seguramente habrá que hacer esta clase Stateful para poder cambiar el estado de la tarea cuando se actualice
 class _ScheduleDetails extends StatelessWidget {
   final Schedule schedule;
-  //final String nombre;
-  //final int id;
 
   const _ScheduleDetails(
     this.schedule, {

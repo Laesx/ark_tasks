@@ -27,29 +27,18 @@ class TaskCard extends StatelessWidget {
         context.push(AppRoutes.task());
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 5),
-        child: Container(
-          //width: double.infinity,
-          //height: 70,
-          margin: const EdgeInsets.only(top: 6, bottom: 6),
-          padding: const EdgeInsets.all(7),
-          decoration: BoxDecoration(
-              // TODO: Remove this color and use the theme color
-              color: const Color.fromARGB(255, 52, 52, 52),
-              borderRadius: Consts.borderRadiusMin,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.purple.withOpacity(0.3),
-                  offset: const Offset(0, 7),
-                  blurRadius: 10,
-                )
-              ]),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              TaskCheckbox(task),
-              _TaskDetails(task),
-            ],
+        padding: const EdgeInsets.all(5),
+        child: Card(
+          //margin: const EdgeInsets.only(top: 7, bottom: 7),
+          child: Padding(
+            padding: const EdgeInsets.all(7),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                TaskCheckbox(task),
+                _TaskDetails(task),
+              ],
+            ),
           ),
         ),
       ),
@@ -143,20 +132,31 @@ class _TaskDetails extends StatelessWidget {
                       : "",
                 ),
               ],
-              // const Padding(
-              //   padding: EdgeInsets.symmetric(horizontal: 5),
-              //   child: Text(
-              //     "·",
-              //     textAlign: TextAlign.center,
-              //   ),
-              // ),
-              // Text(
-              //   task.priority.toString(),
-              // ),
+
+              // This can probably be done better in case there's going to
+              //be multiple sections of information
+              if (task.subtasks.isNotEmpty && task.dueDate != null)
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  child: Text(
+                    "·",
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+
+              if (task.subtasks.isNotEmpty) Text(getSubtasksString()),
             ],
           ),
         ],
       ),
     );
+  }
+
+  String getSubtasksString() {
+    int completed = task.subtasks.where((subtask) => subtask.isComplete).length;
+    int total = task.subtasks.length;
+
+    return "$completed de $total";
+    //return task.subtasks.map((subtask) => subtask.title).join(", ");
   }
 }
