@@ -2,6 +2,7 @@ import 'package:ark_jots/modules/tasks/task_providers.dart';
 import 'package:ark_jots/utils/options.dart';
 import 'package:ark_jots/widgets/layouts/top_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SettingsAppTab extends StatelessWidget {
   const SettingsAppTab(this.scrollCtrl);
@@ -13,6 +14,8 @@ class SettingsAppTab extends StatelessWidget {
     // ignore: unused_local_variable
     const tilePadding = EdgeInsets.only(bottom: 10, left: 10, right: 10);
     final listPadding = MediaQuery.paddingOf(context);
+
+    final taskProvider = context.watch<TaskProvider>();
 
     return ListView(
       controller: scrollCtrl,
@@ -65,6 +68,9 @@ class SettingsAppTab extends StatelessWidget {
         ElevatedButton(
             onPressed: () => TaskProvider.deleteTasksBox(),
             child: Text('Delete Tasks Box')),
+        ElevatedButton(
+            onPressed: () => taskProvider.fillBoxWithDemoTasks(),
+            child: Text('Fill Box with Demo Tasks')),
       ],
     );
   }

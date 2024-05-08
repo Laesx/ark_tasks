@@ -6,7 +6,6 @@ import 'package:ark_jots/modules/tasks/task_providers.dart';
 import 'package:ark_jots/widgets/layouts/top_bar.dart';
 import 'package:choice/choice.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:ark_jots/utils/tools.dart';
 import 'package:async/async.dart';
@@ -50,65 +49,71 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
           //title: task.title,
           title: "Task Details",
         ),
-        body: Form(
-          child: ListView(
-            padding: const EdgeInsets.all(5),
-            children: [
-              //const SizedBox(height: 20),
-              Row(children: [
-                TaskCheckbox(task),
-                Flexible(
-                  child: TextFormField(
-                    style: const TextStyle(
-                      fontSize: 25,
+        body: Hero(
+          tag: 'task-${task.key}',
+          child: Material(
+            type: MaterialType.transparency,
+            child: Form(
+              child: ListView(
+                padding: const EdgeInsets.all(5),
+                children: [
+                  //const SizedBox(height: 20),
+                  Row(children: [
+                    TaskCheckbox(task),
+                    Flexible(
+                      child: TextFormField(
+                        style: const TextStyle(
+                          fontSize: 25,
+                        ),
+                        decoration: const InputDecoration(counterText: ''),
+                        minLines: 1,
+                        maxLines: 5,
+                        maxLength: 250,
+                        //maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                        initialValue: task.title,
+                        onChanged: (value) => task.title = value,
+                        onTapOutside: (event) {
+                          FocusScopeNode currentFocus = FocusScope.of(context);
+                          if (!currentFocus.hasPrimaryFocus &&
+                              currentFocus.focusedChild != null) {
+                            currentFocus.focusedChild!.unfocus();
+                          }
+                        },
+                      ),
                     ),
-                    decoration: const InputDecoration(counterText: ''),
-                    minLines: 1,
-                    maxLines: 5,
-                    maxLength: 250,
-                    //maxLengthEnforcement: MaxLengthEnforcement.enforced,
-                    initialValue: task.title,
-                    onChanged: (value) => task.title = value,
-                    onTapOutside: (event) {
-                      FocusScopeNode currentFocus = FocusScope.of(context);
-                      if (!currentFocus.hasPrimaryFocus &&
-                          currentFocus.focusedChild != null) {
-                        currentFocus.focusedChild!.unfocus();
-                      }
-                    },
+                  ]),
+                  // Subtasks functionality
+                  _SubtasksSection(
+                      widget: widget, task: task, controller: textController),
+
+                  // AI Subtask Suggestions
+                  /* ExpansionTile(
+                      title: const Text('AI Subtask Suggestions'),
+                      children: [
+                        _SubtastkSuggestions(task: task),
+                      ]), */
+
+                  const _SubtaskPrompt(),
+                  // Due Date Menu
+                  _DueDate(xOffSet: xOffSet, task: task),
+                  const SizedBox(
+                    height: 20,
                   ),
-                ),
-              ]),
-              // Subtasks functionality
-              _SubtasksSection(
-                  widget: widget, task: task, controller: textController),
-
-              // AI Subtask Suggestions
-              /* ExpansionTile(
-                  title: const Text('AI Subtask Suggestions'),
-                  children: [
-                    _SubtastkSuggestions(task: task),
-                  ]), */
-
-              _SubtaskPrompt(),
-              // Due Date Menu
-              _DueDate(xOffSet: xOffSet, task: task),
-              const SizedBox(
-                height: 20,
+                  // TODO: Reminders Menu
+                  _Reminders(xOffSet: xOffSet, task: task),
+                  TextFormField(
+                    initialValue: task.description,
+                    onChanged: (value) => task.description = value,
+                    decoration: const InputDecoration(labelText: 'Description'),
+                  ),
+                  // TODO: Make so this button is not necessary
+                  ElevatedButton(
+                      onPressed: () => taskProvider.updateOrCreateTask(task),
+                      //onPressed: () => task.save(),
+                      child: const Text('Save'))
+                ],
               ),
-              // TODO: Reminders Menu
-              _Reminders(xOffSet: xOffSet, task: task),
-              TextFormField(
-                initialValue: task.description,
-                onChanged: (value) => task.description = value,
-                decoration: const InputDecoration(labelText: 'Description'),
-              ),
-              // TODO: Make so this button is not necessary
-              ElevatedButton(
-                  onPressed: () => taskProvider.updateOrCreateTask(task),
-                  //onPressed: () => task.save(),
-                  child: const Text('Save'))
-            ],
+            ),
           ),
         ));
   }

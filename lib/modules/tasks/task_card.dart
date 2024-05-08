@@ -14,29 +14,78 @@ class TaskCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final tasks = context.watch<TaskProvider>();
 
-    return GestureDetector(
-      onTap: () {
-        //Navigator.pushNamed(context, '/task/${task.id}');
-        // We select the task here and push the route to the task details screen
-        tasks.selectedTask = task;
-        context.push(AppRoutes.task());
-      },
-      onLongPress: () {
-        tasks.selectedTask = task;
-        context.push(AppRoutes.task());
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(5),
-        child: Card(
-          //margin: const EdgeInsets.only(top: 7, bottom: 7),
-          child: Padding(
-            padding: const EdgeInsets.all(7),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                TaskCheckbox(task),
-                _TaskDetails(task),
-              ],
+    return Hero(
+      tag: 'task-${task.key}',
+      child: GestureDetector(
+        onTap: () {
+          //Navigator.pushNamed(context, '/task/${task.id}');
+          // We select the task here and push the route to the task details screen
+          tasks.selectedTask = task;
+          context.push(AppRoutes.task());
+        },
+        onLongPress: () {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                    title: const Text("Delete task"),
+                    content: const Text(
+                        "Are you sure you want to delete this task?"),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          tasks.removeTask(task);
+                          Navigator.pop(context);
+                        },
+                        child: const Text("Delete"),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text("Cancel"),
+                      ),
+                    ],
+                  ));
+
+          // final size = MediaQuery.of(context).size;
+          // //final RenderBox overlay = Overlay.of(context)!.context.findRenderObject()!;
+          // final menuWidth = 150.0;
+          // final menuHeight = 100.0;
+
+          // final center = Offset(size.width / 2, size.height / 2);
+
+          // final position = RelativeRect.fromSize(
+          //   Rect.fromCenter(
+          //       center: center, width: menuWidth, height: menuHeight),
+          //   size,
+          // );
+
+          // showMenu(context: context, position: position, items: [
+          //   PopupMenuItem(
+          //     child: ListTile(
+          //       leading: const Icon(Icons.delete),
+          //       title: const Text("Delete"),
+          //       onTap: () {
+          //         tasks.removeTask(task);
+          //         Navigator.pop(context);
+          //       },
+          //     ),
+          //   ),
+          // ]);
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(5),
+          child: Card(
+            //margin: const EdgeInsets.only(top: 7, bottom: 7),
+            child: Padding(
+              padding: const EdgeInsets.all(7),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  TaskCheckbox(task),
+                  _TaskDetails(task),
+                ],
+              ),
             ),
           ),
         ),
@@ -66,24 +115,27 @@ class _TaskCheckboxState extends State<TaskCheckbox> {
     //final tasksProvider = context.watch<TaskProvider>();
     return Transform.scale(
       scale: widget.subtask != null ? 1 : 1.15,
-      child: Checkbox(
-        value: widget.subtask != null
-            ? widget.subtask!.isComplete
-            : widget.task.isComplete,
-        onChanged: (bool? value) {
-          setState(() {
-            if (widget.subtask != null) {
-              widget.subtask!.isComplete = value!;
-            } else {
-              widget.task.isComplete = value!;
-            }
-          });
-          widget.task.save();
-          // TODO: Animation
-          // This below works since it notifies the observers but it
-          // doesn't show the checkmark animation, to check later.
-          //tasksProvider.updateOrCreateTask(widget.task);
-        },
+      child: Material(
+        type: MaterialType.transparency,
+        child: Checkbox(
+          value: widget.subtask != null
+              ? widget.subtask!.isComplete
+              : widget.task.isComplete,
+          onChanged: (bool? value) {
+            setState(() {
+              if (widget.subtask != null) {
+                widget.subtask!.isComplete = value!;
+              } else {
+                widget.task.isComplete = value!;
+              }
+            });
+            widget.task.save();
+            // TODO: Animation
+            // This below works since it notifies the observers but it
+            // doesn't show the checkmark animation, to check later.
+            //tasksProvider.updateOrCreateTask(widget.task);
+          },
+        ),
       ),
     );
   }
@@ -130,6 +182,13 @@ class _TaskDetails extends StatelessWidget {
                   task.dueDate != null
                       ? Tools.formatDateTime(task.dueDate!)
                       : "",
+                  style: TextStyle(
+                    color: task.dueDate != null
+                        ? task.dueDate!.isBefore(DateTime.now())
+                            ? Colors.red
+                            : null
+                        : null,
+                  ),
                 ),
               ],
 

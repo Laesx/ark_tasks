@@ -70,29 +70,27 @@ class _TasksViewState extends State<TasksView> {
           ], child: Icon(Icons.sort_outlined))
         ],
       ),
-      child: Padding(
-        // This padding should be done more elegantly so I don't have to put it everywhere
+      child: ListView.builder(
+        //TODO: Adjust the top padding to account for the top bar
         padding: const EdgeInsets.only(top: TopBar.height),
-        child: ListView.builder(
-          shrinkWrap: true,
-          itemCount: allTasks.length,
-          itemBuilder: (context, index) {
-            // All this uglyness is to add a Divider as the 1st item
-            // and between the incomplete and completed tasks
-            // if (index == 0) {
-            //   return const Divider(height: 30);
-            //}
-            if (allTasks[index] is Divider) {
-              return const Divider();
-            } else if (allTasks[index] is Task) {
-              final task = allTasks[index];
-              return TaskCard(task: task);
-            }
-            return null;
-            //final task = taskProvider.tasks[index];
-            //return TaskCard(task: task);
-          },
-        ),
+        shrinkWrap: true,
+        itemCount: allTasks.length,
+        itemBuilder: (context, index) {
+          // All this uglyness is to add a Divider as the 1st item
+          // and between the incomplete and completed tasks
+          // if (index == 0) {
+          //   return const Divider(height: 30);
+          //}
+          if (allTasks[index] is Divider) {
+            return const Divider();
+          } else if (allTasks[index] is Task) {
+            final task = allTasks[index];
+            return TaskCard(task: task);
+          }
+          return null;
+          //final task = taskProvider.tasks[index];
+          //return TaskCard(task: task);
+        },
       ),
     );
   }

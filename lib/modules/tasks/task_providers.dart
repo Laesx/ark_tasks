@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:ark_jots/models/priority.dart';
 import 'package:ark_jots/modules/tasks/task_model.dart';
 import 'package:hive/hive.dart';
@@ -82,5 +84,50 @@ class TaskProvider extends ChangeNotifier {
     } else {
       updateTask(task);
     }
+  }
+
+  void fillBoxWithDemoTasks() {
+    final random = Random();
+
+    //List<Task> tasks = [];
+    for (int i = 0; i < 50; i++) {
+      Task task = Task(
+        title: 'Task $i',
+        description: 'Description $i',
+        createdAt: DateTime.now(),
+        lastUpdated: DateTime.now(),
+        dueDate: randomDate(oneMonthAgo, oneMonthLater),
+        isComplete: random.nextBool(),
+      );
+
+      updateOrCreateTask(task);
+
+      print("${task.title} added to tasks.");
+      //tasks.add(demoTasks[i]);
+    }
+
+    //return demoTasks;
+  }
+
+  static DateTime now = DateTime.now();
+  static DateTime oneMonthAgo = DateTime(now.year, now.month - 1, now.day);
+  static DateTime oneMonthLater = DateTime(now.year, now.month + 1, now.day);
+
+  DateTime randomPastMonthDate = randomDate(oneMonthAgo, now);
+  DateTime randomThisMonthDate =
+      randomDate(DateTime(now.year, now.month, 1), now);
+  DateTime randomNextMonthDate = randomDate(now, oneMonthLater);
+
+  static DateTime randomDate(DateTime startDate, DateTime endDate) {
+    final random = Random();
+
+    // Calculate the difference between the start and end dates
+    int difference = endDate.difference(startDate).inDays;
+
+    // Generate a random number of days to add to the start date
+    int daysToAdd = random.nextInt(difference);
+
+    // Add the random number of days to the start date
+    return startDate.add(Duration(days: daysToAdd));
   }
 }
