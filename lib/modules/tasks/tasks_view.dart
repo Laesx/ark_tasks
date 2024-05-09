@@ -42,7 +42,7 @@ class _TasksViewState extends State<TasksView> {
                   title: '',
                   createdAt: DateTime.now(),
                   lastUpdated: DateTime.now());
-              taskProvider.updateOrCreateTask(task);
+              //taskProvider.updateOrCreateTask(task);
               taskProvider.selectedTask = task;
               Navigator.pushNamed(context, "/task");
               //context.push('/task');

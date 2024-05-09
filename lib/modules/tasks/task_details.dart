@@ -36,13 +36,6 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
     final screenSize = MediaQuery.of(context).size;
     final xOffSet = screenSize.width * 0.25;
 
-    @override
-    void dispose() {
-      textController.dispose();
-      print("Disposing TaskDetailScreen");
-      super.dispose();
-    }
-
     return Scaffold(
         appBar: TopBar(
           trailing: [
@@ -53,15 +46,7 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
             )
           ],
           canPop: true,
-          //title: task.title,
           title: "Task Details",
-          // onPop: () {
-          //   //taskProvider.updateOrCreateTask(task);
-          //   task.save();
-          //   taskProvider.selectedTask = null;
-          //   print("Popping TaskDetailScreen");
-          //   Navigator.of(context).pop();
-          // },
         ),
         body: Hero(
           tag: 'task-${task.key}',
@@ -69,12 +54,10 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
             type: MaterialType.transparency,
             child: Form(
               onPopInvoked: (didPop) {
-                print("Popped?");
                 if (didPop) {
-                  task.save();
-                  taskProvider.selectedTask = null;
-                  print("Popping TaskDetailScreen");
-                  //Navigator.of(context).pop();
+                  if (task.title.isNotEmpty) {
+                    taskProvider.updateOrCreateTask(task);
+                  }
                 }
               },
               child: ListView(
@@ -116,7 +99,10 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                         _SubtastkSuggestions(task: task),
                       ]), */
 
-                  const _SubtaskPrompt(),
+                  _SubtaskPrompt(
+                    task: task,
+                    onUpdated: () => taskProvider.updateOrCreateTask(task),
+                  ),
                   // Due Date Menu
                   _DueDate(xOffSet: xOffSet, task: task),
                   const SizedBox(
@@ -361,7 +347,10 @@ class _SubtasksSectionState extends State<_SubtasksSection> {
 }
 
 class _SubtaskPrompt extends StatefulWidget {
-  const _SubtaskPrompt({super.key});
+  const _SubtaskPrompt(
+      {super.key, required this.task, required void Function() this.onUpdated});
+  final Task task;
+  final void Function() onUpdated;
 
   @override
   State<_SubtaskPrompt> createState() => _SubtaskPromptState();
@@ -371,13 +360,32 @@ class _SubtaskPromptState extends State<_SubtaskPrompt> {
   List<String> choicesValue = [];
   final choicesMemoizer = AsyncMemoizer<List<String>>();
 
+  // Maybe to make this easier I could add a field to subtask to know it's AI generated
+  // Currently doesn't check if the subtask is already in the list before adding it
   void setChoicesValue(List<String> value) {
-    //print(value);
+    // print(value);
+    for (String subtask in value) {
+      if (!widget.task.subtasks.any((element) => element.title == subtask)) {
+        // print("Added");
+        widget.task.subtasks.add(Subtask(title: subtask));
+      }
+    }
+    for (String subtask in choicesValue) {
+      if (!value.contains(subtask)) {
+        // print("Removed");
+        widget.task.subtasks.removeWhere((element) => element.title == subtask);
+      }
+    }
+
     setState(() => choicesValue = value);
+    widget.onUpdated();
+    //TaskProvider().updateOrCreateTask(widget.task);
   }
 
   Future<List<String>> getChoices() async {
-    return AiService.getSubtasks("Levantarme de la Cama");
+    // return AiService.getSubtasks("Levantarme de la Cama");
+    print("Getting choices");
+    return AiService.getSubtasks(widget.task.title);
   }
 
   @override
