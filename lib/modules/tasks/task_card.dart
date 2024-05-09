@@ -182,7 +182,8 @@ class _TaskDetails extends StatelessWidget {
                       : "",
                   style: TextStyle(
                     color: task.dueDate != null
-                        ? task.dueDate!.isBefore(DateTime.now())
+                        ? task.dueDate!.isBefore(
+                                DateTime.now().subtract(Duration(days: 1)))
                             ? Colors.red
                             : null
                         : null,

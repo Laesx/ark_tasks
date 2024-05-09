@@ -25,6 +25,11 @@ class TaskDetailScreen extends StatefulWidget {
 class _TaskDetailScreenState extends State<TaskDetailScreen> {
   var choicesMemoizer = AsyncMemoizer<List<String>>();
 
+  void resetMemoizer() {
+    choicesMemoizer = AsyncMemoizer<List<String>>();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     // Controller for the subtasks so I can empty it after one is created
@@ -105,6 +110,10 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                     task: task,
                     onUpdated: () => taskProvider.updateOrCreateTask(task),
                     choicesMemoizer: choicesMemoizer,
+                  ),
+                  ElevatedButton(
+                    onPressed: resetMemoizer,
+                    child: const Text('Reset AI Suggestions'),
                   ),
                   // Due Date Menu
                   _DueDate(xOffSet: xOffSet, task: task),
