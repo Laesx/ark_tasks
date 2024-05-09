@@ -23,6 +23,8 @@ class TaskDetailScreen extends StatefulWidget {
 }
 
 class _TaskDetailScreenState extends State<TaskDetailScreen> {
+  var choicesMemoizer = AsyncMemoizer<List<String>>();
+
   @override
   Widget build(BuildContext context) {
     // Controller for the subtasks so I can empty it after one is created
@@ -102,6 +104,7 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                   _SubtaskPrompt(
                     task: task,
                     onUpdated: () => taskProvider.updateOrCreateTask(task),
+                    choicesMemoizer: choicesMemoizer,
                   ),
                   // Due Date Menu
                   _DueDate(xOffSet: xOffSet, task: task),
@@ -348,9 +351,13 @@ class _SubtasksSectionState extends State<_SubtasksSection> {
 
 class _SubtaskPrompt extends StatefulWidget {
   const _SubtaskPrompt(
-      {super.key, required this.task, required void Function() this.onUpdated});
+      {super.key,
+      required this.task,
+      required void Function() this.onUpdated,
+      required this.choicesMemoizer});
   final Task task;
   final void Function() onUpdated;
+  final AsyncMemoizer<List<String>> choicesMemoizer;
 
   @override
   State<_SubtaskPrompt> createState() => _SubtaskPromptState();
@@ -358,7 +365,7 @@ class _SubtaskPrompt extends StatefulWidget {
 
 class _SubtaskPromptState extends State<_SubtaskPrompt> {
   List<String> choicesValue = [];
-  final choicesMemoizer = AsyncMemoizer<List<String>>();
+  //final choicesMemoizer = AsyncMemoizer<List<String>>();
 
   // Maybe to make this easier I could add a field to subtask to know it's AI generated
   // Currently doesn't check if the subtask is already in the list before adding it
@@ -390,14 +397,14 @@ class _SubtaskPromptState extends State<_SubtaskPrompt> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<String>>(
-        initialData: const [],
-        future: choicesMemoizer.runOnce(getChoices),
-        builder: (context, snapshot) {
-          return SizedBox(
-            width: 300,
-            child: Card(
-              child: PromptedChoice<String>.multiple(
+    return SizedBox(
+      width: 300,
+      child: Card(
+        child: FutureBuilder<List<String>>(
+            initialData: const [],
+            future: widget.choicesMemoizer.runOnce(getChoices),
+            builder: (context, snapshot) {
+              return PromptedChoice<String>.multiple(
                 confirmation: true,
                 title: 'AI Subtasks',
                 clearable: true,
@@ -435,9 +442,9 @@ class _SubtaskPromptState extends State<_SubtaskPrompt> {
                 ),
                 promptDelegate: ChoicePrompt.delegateBottomSheet(),
                 anchorBuilder: ChoiceAnchor.create(valueTruncate: 1),
-              ),
-            ),
-          );
-        });
+              );
+            }),
+      ),
+    );
   }
 }
