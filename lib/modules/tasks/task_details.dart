@@ -113,7 +113,7 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                   ),
                   ElevatedButton(
                     onPressed: resetMemoizer,
-                    child: const Text('Reset AI Suggestions'),
+                    child: const Text('Refrescar Sugerencias por IA'),
                   ),
                   // Due Date Menu
                   _DueDate(xOffSet: xOffSet, task: task),
