@@ -1,8 +1,6 @@
 import 'package:ark_jots/modules/schedule/schedule_models.dart';
 import 'package:ark_jots/modules/schedule/schedule_providers.dart';
-import 'package:ark_jots/utils/app_routes.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class ScheduleCard extends StatelessWidget {
@@ -19,7 +17,8 @@ class ScheduleCard extends StatelessWidget {
         //Navigator.pushNamed(context, '/task/${task.id}');
         // We select the task here and push the route to the task details screen
         scheduleProvider.selectedSchedule = schedule;
-        context.push(AppRoutes.schedule());
+        //context.push(AppRoutes.schedule());
+        Navigator.pushNamed(context, "/schedule");
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5),

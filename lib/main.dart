@@ -2,7 +2,6 @@ import 'package:ark_jots/modules/schedule/schedule_providers.dart';
 import 'package:ark_jots/utils/ai_service.dart';
 import 'package:ark_jots/utils/options.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 //import 'package:intl/date_symbol_data_file.dart';
 import 'package:provider/provider.dart';
 import 'modules/tasks/task_providers.dart';
@@ -36,16 +35,16 @@ class MyApp extends StatefulWidget {
 }
 
 class AppState extends State<MyApp> {
-  late final GoRouter _router;
+  //late final GoRouter _router;
 
   @override
   void initState() {
     super.initState();
-    _router = GoRouter(
-      initialLocation: AppRoutes.home,
-      routes: buildRoutes(() => false),
-      errorBuilder: (context, state) => const NotFoundView(canPop: false),
-    );
+    // _router = GoRouter(
+    //   initialLocation: AppRoutes.home,
+    //   routes: buildRoutes(() => false),
+    //   errorBuilder: (context, state) => const NotFoundView(canPop: false),
+    // );
   }
 
   @override
@@ -63,9 +62,10 @@ class AppState extends State<MyApp> {
         brightness: Brightness.dark,
         background: Colors.black));
 
-    return MaterialApp.router(
+    return MaterialApp(
+      routes: AppRoutes().routes,
       title: 'Ark Jots',
-      routerConfig: _router,
+      // routerConfig: _router,
       //theme: AppTheme.darkTheme,
       theme: data,
       //darkTheme: AppTheme.darkTheme, // TODO: Implementar tema oscuro

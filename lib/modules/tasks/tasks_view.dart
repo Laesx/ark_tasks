@@ -3,7 +3,6 @@ import 'package:ark_jots/widgets/layouts/floating_bar.dart';
 import 'package:ark_jots/widgets/layouts/scaffolds.dart';
 import 'package:ark_jots/widgets/layouts/top_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class TasksView extends StatefulWidget {
@@ -45,7 +44,8 @@ class _TasksViewState extends State<TasksView> {
                   lastUpdated: DateTime.now());
               taskProvider.updateOrCreateTask(task);
               taskProvider.selectedTask = task;
-              context.push('/task');
+              Navigator.pushNamed(context, "/task");
+              //context.push('/task');
             }),
       ]),
       topBar: TopBar(
