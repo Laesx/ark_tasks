@@ -7,11 +7,13 @@ import 'package:flutter/material.dart';
 /// - The formatted [title] (if not `null`).
 /// - The [trailing] widgets (if the list is not empty).
 class TopBar extends StatelessWidget implements PreferredSizeWidget {
-  const TopBar({this.trailing = const [], this.canPop = true, this.title});
+  const TopBar(
+      {this.trailing = const [], this.canPop = true, this.title, this.onPop});
 
   final bool canPop;
   final String? title;
   final List<Widget> trailing;
+  final void Function()? onPop;
 
   static const height = 55.0;
 
@@ -39,7 +41,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                   tooltip: 'Close',
                   icon: Icons.arrow_back_ios_rounded,
                   // TODO Fix this
-                  onTap: Navigator.of(context).pop,
+                  onTap: onPop ?? Navigator.of(context).pop,
                 )
               else
                 const SizedBox(width: 10),

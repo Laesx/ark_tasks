@@ -36,6 +36,13 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
     final screenSize = MediaQuery.of(context).size;
     final xOffSet = screenSize.width * 0.25;
 
+    @override
+    void dispose() {
+      textController.dispose();
+      print("Disposing TaskDetailScreen");
+      super.dispose();
+    }
+
     return Scaffold(
         appBar: TopBar(
           trailing: [
@@ -48,12 +55,28 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
           canPop: true,
           //title: task.title,
           title: "Task Details",
+          // onPop: () {
+          //   //taskProvider.updateOrCreateTask(task);
+          //   task.save();
+          //   taskProvider.selectedTask = null;
+          //   print("Popping TaskDetailScreen");
+          //   Navigator.of(context).pop();
+          // },
         ),
         body: Hero(
           tag: 'task-${task.key}',
           child: Material(
             type: MaterialType.transparency,
             child: Form(
+              onPopInvoked: (didPop) {
+                print("Popped?");
+                if (didPop) {
+                  task.save();
+                  taskProvider.selectedTask = null;
+                  print("Popping TaskDetailScreen");
+                  //Navigator.of(context).pop();
+                }
+              },
               child: ListView(
                 padding: const EdgeInsets.all(5),
                 children: [
