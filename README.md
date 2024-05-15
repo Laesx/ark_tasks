@@ -12,5 +12,5 @@ https://pub.dev/packages/flutter_slidable
 
 Ideas:
 
-[] Función que estime cuanto tiempo se puede tardar en hacer una tarea específica.
-[] Función que compile todas las ideas de un texto plano en varias tareas que cree automáticamente.
+- [ ] Función que estime cuanto tiempo se puede tardar en hacer una tarea específica.
+- [ ] Función que compile todas las ideas de un texto plano en varias tareas que cree automáticamente.
