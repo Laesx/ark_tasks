@@ -152,7 +152,8 @@ class AiService extends ChangeNotifier {
   get summary {
     if (!_hasSummaryInit) {
       _hasSummaryInit = true;
-      getSummaryStreamString("Make up an example summary of whatever.")
+      getSummaryStreamString(
+              "Dame un resumen de ejemplo de las tareas que quieras.")
           .then((value) {
         value.listen((event) {
           _summary += event ?? "";

@@ -15,7 +15,8 @@ class TasksTodayCard extends StatelessWidget {
       itemCount: tasks.length,
       itemBuilder: (BuildContext context, int index) {
         if (tasks[index].dueDate != null &&
-            tasks[index].dueDate!.difference(DateTime.now()).inDays <= 4) {
+            tasks[index].dueDate!.difference(DateTime.now()).inDays <= 4 &&
+            tasks[index].isComplete == false) {
           return TaskCard(task: tasks[index]);
         }
         return null;

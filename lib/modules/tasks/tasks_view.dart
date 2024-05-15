@@ -32,6 +32,8 @@ class _TasksViewState extends State<TasksView> {
       ..add(dividerMarker)
       ..addAll(completedTasks);
 
+    final topOffset = MediaQuery.paddingOf(context).top + TopBar.height;
+
     return TabScaffold(
       floatingBar: FloatingBar(scrollCtrl: widget.scrollCtrl, children: [
         ActionButton(
@@ -50,7 +52,7 @@ class _TasksViewState extends State<TasksView> {
       ]),
       topBar: TopBar(
         canPop: false,
-        title: "Tasks",
+        title: "Tareas",
         trailing: [
           SubmenuButton(menuChildren: [
             MenuItemButton(
@@ -72,7 +74,7 @@ class _TasksViewState extends State<TasksView> {
       ),
       child: ListView.builder(
         //TODO: Adjust the top padding to account for the top bar
-        padding: const EdgeInsets.only(top: TopBar.height),
+        padding: EdgeInsets.only(top: topOffset, bottom: 100),
         shrinkWrap: true,
         itemCount: allTasks.length,
         itemBuilder: (context, index) {

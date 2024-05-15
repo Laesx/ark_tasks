@@ -45,6 +45,7 @@ dependencies:
   ionicons: ^0.2.2
   choice: ^2.3.2
   async: ^2.11.0
+  flutter_native_splash: ^2.4.0
 
 dev_dependencies:
   flutter_test:

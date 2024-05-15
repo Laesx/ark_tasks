@@ -57,14 +57,14 @@ class _HomeViewState extends State<HomeView>
               // TODO Does this need to be implemented?
             }),
         child: TabBarView(controller: _tabCtrl, children: [
-          const Center(child: Text('Home')),
+          //const Center(child: Text('Home')),
           //const Center(child: Text('Home')),
           HomeSomething(
             tabCtrl: _tabCtrl,
           ),
           TasksView(ScrollController()),
           ScheduleView(ScrollController()),
-          SettingsView(),
+          const SettingsView(),
         ]));
   }
 }
@@ -79,7 +79,7 @@ class HomeSomething extends StatelessWidget {
     return TabScaffold(
         topBar: TopBar(
           canPop: false,
-          title: "Home",
+          title: "Inicio",
         ),
         child: ListView(children: [
           SizedBox(height: 30),
@@ -88,15 +88,16 @@ class HomeSomething extends StatelessWidget {
           ),
           //Text("Shortcuts", style: TextStyle(fontSize: 20)),
           Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-            ShortcutButton(tabCtrl: tabCtrl, index: 2),
-            ShortcutButton(tabCtrl: tabCtrl, index: 3)
+            ShortcutButton(tabCtrl: tabCtrl, index: 1),
+            ShortcutButton(tabCtrl: tabCtrl, index: 2)
           ]),
           SizedBox(height: 30),
           Card(
               child: Column(
             children: [
               SizedBox(height: 10),
-              Text("Tareas Pendientes Hoy", style: TextStyle(fontSize: 20)),
+              Text("Tareas Pendientes Próximas",
+                  style: TextStyle(fontSize: 20)),
               Container(height: 250, child: TasksTodayCard()),
             ],
           ))
