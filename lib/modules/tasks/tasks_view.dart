@@ -32,7 +32,7 @@ class _TasksViewState extends State<TasksView> {
       ..add(dividerMarker)
       ..addAll(completedTasks);
 
-    final topOffset = MediaQuery.paddingOf(context).top + TopBar.height;
+    final topOffset = MediaQuery.paddingOf(context).top + TopBar.height + 10;
 
     return TabScaffold(
       floatingBar: FloatingBar(scrollCtrl: widget.scrollCtrl, children: [
@@ -56,7 +56,7 @@ class _TasksViewState extends State<TasksView> {
         trailing: [
           SubmenuButton(menuChildren: [
             MenuItemButton(
-              child: const Text("Sort by date"),
+              child: const Text("Ordenar por Fecha"),
               onPressed: () {
                 taskProvider.tasks.sort((a, b) {
                   if (a.dueDate == null || b.dueDate == null) {

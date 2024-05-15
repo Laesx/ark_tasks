@@ -41,7 +41,7 @@ class _SettingsViewState extends State<SettingsView>
 
     return TabScaffold(
         topBar: TopBar(
-          title: 'Settings',
+          title: 'Opciones',
           canPop: false,
         ),
         child: SettingsAppTab(scrollCtrl));

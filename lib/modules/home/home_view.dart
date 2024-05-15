@@ -3,6 +3,7 @@ import 'package:ark_jots/modules/schedule/schedule_view.dart';
 import 'package:ark_jots/modules/settings/settings_view.dart';
 import 'package:ark_jots/modules/tasks/task_summary_card.dart';
 import 'package:ark_jots/modules/tasks/tasks_today_card.dart';
+import 'package:ark_jots/utils/consts.dart';
 import 'package:ark_jots/widgets/layouts/bottom_bar.dart';
 import 'package:ark_jots/widgets/layouts/scaffolds.dart';
 import 'package:ark_jots/modules/tasks/tasks_view.dart';
@@ -76,32 +77,36 @@ class HomeSomething extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final topOffset = MediaQuery.paddingOf(context).top;
     return TabScaffold(
         topBar: TopBar(
           canPop: false,
           title: "Inicio",
         ),
-        child: ListView(children: [
-          SizedBox(height: 30),
-          Container(
-            child: TaskSummaryCard(),
-          ),
-          //Text("Shortcuts", style: TextStyle(fontSize: 20)),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-            ShortcutButton(tabCtrl: tabCtrl, index: 1),
-            ShortcutButton(tabCtrl: tabCtrl, index: 2)
+        child: Padding(
+          padding: Consts.padding,
+          child: ListView(children: [
+            SizedBox(height: topOffset),
+            Container(
+              child: TaskSummaryCard(),
+            ),
+            //Text("Shortcuts", style: TextStyle(fontSize: 20)),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+              ShortcutButton(tabCtrl: tabCtrl, index: 1),
+              ShortcutButton(tabCtrl: tabCtrl, index: 2)
+            ]),
+            SizedBox(height: 30),
+            Card(
+                child: Column(
+              children: [
+                SizedBox(height: 10),
+                Text("Tareas Pendientes Próximas",
+                    style: TextStyle(fontSize: 20)),
+                Container(height: 250, child: TasksTodayCard()),
+              ],
+            ))
           ]),
-          SizedBox(height: 30),
-          Card(
-              child: Column(
-            children: [
-              SizedBox(height: 10),
-              Text("Tareas Pendientes Próximas",
-                  style: TextStyle(fontSize: 20)),
-              Container(height: 250, child: TasksTodayCard()),
-            ],
-          ))
-        ]));
+        ));
   }
 }
 
