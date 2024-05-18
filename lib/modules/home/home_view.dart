@@ -1,17 +1,16 @@
 import 'package:ark_jots/modules/home/home_provider.dart';
 import 'package:ark_jots/modules/schedule/schedule_view.dart';
-import 'package:ark_jots/modules/settings/settings_view.dart';
+// import 'package:ark_jots/modules/settings/settings_view.dart';
 import 'package:ark_jots/modules/tasks/task_summary_card.dart';
 import 'package:ark_jots/modules/tasks/tasks_today_card.dart';
 import 'package:ark_jots/modules/user/user_view.dart';
+import 'package:ark_jots/modules/compiler/compiler_view.dart';
 import 'package:ark_jots/utils/consts.dart';
 import 'package:ark_jots/widgets/layouts/bottom_bar.dart';
 import 'package:ark_jots/widgets/layouts/scaffolds.dart';
 import 'package:ark_jots/modules/tasks/tasks_view.dart';
 import 'package:ark_jots/widgets/layouts/top_bar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({this.tab});
@@ -66,7 +65,7 @@ class _HomeViewState extends State<HomeView>
           ),
           TasksView(ScrollController()),
           ScheduleView(ScrollController()),
-          Text("data"),
+          CompilerView(),
           //const SettingsView(),
           UserView(),
         ]));

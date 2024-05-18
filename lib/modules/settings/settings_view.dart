@@ -2,8 +2,6 @@ import 'package:ark_jots/modules/settings/settings_app_tab.dart';
 import 'package:ark_jots/widgets/layouts/scaffolds.dart';
 import 'package:flutter/material.dart';
 
-import '../../widgets/layouts/top_bar.dart';
-
 class SettingsView extends StatefulWidget {
   const SettingsView({super.key});
 
