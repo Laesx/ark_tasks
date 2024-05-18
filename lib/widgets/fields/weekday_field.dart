@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:ark_jots/utils/tools.dart';
 
-class DateField extends StatefulWidget {
-  const DateField({
+class WeekdayField extends StatefulWidget {
+  const WeekdayField({
     required this.label,
     required this.value,
     required this.onChanged,
@@ -14,15 +14,15 @@ class DateField extends StatefulWidget {
   final Function(String?) onChanged;
 
   @override
-  State<DateField> createState() => _DateFieldState();
+  State<WeekdayField> createState() => _WeekdayFieldState();
 }
 
-class _DateFieldState extends State<DateField> {
+class _WeekdayFieldState extends State<WeekdayField> {
   late String? _value = widget.value;
   late final _ctrl = TextEditingController(text: _value);
 
   @override
-  void didUpdateWidget(covariant DateField oldWidget) {
+  void didUpdateWidget(covariant WeekdayField oldWidget) {
     super.didUpdateWidget(oldWidget);
     _value = widget.value;
     final text = _value ?? "";

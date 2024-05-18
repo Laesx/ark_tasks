@@ -1,9 +1,7 @@
-import 'package:ark_jots/widgets/fields/date_field.dart';
+import 'package:ark_jots/widgets/fields/weekday_field.dart';
 import 'package:ark_jots/widgets/fields/time_field.dart';
 import 'package:ark_jots/widgets/layouts/top_bar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:ark_jots/utils/tools.dart';
 
@@ -24,8 +22,8 @@ class _ScheduleDetailScreenState extends State<ScheduleDetailScreen> {
     final schedule = schedules.selectedSchedule!;
 
     // This is for the submenu to appear on the center of the screen
-    final screenSize = MediaQuery.of(context).size;
-    final xOffSet = screenSize.width * 0.25;
+    // final screenSize = MediaQuery.of(context).size;
+    // final xOffSet = screenSize.width * 0.25;
 
     return Scaffold(
         appBar: const TopBar(
@@ -85,7 +83,7 @@ class _ScheduleDetailScreenState extends State<ScheduleDetailScreen> {
                   //     Text('Día de la semana: ${widget.schedule.weekday}'),
                   //   ],
                   // ),
-                  DateField(
+                  WeekdayField(
                       label: "Día de la semana",
                       value: schedule.weekday,
                       onChanged: (value) {

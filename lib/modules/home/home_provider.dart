@@ -5,6 +5,7 @@ enum HomeTab {
   //missions,
   tasks,
   schedule,
+  notes,
   settings;
 
   String get title => switch (this) {
@@ -12,6 +13,7 @@ enum HomeTab {
         //missions => 'Missions',
         tasks => 'Tareas',
         schedule => 'Horario',
+        notes => 'Notas',
         settings => 'Opciones',
       };
 
@@ -20,6 +22,7 @@ enum HomeTab {
         //missions => Icons.people_alt_outlined,
         tasks => Icons.task_alt_outlined,
         schedule => Icons.schedule_outlined,
+        notes => Icons.note_outlined,
         settings => Icons.settings_outlined,
       };
 }

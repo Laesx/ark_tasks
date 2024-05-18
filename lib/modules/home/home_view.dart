@@ -65,6 +65,7 @@ class _HomeViewState extends State<HomeView>
           ),
           TasksView(ScrollController()),
           ScheduleView(ScrollController()),
+          Text("data"),
           const SettingsView(),
         ]));
   }

@@ -1,5 +1,6 @@
 import 'package:ark_jots/modules/schedule/schedule_providers.dart';
 import 'package:ark_jots/utils/ai_service.dart';
+import 'package:ark_jots/utils/local_notification_service.dart';
 import 'package:ark_jots/utils/options.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -10,8 +11,10 @@ import 'utils/app_theme.dart';
 
 //void main() => runApp(MyApp());
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   // Initializes the locale in Spanish (hardcoded for now)
   await initializeDateFormatting("es_ES", null);
+  await LocalNotificationService().init();
   await Options.init();
   //await SharedPrefs().init();
 

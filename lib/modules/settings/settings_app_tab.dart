@@ -3,6 +3,7 @@ import 'package:ark_jots/utils/options.dart';
 import 'package:ark_jots/widgets/layouts/top_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ark_jots/utils/local_notification_service.dart';
 
 class SettingsAppTab extends StatelessWidget {
   const SettingsAppTab(this.scrollCtrl);
@@ -71,6 +72,13 @@ class SettingsAppTab extends StatelessWidget {
         ElevatedButton(
             onPressed: () => taskProvider.fillBoxWithDemoTasks(),
             child: Text('Fill Box with Demo Tasks')),
+        ElevatedButton(
+            onPressed: () => LocalNotificationService()
+                .showNotificationAndroid("Title", "Value"),
+            child: Text('Test Notification')),
+        ElevatedButton(
+            onPressed: () => LocalNotificationService().showTimedNotification(),
+            child: Text('Test Scheduled Notification'))
       ],
     );
   }
