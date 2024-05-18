@@ -44,37 +44,11 @@ class TaskCard extends StatelessWidget {
                       ),
                     ],
                   ));
-
-          // final size = MediaQuery.of(context).size;
-          // //final RenderBox overlay = Overlay.of(context)!.context.findRenderObject()!;
-          // final menuWidth = 150.0;
-          // final menuHeight = 100.0;
-
-          // final center = Offset(size.width / 2, size.height / 2);
-
-          // final position = RelativeRect.fromSize(
-          //   Rect.fromCenter(
-          //       center: center, width: menuWidth, height: menuHeight),
-          //   size,
-          // );
-
-          // showMenu(context: context, position: position, items: [
-          //   PopupMenuItem(
-          //     child: ListTile(
-          //       leading: const Icon(Icons.delete),
-          //       title: const Text("Delete"),
-          //       onTap: () {
-          //         tasks.removeTask(task);
-          //         Navigator.pop(context);
-          //       },
-          //     ),
-          //   ),
-          // ]);
         },
         child: Padding(
           padding: const EdgeInsets.all(5),
           child: Card(
-            //margin: const EdgeInsets.only(top: 7, bottom: 7),
+            margin: const EdgeInsets.only(top: 7, bottom: 7),
             child: Padding(
               padding: const EdgeInsets.all(7),
               child: Row(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
-//part 'schedule_models.g.dart';
+part 'schedule_models.g.dart';
 
 @HiveType(typeId: 3)
 class Schedule extends HiveObject {
@@ -21,9 +21,16 @@ class Schedule extends HiveObject {
   String timeEnd;
   @HiveField(7)
   String? instructor;
+  @HiveField(8)
+  String weekday;
 
   TimeOfDay get startTime {
     final time = timeStart.split(':');
+    return TimeOfDay(hour: int.parse(time[0]), minute: int.parse(time[1]));
+  }
+
+  TimeOfDay get endTime {
+    final time = timeEnd.split(':');
     return TimeOfDay(hour: int.parse(time[0]), minute: int.parse(time[1]));
   }
 
@@ -36,6 +43,7 @@ class Schedule extends HiveObject {
     this.location,
     required this.timeEnd,
     this.instructor,
+    required this.weekday,
   });
 
   factory Schedule.fromJson(Map<String, dynamic> json) {
@@ -48,6 +56,7 @@ class Schedule extends HiveObject {
       location: json['location'],
       timeEnd: json['image'],
       instructor: json['instructor'],
+      weekday: json['weekday'],
     );
   }
 }

@@ -53,7 +53,7 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
             )
           ],
           canPop: true,
-          title: "Task Details",
+          title: "Detalles de la Tarea",
         ),
         body: Hero(
           tag: 'task-${task.key}',
@@ -125,13 +125,13 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                   TextFormField(
                     initialValue: task.description,
                     onChanged: (value) => task.description = value,
-                    decoration: const InputDecoration(labelText: 'Description'),
+                    decoration: const InputDecoration(labelText: 'Descripción'),
                   ),
-                  // TODO: Make so this button is not necessary
-                  ElevatedButton(
-                      onPressed: () => taskProvider.updateOrCreateTask(task),
-                      //onPressed: () => task.save(),
-                      child: const Text('Save'))
+                  // Make so this button is not necessary - DONE
+                  // ElevatedButton(
+                  //     onPressed: () => taskProvider.updateOrCreateTask(task),
+                  //     //onPressed: () => task.save(),
+                  //     child: const Text('Save'))
                 ],
               ),
             ),
@@ -197,7 +197,7 @@ class _RemindersState extends State<_Reminders> {
         children: [
           const Icon(Icons.calendar_month_outlined),
           const SizedBox(width: 10),
-          Text('Reminder ${Tools.formatDateTime(widget.task.dueDate)}'),
+          Text('Recordatorio ${Tools.formatDateTime(widget.task.dueDate)}'),
         ],
       ),
     );
@@ -226,21 +226,21 @@ class _DueDateState extends State<_DueDate> {
       menuChildren: [
         MenuItemButton(
             leadingIcon: const Icon(Icons.calendar_today),
-            child: Text('Today (${Tools.getWeekday(DateTime.now())})'),
+            child: Text('Hoy (${Tools.getWeekday(DateTime.now())})'),
             onPressed: () {
               widget.task.dueDate = DateTime.now();
               setState(() {});
             }),
         MenuItemButton(
             leadingIcon: const Icon(Icons.calendar_today),
-            child: Text('Tomorrow (${Tools.getWeekday(Tools.getTomorrow())})'),
+            child: Text('Mañana (${Tools.getWeekday(Tools.getTomorrow())})'),
             onPressed: () {
               widget.task.dueDate = Tools.getTomorrow();
               setState(() {});
             }),
         MenuItemButton(
             leadingIcon: const Icon(Icons.edit_calendar_outlined),
-            child: const Text("Choose a date"),
+            child: const Text("Elegir fecha"),
             onPressed: () {
               showDatePicker(
                       context: context,
@@ -267,7 +267,7 @@ class _DueDateState extends State<_DueDate> {
         children: [
           const Icon(Icons.calendar_month_outlined),
           const SizedBox(width: 10),
-          Text('Due date ${Tools.formatDateTime(widget.task.dueDate)}'),
+          Text('Fecha límite ${Tools.formatDateTime(widget.task.dueDate)}'),
         ],
       ),
     );
@@ -326,7 +326,7 @@ class _SubtasksSectionState extends State<_SubtasksSection> {
               child: TextField(
                 controller: widget._controller,
                 decoration: const InputDecoration(
-                  hintText: 'Add subtask',
+                  hintText: 'Añadir Subtarea',
                 ),
                 onSubmitted: (value) {
                   widget.task.subtasks.add(Subtask(title: value));
@@ -339,7 +339,7 @@ class _SubtasksSectionState extends State<_SubtasksSection> {
         ),
         if (widget.task.subtasks.length > 3 && !widget.widget.showAllSubtasks)
           TextButton(
-            child: const Text('Show more'),
+            child: const Text('Mostrar más'),
             onPressed: () {
               widget.widget.showAllSubtasks = true;
               setState(() {});
@@ -347,7 +347,7 @@ class _SubtasksSectionState extends State<_SubtasksSection> {
           ),
         if (widget.task.subtasks.length > 3 && widget.widget.showAllSubtasks)
           TextButton(
-            child: const Text('Show less'),
+            child: const Text('Mostrar menos'),
             onPressed: () {
               widget.widget.showAllSubtasks = false;
               setState(() {});
@@ -415,7 +415,7 @@ class _SubtaskPromptState extends State<_SubtaskPrompt> {
             builder: (context, snapshot) {
               return PromptedChoice<String>.multiple(
                 confirmation: true,
-                title: 'AI Subtasks',
+                title: 'Subtareas sugeridas por IA',
                 clearable: true,
                 error: snapshot.hasError,
                 errorBuilder: ChoiceListError.create(
@@ -434,7 +434,7 @@ class _SubtaskPromptState extends State<_SubtaskPrompt> {
                   );
                 },
                 modalHeaderBuilder: ChoiceModal.createHeader(
-                  title: const Text('Select Subtasks'),
+                  title: const Text('Selecciona las Subtareas'),
                   automaticallyImplyLeading: false,
                   actionsBuilder: [
                     (state) {

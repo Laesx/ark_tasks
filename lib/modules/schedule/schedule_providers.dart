@@ -1,4 +1,5 @@
 import 'package:ark_jots/modules/schedule/schedule_models.dart';
+import 'package:ark_jots/utils/tools.dart';
 import 'package:hive/hive.dart';
 
 import 'package:flutter/material.dart';
@@ -10,6 +11,15 @@ class ScheduleProvider extends ChangeNotifier {
 
   List<Schedule> get schedule => _schedule;
 
+  late String _weekday;
+
+  String get weekday => _weekday;
+
+  set weekday(String value) {
+    _weekday = value;
+    notifyListeners();
+  }
+
   //Hive boxes and keys.
   static const _scheduleBoxKey = 'schedule';
   static Box _scheduleBox = Hive.box<Schedule>(_scheduleBoxKey);
@@ -19,12 +29,25 @@ class ScheduleProvider extends ChangeNotifier {
 
   ScheduleProvider() {
     // Register Hive adapters.
+    Hive.registerAdapter(ScheduleAdapter());
 
     // Load schedule from Hive.
     Hive.openBox<Schedule>(_scheduleBoxKey).then((box) {
       _schedule.addAll(box.values);
       notifyListeners();
     });
+
+    _weekday = Tools.getWeekday(DateTime.now());
+  }
+
+  List<Schedule> get scheduleToday {
+    // final now = DateTime.now();
+    // final weekday = now.weekday;
+    //final weekday = Tools.getWeekday(DateTime.now());
+    //print(weekday);
+    return _schedule.where((element) {
+      return element.weekday.toLowerCase() == _weekday;
+    }).toList();
   }
 
   // BE CAREFUL WITH THIS FUNCTION. IT WILL DELETE ALL TASKS.

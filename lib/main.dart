@@ -2,7 +2,7 @@ import 'package:ark_jots/modules/schedule/schedule_providers.dart';
 import 'package:ark_jots/utils/ai_service.dart';
 import 'package:ark_jots/utils/options.dart';
 import 'package:flutter/material.dart';
-//import 'package:intl/date_symbol_data_file.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 import 'modules/tasks/task_providers.dart';
 import 'utils/app_routes.dart';
@@ -10,8 +10,9 @@ import 'utils/app_theme.dart';
 
 //void main() => runApp(MyApp());
 Future<void> main() async {
+  // Initializes the locale in Spanish (hardcoded for now)
+  await initializeDateFormatting("es_ES", null);
   await Options.init();
-  //await initializeDateFormatting();
   //await SharedPrefs().init();
 
   // Initializes the AI service

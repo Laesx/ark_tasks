@@ -1,4 +1,5 @@
 import 'package:ark_jots/modules/home/home_view.dart';
+import 'package:ark_jots/modules/schedule/schedule_details.dart';
 import 'package:ark_jots/modules/tasks/task_details.dart';
 import 'package:ark_jots/widgets/layouts/top_bar.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,7 @@ class AppRoutes {
     '/': (context) => const HomeView(),
     '/home': (context) => const HomeView(),
     '/task': (context) => TaskDetailScreen(),
-    '/schedule': (context) => const NotFoundView(canPop: true),
+    '/schedule': (context) => ScheduleDetailScreen(),
   };
 
   static const initialRoute = '/home';
