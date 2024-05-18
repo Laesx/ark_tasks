@@ -1,5 +1,6 @@
 import 'package:ark_jots/modules/home/home_view.dart';
 import 'package:ark_jots/modules/schedule/schedule_details.dart';
+import 'package:ark_jots/modules/settings/settings.dart';
 import 'package:ark_jots/modules/tasks/task_details.dart';
 import 'package:ark_jots/widgets/layouts/top_bar.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ class AppRoutes {
     '/home': (context) => const HomeView(),
     '/task': (context) => TaskDetailScreen(),
     '/schedule': (context) => ScheduleDetailScreen(),
+    '/settings': (context) => const SettingsView(),
   };
 
   static const initialRoute = '/home';
@@ -17,6 +19,7 @@ class AppRoutes {
   static const notFound = '/404';
   static String task() => '/task';
   static String schedule() => '/schedule';
+  static const settings = '/settings';
 
 // Hay que implementarlo esto es para cuando no encuentre la ruta
 // en caso de que sean rutas dinámicas

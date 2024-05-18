@@ -6,7 +6,7 @@ enum HomeTab {
   tasks,
   schedule,
   notes,
-  settings;
+  profile;
 
   String get title => switch (this) {
         home => 'Inicio',
@@ -14,7 +14,7 @@ enum HomeTab {
         tasks => 'Tareas',
         schedule => 'Horario',
         notes => 'Notas',
-        settings => 'Opciones',
+        profile => 'Perfil',
       };
 
   IconData get iconData => switch (this) {
@@ -23,6 +23,6 @@ enum HomeTab {
         tasks => Icons.task_alt_outlined,
         schedule => Icons.schedule_outlined,
         notes => Icons.note_outlined,
-        settings => Icons.settings_outlined,
+        profile => Icons.person_off_outlined,
       };
 }

@@ -39,11 +39,11 @@ class _SettingsViewState extends State<SettingsView>
       const Text('About'),
     ]; */
 
-    return TabScaffold(
-        topBar: TopBar(
-          title: 'Opciones',
-          canPop: false,
-        ),
+    return PageScaffold(
+        // topBar: TopBar(
+        //   title: 'Opciones',
+        //   canPop: false,
+        // ),
         child: SettingsAppTab(scrollCtrl));
   }
 }

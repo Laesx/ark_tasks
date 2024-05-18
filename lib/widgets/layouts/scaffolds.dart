@@ -45,10 +45,10 @@ class TabScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    assert(
-      context.findAncestorWidgetOfExactType<PageScaffold>() != null,
-      'TabScaffold must have a PageScaffold ancestor',
-    );
+    // assert(
+    //   context.findAncestorWidgetOfExactType<PageScaffold>() != null,
+    //   'TabScaffold must have a PageScaffold ancestor',
+    // );
 
     return Stack(
       fit: StackFit.expand,
