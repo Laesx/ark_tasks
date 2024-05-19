@@ -3,7 +3,7 @@ import 'package:ark_jots/utils/options.dart';
 import 'package:ark_jots/widgets/layouts/top_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ark_jots/utils/local_notification_service.dart';
+import 'package:ark_jots/services/local_notification_service.dart';
 
 class SettingsAppTab extends StatelessWidget {
   const SettingsAppTab(this.scrollCtrl);

@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:ark_jots/models/priority.dart';
 import 'package:hive/hive.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'task_model.g.dart';
 
+@JsonSerializable()
 @HiveType(typeId: 1)
 class Task extends HiveObject {
   @HiveField(0)
@@ -54,40 +56,11 @@ class Task extends HiveObject {
     //this.subtasks = const [],
   });
 
-  factory Task.fromJson(String str) => Task.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory Task.fromMap(Map<String, dynamic> json) => Task(
-        id: json["id"],
-        title: json["title"],
-        description: json["data"],
-        createdAt: DateTime.parse(json["created_at"]),
-        lastUpdated: DateTime.parse(json["last_updated"]),
-        isComplete: json["isComplete"],
-        priority: priorityFromString(json["priority"]),
-        dueDate: DateTime.parse(json["due_date"]),
-        startDate: DateTime.parse(json["start_date"]),
-        reminder: DateTime.parse(json["reminders"]),
-        notes: json["notes"],
-      );
-
-  // This is never used in the app I think.
-  Map<String, dynamic> toMap() => {
-        "id": id,
-        "title": title,
-        "data": description,
-        "created_at": createdAt.toIso8601String(),
-        "last_updated": lastUpdated.toIso8601String(),
-        "isComplete": isComplete,
-        "priority": priority.toString(),
-        "due_date": dueDate?.toIso8601String(),
-        "start_date": startDate?.toIso8601String(),
-        "reminders": reminder?.toIso8601String(),
-        "notes": notes,
-      };
+  factory Task.fromJson(Map<String, dynamic> json) => _$TaskFromJson(json);
+  Map<String, dynamic> toJson() => _$TaskToJson(this);
 }
 
+@JsonSerializable()
 @HiveType(typeId: 2)
 class Subtask extends HiveObject {
   @HiveField(0)
@@ -99,4 +72,8 @@ class Subtask extends HiveObject {
     this.isComplete = false,
     required this.title,
   });
+
+  factory Subtask.fromJson(Map<String, dynamic> json) =>
+      _$SubtaskFromJson(json);
+  Map<String, dynamic> toJson() => _$SubtaskToJson(this);
 }

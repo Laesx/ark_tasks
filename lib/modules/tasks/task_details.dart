@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:ark_jots/utils/tools.dart';
 import 'package:async/async.dart';
 
-import '../../utils/ai_service.dart';
+import '../../services/ai_service.dart';
 
 // ignore: must_be_immutable
 class TaskDetailScreen extends StatefulWidget {

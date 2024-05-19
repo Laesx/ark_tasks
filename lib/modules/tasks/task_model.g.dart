@@ -108,3 +108,61 @@ class SubtaskAdapter extends TypeAdapter<Subtask> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+Task _$TaskFromJson(Map<String, dynamic> json) => Task(
+      id: (json['id'] as num?)?.toInt(),
+      title: json['title'] as String,
+      description: json['description'] as String?,
+      createdAt: DateTime.parse(json['createdAt'] as String),
+      lastUpdated: DateTime.parse(json['lastUpdated'] as String),
+      isComplete: json['isComplete'] as bool? ?? false,
+      priority: $enumDecodeNullable(_$PriorityEnumMap, json['priority']) ??
+          Priority.medium,
+      dueDate: json['dueDate'] == null
+          ? null
+          : DateTime.parse(json['dueDate'] as String),
+      startDate: json['startDate'] == null
+          ? null
+          : DateTime.parse(json['startDate'] as String),
+      reminder: json['reminder'] == null
+          ? null
+          : DateTime.parse(json['reminder'] as String),
+      notes: json['notes'] as String?,
+    )..subtasks = (json['subtasks'] as List<dynamic>)
+        .map((e) => Subtask.fromJson(e as Map<String, dynamic>))
+        .toList();
+
+Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
+      'id': instance.id,
+      'title': instance.title,
+      'description': instance.description,
+      'createdAt': instance.createdAt.toIso8601String(),
+      'lastUpdated': instance.lastUpdated.toIso8601String(),
+      'isComplete': instance.isComplete,
+      'priority': _$PriorityEnumMap[instance.priority]!,
+      'dueDate': instance.dueDate?.toIso8601String(),
+      'startDate': instance.startDate?.toIso8601String(),
+      'reminder': instance.reminder?.toIso8601String(),
+      'notes': instance.notes,
+      'subtasks': instance.subtasks,
+    };
+
+const _$PriorityEnumMap = {
+  Priority.low: 'low',
+  Priority.medium: 'medium',
+  Priority.high: 'high',
+};
+
+Subtask _$SubtaskFromJson(Map<String, dynamic> json) => Subtask(
+      isComplete: json['isComplete'] as bool? ?? false,
+      title: json['title'] as String,
+    );
+
+Map<String, dynamic> _$SubtaskToJson(Subtask instance) => <String, dynamic>{
+      'isComplete': instance.isComplete,
+      'title': instance.title,
+    };
