@@ -1,3 +1,5 @@
+import 'package:ark_jots/modules/auth/auth_service.dart';
+import 'package:ark_jots/modules/auth/login_view.dart';
 import 'package:ark_jots/modules/user/user_header.dart';
 import 'package:ark_jots/modules/user/user_models.dart';
 import 'package:ark_jots/widgets/layouts/scaffolds.dart';
@@ -16,9 +18,28 @@ class UserView extends StatelessWidget {
         bannerUrl:
             "https://s4.anilist.co/file/anilistcdn/user/banner/b460805-nGwZ2Mq22yDi.jpg");
     return PageScaffold(
-      child: CustomScrollView(slivers: [
-        UserHeader(id: user.id, user: user, imageUrl: user.imageUrl)
-      ]),
+      child: StreamBuilder(
+          stream: AuthService().userStream,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return const Center(child: Text('Error'));
+            } else if (snapshot.hasData) {
+              return CustomScrollView(slivers: [
+                UserHeader(id: user.id, user: user, imageUrl: user.imageUrl),
+                SliverList(
+                    delegate: SliverChildListDelegate([
+                  ListTile(
+                    title: const Text('Log Out'),
+                    onTap: () => AuthService().signOut(),
+                  )
+                ]))
+              ]);
+            } else {
+              return LoginView();
+            }
+          }),
     );
   }
 }

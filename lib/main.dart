@@ -2,6 +2,7 @@ import 'package:ark_jots/modules/schedule/schedule_providers.dart';
 import 'package:ark_jots/utils/ai_service.dart';
 import 'package:ark_jots/utils/local_notification_service.dart';
 import 'package:ark_jots/utils/options.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +18,8 @@ Future<void> main() async {
   await LocalNotificationService().init();
   await Options.init();
   //await SharedPrefs().init();
+
+  await Firebase.initializeApp();
 
   // Initializes the AI service
   await AiService.init();

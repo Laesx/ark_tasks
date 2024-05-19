@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "153485569693",
+    "project_id": "notestest-a78c0",
+    "storage_bucket": "notestest-a78c0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:153485569693:android:f089c82bb1f89edff1ee74",
+        "android_client_info": {
+          "package_name": "com.example.ark_jots"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOVD_WJ15TMlNNkvOjIHKjs0vzvWUUNmA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
