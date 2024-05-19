@@ -9,11 +9,13 @@ class FirestoreService {
 
   /// Reads all documments from the topics collection
   Future<List<Task>> getUserTasks() async {
-    var ref = _db.collection('users').doc('admin').collection('tasks');
+    final user = AuthService().user!;
+
+    var ref = _db.collection('users').doc(user.uid).collection('tasks');
     var snapshot = await ref.get();
     var data = snapshot.docs.map((s) => s.data());
-    var topics = data.map((d) => Task.fromJson(d));
-    return topics.toList();
+    var tasks = data.map((d) => Task.fromJson(d)).toList();
+    return tasks;
   }
 
   /// Retrieves a single quiz document
@@ -42,9 +44,16 @@ class FirestoreService {
     var batch = _db.batch();
 
     for (var task in tasks) {
-      // maybe use the task id as the document id
-      var docRef = ref.doc(task.key);
-      batch.set(docRef, task.toJson());
+      // Convert the Task object to a map
+      var taskMap = task.toJson();
+
+      // Convert each Subtask object in the subtasks list to a map
+      taskMap['subtasks'] =
+          task.subtasks.map((subtask) => subtask.toJson()).toList();
+
+      // Firestore generates a unique id for the document
+      var docRef = ref.doc();
+      batch.set(docRef, taskMap);
     }
 
     await batch.commit();
