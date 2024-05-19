@@ -18,11 +18,11 @@ enum HomeTab {
       };
 
   IconData get iconData => switch (this) {
-        home => Icons.home,
+        home => Icons.home_outlined,
         //missions => Icons.people_alt_outlined,
         tasks => Icons.task_alt_outlined,
         schedule => Icons.schedule_outlined,
         notes => Icons.note_outlined,
-        profile => Icons.person_off_outlined,
+        profile => Icons.person_outlined,
       };
 }
