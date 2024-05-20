@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:ark_jots/modules/auth/auth_service.dart';
 import 'package:ark_jots/modules/tasks/task_model.dart';
+import 'package:ark_jots/utils/tools.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:rxdart/rxdart.dart';
 
@@ -56,12 +57,27 @@ class FirestoreService {
       batch.set(docRef, taskMap);
     }
 
+    // Add a last update timestamp to the document
+    batch.set(
+      _db.collection('users').doc(user.uid),
+      {'lastUpdate': FieldValue.serverTimestamp()},
+      SetOptions(merge: true),
+    );
+
     await batch.commit();
   }
 
-  // Fetch the user id
-  Future<String> getUserId() async {
-    var user = AuthService().user;
-    return user?.uid ?? '';
+  // Retrieve the last update timestamp from Firestore
+  Future<String> getLastUpdate() async {
+    final user = AuthService().user!;
+
+    var ref = _db.collection('users').doc(user.uid);
+    var snapshot = await ref.get();
+    var data = snapshot.data();
+    if (data != null && data['lastUpdate'] != null) {
+      // return (data['lastUpdate'] as Timestamp).toDate();
+      return Tools.formatDateTime((data['lastUpdate'] as Timestamp).toDate());
+    }
+    return "Nunca";
   }
 }

@@ -20,6 +20,7 @@ class UserView extends StatelessWidget {
 
     final authUser = AuthService().user;
 
+    // TODO: Delete this pictures and use placeholders
     final user = User(
         id: 15,
         name: authUser!.displayName ?? "John Doe",
@@ -27,6 +28,7 @@ class UserView extends StatelessWidget {
             "https://s4.anilist.co/file/anilistcdn/user/avatar/large/b460805-oF5QFTje80wf.png",
         bannerUrl:
             "https://s4.anilist.co/file/anilistcdn/user/banner/b460805-nGwZ2Mq22yDi.jpg");
+
     return PageScaffold(
       child: StreamBuilder(
           stream: AuthService().userStream,
@@ -48,7 +50,7 @@ class UserView extends StatelessWidget {
                       child: Column(
                         children: [
                           const ListTile(
-                            title: Text('Backup your Tasks!',
+                            title: Text('¡Haz una Copia de Seguridad!',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold)),
@@ -61,28 +63,40 @@ class UserView extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 _Button(
-                                  label: "Upload all Tasks",
+                                  label: "Subir Tareas",
                                   icon: Icons.upload,
                                   onTap: () => FirestoreService()
                                       .uploadTasks(taskProvider.tasks),
                                 ),
                                 SizedBox(width: 10),
                                 _Button(
-                                  label: "Download all Tasks",
+                                  label: "Descargar Tareas",
                                   icon: Icons.download,
                                   onTap: () => print('Log Out'),
                                 ),
                               ],
                             ),
-                          )
+                          ),
+                          ListTile(
+                            title: FutureBuilder(
+                              future: FirestoreService().getLastUpdate(),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return const Text("Cargando...");
+                                } else if (snapshot.hasError) {
+                                  return const Text('Error');
+                                } else {
+                                  return Text(
+                                      "Ultima Copia de Seguridad: ${snapshot.data}");
+                                }
+                              },
+                            ),
+                          ),
                         ],
                       ),
                     ),
                   ),
-                  ListTile(
-                    title: const Text('Log Out'),
-                    onTap: () => AuthService().signOut(),
-                  )
                 ]))
               ]);
             } else {
@@ -101,20 +115,46 @@ class _ButtonRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final buttons = [
+      // _Button(
+      //   label: 'Edit Profile',
+      //   icon: Icons.edit,
+      //   onTap: () => print('Edit Profile'),
+      // ),
+      // _Button(
+      //   label: 'Settings',
+      //   icon: Icons.settings,
+      //   onTap: () => print('Settings'),
+      // ),
       _Button(
-        label: 'Edit Profile',
-        icon: Icons.edit,
-        onTap: () => print('Edit Profile'),
-      ),
-      _Button(
-        label: 'Settings',
-        icon: Icons.settings,
+        label: 'Estadisticas',
+        icon: Icons.bar_chart,
         onTap: () => print('Settings'),
       ),
       _Button(
-        label: 'Log Out',
+        label: 'Cerrar Sesión',
         icon: Icons.logout,
-        onTap: () => print('Log Out'),
+        onTap: () => showDialog(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+                  title: const Text("Cerrar Sesión"),
+                  content: const Text(
+                      "¡CUIDADO! Si estás usando una cuenta de invitado perderás todos los datos en la nube. ¿Estás seguro de que quieres cerrar sesión?"),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        AuthService().signOut();
+                        Navigator.pop(context);
+                      },
+                      child: const Text("Cerrar Sesión"),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text("Cancelar"),
+                    ),
+                  ],
+                )),
       ),
     ];
     return SliverToBoxAdapter(
