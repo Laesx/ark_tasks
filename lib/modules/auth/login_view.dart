@@ -1,5 +1,6 @@
 import 'package:ark_jots/modules/auth/auth_service.dart';
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
@@ -12,17 +13,25 @@ class LoginView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          const FlutterLogo(
-            size: 150,
-          ),
+          Center(
+              child: Text("Iniciar Sesión", style: TextStyle(fontSize: 20))),
+          Image.asset('assets/logo_transparent.png', width: 150),
           Flexible(
             child: LoginButton(
               icon: Icons.verified_user,
-              text: 'Continue as Guest',
+              text: 'Cuenta de Invitado',
               loginMethod: AuthService().anonLogin,
               color: Colors.deepPurple,
             ),
-          )
+          ),
+          Flexible(
+            child: LoginButton(
+              icon: Ionicons.logo_google,
+              text: 'Iniciar Sesión con Google',
+              loginMethod: AuthService().googleLogin,
+              color: Colors.blue,
+            ),
+          ),
         ],
       ),
     );

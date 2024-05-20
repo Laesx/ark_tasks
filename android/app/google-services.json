@@ -12,7 +12,20 @@
           "package_name": "com.example.ark_jots"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "153485569693-l5s611vs6uiof8ngdrfpjf86ejlcn0rs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ark_jots",
+            "certificate_hash": "3838b36f0cbe73566c1aa7168f6e957c9cc3dcf8"
+          }
+        },
+        {
+          "client_id": "153485569693-hvavnhi3sng9b288pcann2u08r4qj6f8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCOVD_WJ15TMlNNkvOjIHKjs0vzvWUUNmA"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "153485569693-hvavnhi3sng9b288pcann2u08r4qj6f8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "153485569693-eefseg2j2crop3ssbmo3vkkacfiqlou3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.arkJots"
+              }
+            }
+          ]
         }
       }
     }

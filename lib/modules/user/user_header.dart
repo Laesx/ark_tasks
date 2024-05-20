@@ -149,19 +149,19 @@ class _Delegate extends SliverPersistentHeaderDelegate {
       fit: StackFit.expand,
       children: [
         if (transition < 1) ...[
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: bannerOffset,
-            child: user?.bannerUrl != null
-                ? Image.network(user!.bannerUrl!)
-                : DecoratedBox(
-                    decoration: BoxDecoration(
-                      color: theme.colorScheme.surfaceVariant,
-                    ),
-                  ),
-          ),
+          // Positioned(
+          //   top: 0,
+          //   left: 0,
+          //   right: 0,
+          //   bottom: bannerOffset,
+          //   child: user?.bannerUrl != null
+          //       ? Image.network(user!.bannerUrl!)
+          //       : DecoratedBox(
+          //           decoration: BoxDecoration(
+          //             color: theme.colorScheme.surfaceVariant,
+          //           ),
+          //         ),
+          // ),
           Positioned(
             left: 0,
             right: 0,
@@ -249,7 +249,8 @@ class _Delegate extends SliverPersistentHeaderDelegate {
           );
   }
 
-  static const _bannerBaseHeight = 200.0;
+  // static const _bannerBaseHeight = 200.0;
+  static const _bannerBaseHeight = 100.0;
 
   @override
   double get minExtent => topOffset + Consts.tapTargetSize;

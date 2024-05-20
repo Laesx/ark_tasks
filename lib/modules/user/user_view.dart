@@ -18,10 +18,12 @@ class UserView extends StatelessWidget {
     // This may cause problems since it "reads" maybe it should be "watch"
     final taskProvider = context.read<TaskProvider>();
 
+    final authUser = AuthService().user;
+
     final user = User(
         id: 15,
-        name: "John Doe",
-        imageUrl:
+        name: authUser!.displayName ?? "John Doe",
+        imageUrl: authUser.photoURL ??
             "https://s4.anilist.co/file/anilistcdn/user/avatar/large/b460805-oF5QFTje80wf.png",
         bannerUrl:
             "https://s4.anilist.co/file/anilistcdn/user/banner/b460805-nGwZ2Mq22yDi.jpg");
@@ -61,7 +63,8 @@ class UserView extends StatelessWidget {
                                 _Button(
                                   label: "Upload all Tasks",
                                   icon: Icons.upload,
-                                  onTap: () => print('Log Out'),
+                                  onTap: () => FirestoreService()
+                                      .uploadTasks(taskProvider.tasks),
                                 ),
                                 SizedBox(width: 10),
                                 _Button(
@@ -75,11 +78,6 @@ class UserView extends StatelessWidget {
                         ],
                       ),
                     ),
-                  ),
-                  ListTile(
-                    title: const Text('Upload all Tasks'),
-                    onTap: () =>
-                        FirestoreService().uploadTasks(taskProvider.tasks),
                   ),
                   ListTile(
                     title: const Text('Log Out'),

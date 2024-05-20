@@ -59,4 +59,5 @@ class DefaultFirebaseOptions {
     projectId: 'notestest-a78c0',
     storageBucket: 'notestest-a78c0.appspot.com',
   );
+
 }

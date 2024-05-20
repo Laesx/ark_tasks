@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:ark_jots/models/priority.dart';
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';

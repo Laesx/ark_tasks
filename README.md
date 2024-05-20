@@ -5,8 +5,9 @@ A new Flutter project.
 Stuff I tried:
 
 https://pub.dev/packages/animated_reorderable_list
-
 https://pub.dev/packages/flutter_slidable
+https://pub.dev/packages/google_sign_in
+
 
 
 
