@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:ark_jots/models/priority.dart';
 import 'package:ark_jots/modules/tasks/task_model.dart';
+import 'package:ark_jots/services/firestore_service.dart';
 import 'package:hive/hive.dart';
 
 import 'package:flutter/material.dart';
@@ -29,6 +30,51 @@ class TaskProvider extends ChangeNotifier {
     Hive.openBox<Task>(_tasksBoxKey).then((box) {
       _tasks.addAll(box.values);
       notifyListeners();
+    });
+  }
+
+  // Download the Tasks from Firestore.
+  void downloadTasks() async {
+    // Download tasks from the server.
+    List<Task> tasks = await FirestoreService().getUserTasks();
+    // _tasksBox.clear();
+    // _tasks.clear();
+
+    // for (var task in tasks) {
+    //   addTask(task);
+    // }
+
+    for (var task in tasks) {
+      if (_tasks.any((e) => e.id == task.id)) {
+        int index = _tasks.indexWhere((t) => t.id == task.id);
+        //_tasksBox(index, task);
+        //_tasks[index].delete();
+        _tasks[index].updateWith(task);
+        _tasks[index].save();
+      } else {
+        addTask(task);
+        // _tasks.add(task);
+        // _tasksBox.add(task);
+      }
+    }
+
+    // _tasksBox.clear();
+    // for (var task in _tasks) {
+    //   _tasksBox.add(task);
+    // }
+
+    notifyListeners();
+  }
+
+  DateTime? get lastUpdated {
+    if (_tasks.isEmpty) {
+      return null;
+    }
+    return _tasks.map((e) => e.lastUpdated).reduce((a, b) {
+      if (a.isAfter(b)) {
+        return a;
+      }
+      return b;
     });
   }
 
@@ -64,7 +110,13 @@ class TaskProvider extends ChangeNotifier {
   }
 
   void removeTask(Task task) {
-    task.delete();
+    try {
+      // _tasksBox.delete(task.key);
+      task.delete();
+    } catch (e) {
+      print(e);
+    }
+    //task.delete();
     _tasks.remove(task);
     //_tasksBox.delete(task.key);
     notifyListeners();

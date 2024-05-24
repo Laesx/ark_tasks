@@ -7,14 +7,12 @@ class DemoStuff {
 
   final List<Task> demoTasks = [
     Task(
-      id: 1,
       title: 'Task 1',
       description: "Description 1",
       createdAt: DateTime.now(),
       lastUpdated: DateTime.now(),
     ),
     Task(
-      id: 2,
       title: 'Task 2',
       description: 'Description 2',
       createdAt: DateTime.now(),
@@ -22,7 +20,6 @@ class DemoStuff {
       isComplete: true,
     ),
     Task(
-      id: 3,
       title: 'Task 3',
       description: 'Description 3',
       createdAt: DateTime.now(),

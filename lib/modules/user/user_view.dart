@@ -4,6 +4,7 @@ import 'package:ark_jots/modules/tasks/task_providers.dart';
 import 'package:ark_jots/modules/user/user_header.dart';
 import 'package:ark_jots/modules/user/user_models.dart';
 import 'package:ark_jots/services/firestore_service.dart';
+import 'package:ark_jots/utils/tools.dart';
 import 'package:ark_jots/widgets/layouts/constrained_view.dart';
 import 'package:ark_jots/widgets/layouts/scaffolds.dart';
 import 'package:ark_jots/widgets/shadowed_overflow_list.dart';
@@ -23,9 +24,9 @@ class UserView extends StatelessWidget {
     // TODO: Delete this pictures and use placeholders
     final user = User(
         id: 15,
-        name: authUser!.displayName ?? "John Doe",
-        imageUrl: authUser.photoURL ??
-            "https://s4.anilist.co/file/anilistcdn/user/avatar/large/b460805-oF5QFTje80wf.png",
+        name: authUser?.displayName ?? "John Doe",
+        imageUrl: authUser?.photoURL ??
+            "https://lh3.googleusercontent.com/pw/AP1GczNQUAmF5dezxpV3FPUvpNXIgW88Hnxegl7PnLYzB-WBSJHcoTvWlZp8tQ2Ps-7REo4_IJzB2oFu_nfJ2uCAAXr-2Qvxgj6_Uf1Dy0qzCyfoP5TVL5Y2cx5anHTRrEJsfKmNXIOXHU0WMVpPv5p6D2ba=w0?.png",
         bannerUrl:
             "https://s4.anilist.co/file/anilistcdn/user/banner/b460805-nGwZ2Mq22yDi.jpg");
 
@@ -72,7 +73,10 @@ class UserView extends StatelessWidget {
                                 _Button(
                                   label: "Descargar Tareas",
                                   icon: Icons.download,
-                                  onTap: () => print('Log Out'),
+                                  onTap: () {
+                                    taskProvider.downloadTasks();
+                                    if (taskProvider.tasks.isEmpty) {}
+                                  },
                                 ),
                               ],
                             ),
@@ -88,11 +92,14 @@ class UserView extends StatelessWidget {
                                   return const Text('Error');
                                 } else {
                                   return Text(
-                                      "Ultima Copia de Seguridad: ${snapshot.data}");
+                                      "Última Copia de Seguridad: ${snapshot.data}");
                                 }
                               },
                             ),
                           ),
+                          ListTile(
+                              title: Text(
+                                  "Última Modificación Local: ${Tools.formatDateTime(taskProvider.lastUpdated)}")),
                         ],
                       ),
                     ),

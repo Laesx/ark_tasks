@@ -5,6 +5,17 @@ class Tools {
   static String formatDateTime(DateTime? dateTime) {
     if (dateTime != null) {
       if (dateTime.year != DateTime.now().year) {
+        return DateFormat('H:mm EEE, d LLL y', "es_ES").format(dateTime);
+      }
+      return DateFormat('H:mm EEE, d LLL', "es_ES").format(dateTime);
+    } else {
+      return ' ';
+    }
+  }
+
+  static String formatDate(DateTime? dateTime) {
+    if (dateTime != null) {
+      if (dateTime.year != DateTime.now().year) {
         return DateFormat('EEE, d LLL y', "es_ES").format(dateTime);
       }
       return DateFormat('EEE, d LLL', "es_ES").format(dateTime);

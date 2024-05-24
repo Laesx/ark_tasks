@@ -151,9 +151,7 @@ class _TaskDetails extends StatelessWidget {
                 ),
                 const SizedBox(width: 5),
                 Text(
-                  task.dueDate != null
-                      ? Tools.formatDateTime(task.dueDate!)
-                      : "",
+                  task.dueDate != null ? Tools.formatDate(task.dueDate!) : "",
                   style: TextStyle(
                     color: task.dueDate != null
                         ? task.dueDate!.isBefore(

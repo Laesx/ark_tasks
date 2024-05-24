@@ -8,7 +8,7 @@ part 'task_model.g.dart';
 @HiveType(typeId: 1)
 class Task extends HiveObject {
   @HiveField(0)
-  int? id;
+  String? id;
   @HiveField(1)
   String title;
   @HiveField(2)
@@ -53,6 +53,21 @@ class Task extends HiveObject {
     this.notes,
     //this.subtasks = const [],
   });
+
+  void updateWith(Task other) {
+    this.id = other.id;
+    this.title = other.title;
+    this.description = other.description;
+    this.createdAt = other.createdAt;
+    this.lastUpdated = other.lastUpdated;
+    this.isComplete = other.isComplete;
+    this.priority = other.priority;
+    this.dueDate = other.dueDate;
+    this.startDate = other.startDate;
+    this.reminder = other.reminder;
+    this.notes = other.notes;
+    this.subtasks = List<Subtask>.from(other.subtasks);
+  }
 
   factory Task.fromJson(Map<String, dynamic> json) => _$TaskFromJson(json);
   Map<String, dynamic> toJson() => _$TaskToJson(this);

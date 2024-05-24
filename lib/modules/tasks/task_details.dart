@@ -267,7 +267,7 @@ class _DueDateState extends State<_DueDate> {
         children: [
           const Icon(Icons.calendar_month_outlined),
           const SizedBox(width: 10),
-          Text('Fecha límite ${Tools.formatDateTime(widget.task.dueDate)}'),
+          Text('Fecha límite ${Tools.formatDate(widget.task.dueDate)}'),
         ],
       ),
     );

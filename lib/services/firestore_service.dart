@@ -45,6 +45,18 @@ class FirestoreService {
     var batch = _db.batch();
 
     for (var task in tasks) {
+      // Firestore generates a unique id for the document if one is not present
+      var docRef;
+
+      if (task.id == null) {
+        docRef = ref.doc();
+        // Update the task id with the Firestore id
+        task.id = docRef.id;
+        print('Task ID: ${task.id}');
+        task.save();
+      } else {
+        docRef = ref.doc(task.id);
+      }
       // Convert the Task object to a map
       var taskMap = task.toJson();
 
@@ -52,8 +64,6 @@ class FirestoreService {
       taskMap['subtasks'] =
           task.subtasks.map((subtask) => subtask.toJson()).toList();
 
-      // Firestore generates a unique id for the document
-      var docRef = ref.doc();
       batch.set(docRef, taskMap);
     }
 
