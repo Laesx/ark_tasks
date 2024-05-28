@@ -37,31 +37,16 @@ class TaskProvider extends ChangeNotifier {
   void downloadTasks() async {
     // Download tasks from the server.
     List<Task> tasks = await FirestoreService().getUserTasks();
-    // _tasksBox.clear();
-    // _tasks.clear();
-
-    // for (var task in tasks) {
-    //   addTask(task);
-    // }
 
     for (var task in tasks) {
       if (_tasks.any((e) => e.id == task.id)) {
         int index = _tasks.indexWhere((t) => t.id == task.id);
-        //_tasksBox(index, task);
-        //_tasks[index].delete();
         _tasks[index].updateWith(task);
         _tasks[index].save();
       } else {
         addTask(task);
-        // _tasks.add(task);
-        // _tasksBox.add(task);
       }
     }
-
-    // _tasksBox.clear();
-    // for (var task in _tasks) {
-    //   _tasksBox.add(task);
-    // }
 
     notifyListeners();
   }
@@ -123,6 +108,7 @@ class TaskProvider extends ChangeNotifier {
   }
 
   void updateTask(Task task) {
+    task.lastUpdated = DateTime.now();
     task.save();
     notifyListeners();
   }
@@ -181,5 +167,77 @@ class TaskProvider extends ChangeNotifier {
 
     // Add the random number of days to the start date
     return startDate.add(Duration(days: daysToAdd));
+  }
+
+  // Section to task sort
+  TaskSort _sort = TaskSort.dueDate;
+
+  TaskSort get sort => _sort;
+
+  set sort(TaskSort value) {
+    _sort = value;
+    _sortTasks();
+    //notifyListeners();
+  }
+
+  void _sortTasks() {
+    _tasks.sort((a, b) {
+      switch (sort) {
+        case TaskSort.dueDate:
+          if (a.dueDate == null && b.dueDate == null) {
+            // return -1;
+            return 1;
+          } else if (a.dueDate == null) {
+            return 1;
+          } else if (b.dueDate == null) {
+            return -1;
+          } else {
+            return a.dueDate!.compareTo(b.dueDate!);
+          }
+        case TaskSort.lastUpdated:
+          return a.lastUpdated.compareTo(b.lastUpdated);
+        case TaskSort.created:
+          return a.createdAt.compareTo(b.createdAt);
+        case TaskSort.title:
+          return a.title.compareTo(b.title);
+        default:
+          return 0;
+      }
+    });
+    notifyListeners();
+  }
+}
+
+enum TaskSort { dueDate, lastUpdated, created, title }
+
+extension TaskSortExtension on TaskSort {
+  String get name {
+    switch (this) {
+      case TaskSort.dueDate:
+        return "Due Date";
+      case TaskSort.lastUpdated:
+        return "Last Updated";
+      case TaskSort.created:
+        return "Created";
+      case TaskSort.title:
+        return "Title";
+    }
+  }
+
+  int compare(Task a, Task b) {
+    switch (this) {
+      case TaskSort.dueDate:
+        if (a.dueDate == null || b.dueDate == null) {
+          return -1;
+        } else {
+          return a.dueDate!.compareTo(b.dueDate!);
+        }
+      case TaskSort.lastUpdated:
+        return a.lastUpdated.compareTo(b.lastUpdated);
+      case TaskSort.created:
+        return a.createdAt.compareTo(b.createdAt);
+      case TaskSort.title:
+        return a.title.compareTo(b.title);
+    }
   }
 }

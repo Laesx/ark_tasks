@@ -56,17 +56,31 @@ class _TasksViewState extends State<TasksView> {
         trailing: [
           SubmenuButton(menuChildren: [
             MenuItemButton(
-              child: const Text("Ordenar por Fecha"),
+              child: const Text("Ordenar por Titulo"),
               onPressed: () {
-                taskProvider.tasks.sort((a, b) {
-                  if (a.dueDate == null || b.dueDate == null) {
-                    return -1;
-                  } else {
-                    return a.dueDate!.compareTo(b.dueDate!);
-                  }
-                  //return a.dueDate.compareTo(b.dueDate);
-                });
-                setState(() {});
+                taskProvider.sort = TaskSort.title;
+                // setState(() {});
+              },
+            ),
+            MenuItemButton(
+              child: const Text("Ordenar por Fecha de Vencimiento"),
+              onPressed: () {
+                taskProvider.sort = TaskSort.dueDate;
+                // setState(() {});
+              },
+            ),
+            MenuItemButton(
+              child: const Text("Ordenar por Fecha de Creación"),
+              onPressed: () {
+                taskProvider.sort = TaskSort.created;
+                // setState(() {});
+              },
+            ),
+            MenuItemButton(
+              child: const Text("Ordenar por Última Modificación"),
+              onPressed: () {
+                taskProvider.sort = TaskSort.lastUpdated;
+                // setState(() {});
               },
             ),
           ], child: Icon(Icons.sort_outlined))
