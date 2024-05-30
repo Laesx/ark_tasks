@@ -2,6 +2,7 @@ import 'package:ark_jots/widgets/fields/weekday_field.dart';
 import 'package:ark_jots/widgets/fields/time_field.dart';
 import 'package:ark_jots/widgets/layouts/top_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:ark_jots/utils/tools.dart';
 
@@ -20,10 +21,6 @@ class _ScheduleDetailScreenState extends State<ScheduleDetailScreen> {
   Widget build(BuildContext context) {
     final schedules = context.watch<ScheduleProvider>();
     final schedule = schedules.selectedSchedule!;
-
-    // This is for the submenu to appear on the center of the screen
-    // final screenSize = MediaQuery.of(context).size;
-    // final xOffSet = screenSize.width * 0.25;
 
     return Scaffold(
         appBar: const TopBar(
@@ -74,22 +71,23 @@ class _ScheduleDetailScreenState extends State<ScheduleDetailScreen> {
                       ),
                     ),
                   ]),
-                  // Due Date Menu
-                  //WeekdaySubmenu(xOffSet: xOffSet, schedule: schedule),
-                  // Row(
-                  //   children: [
-                  //     const Icon(Icons.calendar_month_outlined),
-                  //     const SizedBox(width: 10),
-                  //     Text('Día de la semana: ${widget.schedule.weekday}'),
-                  //   ],
-                  // ),
-                  WeekdayField(
-                      label: "Día de la semana",
-                      value: schedule.weekday,
-                      onChanged: (value) {
-                        schedule.weekday = value!;
-                        schedules.updateOrCreateSchedule(schedule);
-                      }),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    children: [
+                      Flexible(
+                        child: WeekdayField(
+                            label: "Día de la semana",
+                            value: schedule.weekday,
+                            onChanged: (value) {
+                              schedule.weekday = value!;
+                              schedules.updateOrCreateSchedule(schedule);
+                            }),
+                      ),
+                      ColorSelector(schedule: schedule, schedules: schedules),
+                    ],
+                  ),
                   const SizedBox(
                     height: 20,
                   ),
@@ -130,6 +128,9 @@ class _ScheduleDetailScreenState extends State<ScheduleDetailScreen> {
                       border: OutlineInputBorder(),
                     ),
                   ),
+                  const SizedBox(
+                    height: 20,
+                  ),
                 ],
               ),
             ),
@@ -138,102 +139,81 @@ class _ScheduleDetailScreenState extends State<ScheduleDetailScreen> {
   }
 }
 
-Future<String> showWeekdayMenu(context) async {
-  final List<String> weekdays = [
-    'lunes',
-    'martes',
-    'miércoles',
-    'jueves',
-    'viernes',
-    'sábado',
-    'domingo'
-  ];
-  var selectedDay = await showDialog<String>(
-    context: context,
-    builder: (BuildContext context) {
-      return SimpleDialog(
-        title: const Text('Selecciona el día de la semana'),
-        children: weekdays.map((String day) {
-          return SimpleDialogOption(
-            onPressed: () {
-              Navigator.pop(context, day);
-            },
-            child: Text(day.capitalize()),
-          );
-        }).toList(),
-      );
-    },
-  );
-
-  if (selectedDay != null) {
-    // Use the selected day
-    print('Selected day: $selectedDay');
-  } else {
-    // User canceled the dialog
-    print('User canceled the dialog');
-    selectedDay = Tools.getWeekday(DateTime.now());
-  }
-  return selectedDay;
-}
-
-class WeekdaySubmenu extends StatefulWidget {
-  const WeekdaySubmenu({
+class ColorSelector extends StatelessWidget {
+  const ColorSelector({
     super.key,
-    required this.xOffSet,
     required this.schedule,
+    required this.schedules,
   });
 
-  final double xOffSet;
   final Schedule schedule;
+  final ScheduleProvider schedules;
 
-  @override
-  State<WeekdaySubmenu> createState() => _WeekdaySubmenuState();
-}
-
-class _WeekdaySubmenuState extends State<WeekdaySubmenu> {
   @override
   Widget build(BuildContext context) {
-    return SubmenuButton(
-      alignmentOffset: Offset(widget.xOffSet, 0),
-      menuChildren: [
-        MenuItemButton(
-            leadingIcon: const Icon(Icons.calendar_today),
-            child: Text('Hoy (${Tools.getWeekday(DateTime.now())})'),
-            onPressed: () {
-              widget.schedule.weekday = Tools.getWeekday(DateTime.now());
-              setState(() {});
-            }),
-        MenuItemButton(
-            leadingIcon: const Icon(Icons.calendar_today),
-            child: Text('Mañana (${Tools.getWeekday(Tools.getTomorrow())})'),
-            onPressed: () {
-              widget.schedule.weekday = Tools.getWeekday(Tools.getTomorrow());
-              setState(() {});
-            }),
-        MenuItemButton(
-            leadingIcon: const Icon(Icons.edit_calendar_outlined),
-            child: const Text("Elegir fecha"),
-            onPressed: () {
-              showDatePicker(
-                      context: context,
-                      firstDate: DateTime.now(),
-                      lastDate: DateTime(2100))
-                  .then((value) {
-                if (value != null) {
-                  widget.schedule.weekday = Tools.getWeekday(value);
-                  setState(() {});
-                }
-              });
-              //submenuButtonKey.currentState!.closeMenu();
-            }),
-      ],
-      child: Row(
-        children: [
-          const Icon(Icons.calendar_month_outlined),
-          const SizedBox(width: 10),
-          Text('Día de la semana: ${widget.schedule.weekday}'),
-        ],
-      ),
+    return IconButton(
+      onPressed: () async {
+        final List<Color> colors = [
+          Colors.red,
+          Colors.orange,
+          Colors.yellow,
+          Colors.green,
+          Colors.blue,
+          Colors.indigo,
+          Colors.purple,
+          Colors.brown,
+          Colors.grey,
+          Colors.white,
+        ];
+
+        Color? selectedColor = await showDialog<Color>(
+          context: context,
+          builder: (BuildContext context) {
+            return SimpleDialog(
+              title: const Text('Selecciona un color para el horario'),
+              children: [
+                Container(
+                  width: double.maxFinite,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GridView.count(
+                      shrinkWrap: true,
+                      crossAxisCount: 5,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 5,
+                      children: colors.map((Color color) {
+                        return InkWell(
+                          onTap: () {
+                            Navigator.pop(context, color);
+                          },
+                          child: CircleAvatar(backgroundColor: color),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                ),
+              ],
+              // children: colors.map((Color color) {
+              //   return SimpleDialogOption(
+              //     onPressed: () {
+              //       Navigator.pop(context, color);
+              //     },
+              //     child: CircleAvatar(backgroundColor: color),
+              //   );
+              // }).toList(),
+            );
+          },
+        );
+
+        if (selectedColor != null) {
+          // Use the selected color
+          schedule.color = selectedColor.value.toString();
+          print('Selected color: ${selectedColor.value.toString()}');
+          schedules.updateOrCreateSchedule(schedule);
+        }
+      },
+      icon: Icon(Icons.color_lens),
+      color: schedule.colorValue,
     );
   }
 }

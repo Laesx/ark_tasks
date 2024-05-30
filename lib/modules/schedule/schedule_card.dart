@@ -78,7 +78,7 @@ class _ScheduleColor extends StatelessWidget {
         width: 20,
         height: 20,
         decoration: BoxDecoration(
-          color: Colors.blue,
+          color: schedule.colorValue,
           borderRadius: Consts.borderRadiusMax,
         ),
         // color: _stringtoColor(schedule.color ?? "FF0000"),

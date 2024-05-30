@@ -4,7 +4,6 @@ import 'package:ark_jots/modules/tasks/task_card.dart';
 import 'package:ark_jots/modules/tasks/task_model.dart';
 import 'package:ark_jots/modules/tasks/task_providers.dart';
 import 'package:ark_jots/services/local_notification_service.dart';
-import 'package:ark_jots/widgets/fields/time_field.dart';
 import 'package:ark_jots/widgets/layouts/top_bar.dart';
 import 'package:choice/choice.dart';
 import 'package:flutter/material.dart';
@@ -100,14 +99,6 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                   // Subtasks functionality
                   _SubtasksSection(
                       widget: widget, task: task, controller: textController),
-
-                  // AI Subtask Suggestions
-                  /* ExpansionTile(
-                      title: const Text('AI Subtask Suggestions'),
-                      children: [
-                        _SubtastkSuggestions(task: task),
-                      ]), */
-
                   _SubtaskPrompt(
                     task: task,
                     onUpdated: () => taskProvider.updateOrCreateTask(task),
@@ -122,19 +113,9 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  // Flexible(
-                  //       fit: FlexFit.loose,
-                  //       child: TimeField(
-                  //           label: "Recordatorio",
-                  //           value: task.reminder,
-                  //           onChanged: (value) {
-                  //             task.reminder = value!;
-                  //             //task.reminder = Tools.timeToText(value!);
-                  //             //taskProvider.updateOrCreateTask(task);
-                  //           }),
-                  //     ),
                   // TODO: Reminders Menu
-                  _Reminders(xOffSet: xOffSet, task: task),
+                  _Reminders(
+                      xOffSet: xOffSet, task: task, taskProvider: taskProvider),
                   TextFormField(
                     initialValue: task.description,
                     onChanged: (value) => task.description = value,
@@ -158,10 +139,12 @@ class _Reminders extends StatefulWidget {
     super.key,
     required this.xOffSet,
     required this.task,
+    required this.taskProvider,
   });
 
   final double xOffSet;
   final Task task;
+  final TaskProvider taskProvider;
 
   @override
   State<_Reminders> createState() => _RemindersState();
@@ -184,6 +167,12 @@ class _RemindersState extends State<_Reminders> {
             leadingIcon: const Icon(Icons.notifications),
             child: const Text("Seleccionar día y hora"),
             onPressed: () {
+              // This is to make sure the task is saved before setting the reminder
+              // so it has a key
+              if (widget.task.title.isNotEmpty) {
+                widget.taskProvider.updateOrCreateTask(widget.task);
+              }
+
               showDateTimePicker(
                       context: context,
                       firstDate: DateTime.now(),
@@ -192,10 +181,10 @@ class _RemindersState extends State<_Reminders> {
                 if (value != null) {
                   widget.task.reminder = value;
                   LocalNotificationService().scheduleNotification(
-                      id: widget.task.key,
-                      title: widget.task.title,
-                      body: widget.task.description,
-                      scheduledDate: widget.task.reminder!);
+                      widget.task.key,
+                      "Recordatorio de Tarea",
+                      widget.task.title,
+                      widget.task.reminder!);
                   setState(() {});
                 }
               });

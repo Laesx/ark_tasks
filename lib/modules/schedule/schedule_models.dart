@@ -34,6 +34,10 @@ class Schedule extends HiveObject {
     return TimeOfDay(hour: int.parse(time[0]), minute: int.parse(time[1]));
   }
 
+  Color get colorValue {
+    return Color(int.parse(color ?? '4280391411'));
+  }
+
   Schedule({
     this.id,
     required this.name,

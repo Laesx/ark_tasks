@@ -19,29 +19,19 @@ class FirestoreService {
     return tasks;
   }
 
-  /// Retrieves a single quiz document
-  // Future<Quiz> getQuiz(String quizId) async {
-  //   var ref = _db.collection('quizzes').doc(quizId);
-  //   var snapshot = await ref.get();
-  //   return Quiz.fromJson(snapshot.data() ?? {});
-  // }
-
-  // Stream<Report> streamReport() {
-  //   return AuthService().userStream.switchMap((user) {
-  //     if (user != null) {
-  //       var ref = _db.collection('reports').doc(user.uid);
-  //       return ref.snapshots().map((doc) => Report.fromJson(doc.data()!));
-  //     } else {
-  //       return Stream.fromIterable([Report()]);
-  //     }
-  //   });
-  // }
-
   /// Uploads all tasks to Firestore
   Future<void> uploadTasks(List<Task> tasks) async {
     final user = AuthService().user!;
 
     var ref = _db.collection('users').doc(user.uid).collection('tasks');
+    // Delete all documents in the collection before uploading the new ones
+    var snapshot = await ref.get();
+    // Create a list of delete operations
+    var deleteOperations =
+        snapshot.docs.map((doc) => doc.reference.delete()).toList();
+    // Wait for all delete operations to complete
+    await Future.wait(deleteOperations);
+
     var batch = _db.batch();
 
     for (var task in tasks) {
@@ -52,7 +42,7 @@ class FirestoreService {
         docRef = ref.doc();
         // Update the task id with the Firestore id
         task.id = docRef.id;
-        print('Task ID: ${task.id}');
+        // print('Task ID: ${task.id}');
         task.save();
       } else {
         docRef = ref.doc(task.id);

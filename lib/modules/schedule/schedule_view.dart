@@ -7,29 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ScheduleView extends StatelessWidget {
-  final List<Schedule> schedule = [
-    Schedule(
-        name: "Lesson 1",
-        timeStart: "08:00",
-        timeEnd: "09:00",
-        weekday: "Lunes"),
-    Schedule(
-        name: "Lesson 2",
-        timeStart: "09:00",
-        timeEnd: "10:00",
-        weekday: "Lunes"),
-    Schedule(
-        name: "Lesson 3",
-        timeStart: "10:00",
-        timeEnd: "11:00",
-        weekday: "Martes"),
-    Schedule(
-        name: "Lesson 4",
-        timeStart: "11:00",
-        timeEnd: "12:00",
-        weekday: "Martes"),
-  ];
-
   final ScrollController scrollCtrl;
 
   ScheduleView(this.scrollCtrl, {super.key});
@@ -91,7 +68,7 @@ class ScheduleView extends StatelessWidget {
                   name: '',
                   timeStart: '10:00',
                   timeEnd: '10:00',
-                  weekday: 'lunes');
+                  weekday: schedules.weekday);
               schedules.selectedSchedule = schedule;
               Navigator.pushNamed(context, "/schedule");
             })

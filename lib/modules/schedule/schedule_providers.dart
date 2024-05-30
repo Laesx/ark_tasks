@@ -34,6 +34,7 @@ class ScheduleProvider extends ChangeNotifier {
     // Load schedule from Hive.
     Hive.openBox<Schedule>(_scheduleBoxKey).then((box) {
       _schedule.addAll(box.values);
+      _orderSchedule();
       notifyListeners();
     });
 
@@ -41,16 +42,12 @@ class ScheduleProvider extends ChangeNotifier {
   }
 
   List<Schedule> get scheduleToday {
-    // final now = DateTime.now();
-    // final weekday = now.weekday;
-    //final weekday = Tools.getWeekday(DateTime.now());
-    //print(weekday);
     return _schedule.where((element) {
       return element.weekday.toLowerCase() == _weekday;
     }).toList();
   }
 
-  // BE CAREFUL WITH THIS FUNCTION. IT WILL DELETE ALL TASKS.
+  // BE CAREFUL WITH THIS FUNCTION. IT WILL DELETE ALL SCHEDULES.
   static void deleteScheduleBox() {
     Hive.deleteBoxFromDisk(_scheduleBoxKey);
   }
@@ -58,6 +55,7 @@ class ScheduleProvider extends ChangeNotifier {
   void addSchedule(Schedule schedule) {
     _schedule.add(schedule);
     _scheduleBox.add(schedule);
+    _orderSchedule();
     notifyListeners();
   }
 
@@ -70,6 +68,7 @@ class ScheduleProvider extends ChangeNotifier {
 
   void updateSchedule(Schedule schedule) {
     schedule.save();
+    _orderSchedule();
     notifyListeners();
   }
 
@@ -82,5 +81,12 @@ class ScheduleProvider extends ChangeNotifier {
     } else {
       updateSchedule(schedule);
     }
+  }
+
+  void _orderSchedule() {
+    _schedule.sort((a, b) {
+      return a.startTime.toString().compareTo(b.startTime.toString());
+    });
+    // notifyListeners();
   }
 }

@@ -62,21 +62,32 @@ class LocalNotificationService {
             UILocalNotificationDateInterpretation.absoluteTime);
   }
 
-  void scheduleNotification(id, title, body, scheduledDate, notificationDetails,
-      {required UILocalNotificationDateInterpretation
-          uiLocalNotificationDateInterpretation,
-      required bool androidAllowWhileIdle,
-      String? payload,
-      DateTimeComponents? matchDateTimeComponents}) async {
-    // await flutterLocalNotificationsPlugin.zonedSchedule(
-    //     id,
-    //     title,
-    //     body,
-    //     scheduledDate,
-    //     notificationDetails,
-    //     uiLocalNotificationDateInterpretation: uiLocalNotificationDateInterpretation,
-    //     androidAllowWhileIdle: androidAllowWhileIdle,
-    //     payload: payload,
-    //     matchDateTimeComponents: matchDateTimeComponents);
+  Future<void> scheduleNotification(id, title, body, scheduledDate) async {
+    // Delete notification if it already exists
+    final active =
+        await flutterLocalNotificationsPlugin.getActiveNotifications();
+
+    if (active.any((element) => element.id == id)) {
+      await flutterLocalNotificationsPlugin.cancel(id);
+    }
+
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+      id,
+      title,
+      body,
+      tz.TZDateTime.from(scheduledDate, tz.local),
+      //scheduledDate,
+      const NotificationDetails(
+          android: AndroidNotificationDetails(
+              'reminder_channel', 'Reminder Channel',
+              channelDescription: 'Reminder Notification')),
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
+      androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+    );
+  }
+
+  Future<void> cancelNotification(int id) async {
+    await flutterLocalNotificationsPlugin.cancel(id);
   }
 }
