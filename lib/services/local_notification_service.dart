@@ -61,15 +61,22 @@ class LocalNotificationService {
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime);
   }
+
+  void scheduleNotification(id, title, body, scheduledDate, notificationDetails,
+      {required UILocalNotificationDateInterpretation
+          uiLocalNotificationDateInterpretation,
+      required bool androidAllowWhileIdle,
+      String? payload,
+      DateTimeComponents? matchDateTimeComponents}) async {
+    // await flutterLocalNotificationsPlugin.zonedSchedule(
+    //     id,
+    //     title,
+    //     body,
+    //     scheduledDate,
+    //     notificationDetails,
+    //     uiLocalNotificationDateInterpretation: uiLocalNotificationDateInterpretation,
+    //     androidAllowWhileIdle: androidAllowWhileIdle,
+    //     payload: payload,
+    //     matchDateTimeComponents: matchDateTimeComponents);
+  }
 }
-
-//Function Definition
-
-  // Future<void> zonedSchedule(int id, String? title, String? body,
-  //     TZDateTime scheduledDate, NotificationDetails notificationDetails,
-  //     {required UILocalNotificationDateInterpretation
-  //         uiLocalNotificationDateInterpretation,
-  //     required bool androidAllowWhileIdle,
-  //     String? payload,
-  //     DateTimeComponents? matchDateTimeComponents}) 
-

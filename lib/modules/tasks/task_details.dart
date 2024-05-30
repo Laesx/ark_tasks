@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:ark_jots/modules/tasks/task_card.dart';
 import 'package:ark_jots/modules/tasks/task_model.dart';
 import 'package:ark_jots/modules/tasks/task_providers.dart';
+import 'package:ark_jots/services/local_notification_service.dart';
+import 'package:ark_jots/widgets/fields/time_field.dart';
 import 'package:ark_jots/widgets/layouts/top_bar.dart';
 import 'package:choice/choice.dart';
 import 'package:flutter/material.dart';
@@ -120,6 +122,17 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                   const SizedBox(
                     height: 20,
                   ),
+                  // Flexible(
+                  //       fit: FlexFit.loose,
+                  //       child: TimeField(
+                  //           label: "Recordatorio",
+                  //           value: task.reminder,
+                  //           onChanged: (value) {
+                  //             task.reminder = value!;
+                  //             //task.reminder = Tools.timeToText(value!);
+                  //             //taskProvider.updateOrCreateTask(task);
+                  //           }),
+                  //     ),
                   // TODO: Reminders Menu
                   _Reminders(xOffSet: xOffSet, task: task),
                   TextFormField(
@@ -161,23 +174,28 @@ class _RemindersState extends State<_Reminders> {
       alignmentOffset: Offset(widget.xOffSet, 0),
       menuChildren: [
         MenuItemButton(
-            leadingIcon: const Icon(Icons.calendar_today),
-            child: Text('Tomorrow (${Tools.getWeekday(Tools.getTomorrow())})'),
+            leadingIcon: const Icon(Icons.lock_clock),
+            child: Text('Mañana (${Tools.getWeekday(Tools.getTomorrow())})'),
             onPressed: () {
-              widget.task.dueDate = Tools.getTomorrow();
+              widget.task.reminder = Tools.getTomorrow();
               setState(() {});
             }),
         MenuItemButton(
-            leadingIcon: const Icon(Icons.edit_calendar_outlined),
-            child: const Text("Choose a date"),
+            leadingIcon: const Icon(Icons.notifications),
+            child: const Text("Seleccionar día y hora"),
             onPressed: () {
-              showDatePicker(
+              showDateTimePicker(
                       context: context,
                       firstDate: DateTime.now(),
                       lastDate: DateTime(2100))
                   .then((value) {
                 if (value != null) {
-                  widget.task.dueDate = value;
+                  widget.task.reminder = value;
+                  LocalNotificationService().scheduleNotification(
+                      id: widget.task.key,
+                      title: widget.task.title,
+                      body: widget.task.description,
+                      scheduledDate: widget.task.reminder!);
                   setState(() {});
                 }
               });
@@ -185,19 +203,19 @@ class _RemindersState extends State<_Reminders> {
               //print(task.dueDate);
             }),
       ],
-      trailingIcon: widget.task.dueDate != null
+      trailingIcon: widget.task.reminder != null
           ? IconButton(
               onPressed: () {
-                widget.task.dueDate = null;
+                widget.task.reminder = null;
                 setState(() {});
               },
               icon: const Icon(Icons.close))
           : null,
       child: Row(
         children: [
-          const Icon(Icons.calendar_month_outlined),
+          const Icon(Icons.notifications),
           const SizedBox(width: 10),
-          Text('Recordatorio ${Tools.formatDateTime(widget.task.dueDate)}'),
+          Text('Recordatorio ${Tools.formatDateTime(widget.task.reminder)}'),
         ],
       ),
     );
