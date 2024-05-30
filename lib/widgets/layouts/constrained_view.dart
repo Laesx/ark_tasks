@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 /// Horizontally constrains [child] into the center.
 class ConstrainedView extends StatelessWidget {
   const ConstrainedView({
+    super.key,
     required this.child,
     this.padding = const EdgeInsets.symmetric(horizontal: 10),
   });
@@ -26,7 +27,7 @@ class ConstrainedView extends StatelessWidget {
 }
 
 class SliverConstrainedView extends StatelessWidget {
-  const SliverConstrainedView({required this.sliver});
+  const SliverConstrainedView({super.key, required this.sliver});
 
   final Widget sliver;
 

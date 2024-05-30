@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 /// on the left and right that indicates overflow.
 class ShadowedOverflowList extends StatelessWidget {
   const ShadowedOverflowList({
+    super.key,
     required this.itemCount,
     required this.itemBuilder,
     this.shrinkWrap = false,

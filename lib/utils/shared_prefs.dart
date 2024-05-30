@@ -6,9 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefs extends ChangeNotifier {
-  SharedPrefs._(this._someVariable);
-
-  int _someVariable = 0;
+  final int _someVariable = 0;
 
   static bool _didInit = false;
   // Obtain shared preferences.

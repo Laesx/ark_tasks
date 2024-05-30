@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:ark_jots/services/local_notification_service.dart';
 
 class SettingsAppTab extends StatelessWidget {
-  const SettingsAppTab(this.scrollCtrl);
+  const SettingsAppTab(this.scrollCtrl, {super.key});
 
   final ScrollController scrollCtrl;
 
@@ -68,17 +68,17 @@ class SettingsAppTab extends StatelessWidget {
         const SizedBox(height: 20),
         ElevatedButton(
             onPressed: () => TaskProvider.deleteTasksBox(),
-            child: Text('Delete Tasks Box')),
+            child: const Text('Delete Tasks Box')),
         ElevatedButton(
             onPressed: () => taskProvider.fillBoxWithDemoTasks(),
-            child: Text('Fill Box with Demo Tasks')),
+            child: const Text('Fill Box with Demo Tasks')),
         ElevatedButton(
             onPressed: () => LocalNotificationService()
                 .showNotificationAndroid("Title", "Value"),
-            child: Text('Test Notification')),
+            child: const Text('Test Notification')),
         ElevatedButton(
             onPressed: () => LocalNotificationService().showTimedNotification(),
-            child: Text('Test Scheduled Notification'))
+            child: const Text('Test Scheduled Notification'))
       ],
     );
   }

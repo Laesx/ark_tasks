@@ -11,7 +11,7 @@ import 'package:ark_jots/widgets/layouts/top_bar.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({this.tab});
+  const HomeView({super.key, this.tab});
 
   final HomeTab? tab;
 
@@ -53,25 +53,23 @@ class _HomeViewState extends State<HomeView>
             },
             onChanged: (i) => _tabCtrl.index = i,
             onSame: (i) {
-              // TODO Does this need to be implemented?
+              // Here we can add some logic to scroll to the top of the list.
             }),
         child: TabBarView(controller: _tabCtrl, children: [
-          //const Center(child: Text('Home')),
-          //const Center(child: Text('Home')),
-          HomeSomething(
+          HomeWidget(
             tabCtrl: _tabCtrl,
           ),
           TasksView(ScrollController()),
           ScheduleView(ScrollController()),
-          Text("data"),
+          const Text("data"),
           //const SettingsView(),
-          UserView(),
+          const UserView(),
         ]));
   }
 }
 
-class HomeSomething extends StatelessWidget {
-  const HomeSomething({super.key, required this.tabCtrl});
+class HomeWidget extends StatelessWidget {
+  const HomeWidget({super.key, required this.tabCtrl});
 
   final TabController tabCtrl;
 
@@ -79,7 +77,7 @@ class HomeSomething extends StatelessWidget {
   Widget build(BuildContext context) {
     final topOffset = MediaQuery.paddingOf(context).top;
     return TabScaffold(
-        topBar: TopBar(
+        topBar: const TopBar(
           canPop: false,
           title: "Inicio",
         ),
@@ -87,22 +85,20 @@ class HomeSomething extends StatelessWidget {
           padding: Consts.padding,
           child: ListView(children: [
             SizedBox(height: topOffset),
-            Container(
-              child: TaskSummaryCard(),
-            ),
+            const TaskSummaryCard(),
             //Text("Shortcuts", style: TextStyle(fontSize: 20)),
             Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
               ShortcutButton(tabCtrl: tabCtrl, index: 1),
               ShortcutButton(tabCtrl: tabCtrl, index: 2)
             ]),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             Card(
                 child: Column(
               children: [
-                SizedBox(height: 10),
-                Text("Tareas Pendientes Próximas",
+                const SizedBox(height: 10),
+                const Text("Tareas Pendientes Próximamente",
                     style: TextStyle(fontSize: 20)),
-                Container(height: 250, child: TasksTodayCard()),
+                Container(height: 250, child: const TasksTodayCard()),
               ],
             ))
           ]),
@@ -129,17 +125,17 @@ class ShortcutButton extends StatelessWidget {
             children: [
               Column(
                 children: [
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   Icon(HomeTab.values[index].iconData,
                       size: 40, color: Colors.white),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   Text(
                     HomeTab.values[index].title,
-                    style: TextStyle(fontSize: 20),
+                    style: const TextStyle(fontSize: 20),
                   ),
                 ],
               ),
-              Positioned(
+              const Positioned(
                   right: 10,
                   top: 10,
                   child:

@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class UserView extends StatelessWidget {
-  const UserView({Key? key}) : super(key: key);
+  const UserView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class UserView extends StatelessWidget {
             } else if (snapshot.hasData) {
               return CustomScrollView(slivers: [
                 UserHeader(id: user.id, user: user, imageUrl: user.imageUrl),
-                _ButtonRow(),
+                const _ButtonRow(),
                 //SizedBox(height: 20),
                 SliverList(
                     delegate: SliverChildListDelegate([
@@ -69,7 +69,7 @@ class UserView extends StatelessWidget {
                                   onTap: () => FirestoreService()
                                       .uploadTasks(taskProvider.tasks),
                                 ),
-                                SizedBox(width: 10),
+                                const SizedBox(width: 10),
                                 _Button(
                                   label: "Descargar Tareas",
                                   icon: Icons.download,
@@ -122,16 +122,6 @@ class _ButtonRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final buttons = [
-      // _Button(
-      //   label: 'Edit Profile',
-      //   icon: Icons.edit,
-      //   onTap: () => print('Edit Profile'),
-      // ),
-      // _Button(
-      //   label: 'Settings',
-      //   icon: Icons.settings,
-      //   onTap: () => print('Settings'),
-      // ),
       _Button(
         label: 'Estadisticas',
         icon: Icons.bar_chart,

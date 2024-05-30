@@ -8,7 +8,11 @@ import 'package:flutter/material.dart';
 /// - The [trailing] widgets (if the list is not empty).
 class TopBar extends StatelessWidget implements PreferredSizeWidget {
   const TopBar(
-      {this.trailing = const [], this.canPop = true, this.title, this.onPop});
+      {super.key,
+      this.trailing = const [],
+      this.canPop = true,
+      this.title,
+      this.onPop});
 
   final bool canPop;
   final String? title;
@@ -64,6 +68,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
 /// An [IconButton] customised for a top app bar.
 class TopBarIcon extends StatelessWidget {
   const TopBarIcon({
+    super.key,
     required this.icon,
     required this.tooltip,
     required this.onTap,

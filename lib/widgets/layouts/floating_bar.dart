@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 
 /// Hides the [child] on scroll-down and reveals it on scroll-up.
 class FloatingBar extends StatefulWidget {
-  const FloatingBar({required this.scrollCtrl, required this.children});
+  const FloatingBar(
+      {super.key, required this.scrollCtrl, required this.children});
 
   final List<Widget> children;
   final ScrollController scrollCtrl;
@@ -107,6 +108,7 @@ const floatingBarItemHeight = 56.0;
 /// A [FloatingActionButton] implementation.
 class ActionButton extends StatelessWidget {
   const ActionButton({
+    super.key,
     required this.icon,
     required this.tooltip,
     required this.onTap,

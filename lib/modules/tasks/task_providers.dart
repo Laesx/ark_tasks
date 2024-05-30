@@ -16,7 +16,7 @@ class TaskProvider extends ChangeNotifier {
 
   //Hive boxes and keys.
   static const _tasksBoxKey = 'tasks';
-  static Box _tasksBox = Hive.box<Task>(_tasksBoxKey);
+  static final Box _tasksBox = Hive.box<Task>(_tasksBoxKey);
   // Consider using a LazyBox instead of a Box if it gets too big.
   // Maybe make a separate box for completed tasks.
   // or make it load only the first 10 tasks and load more as the user scrolls.

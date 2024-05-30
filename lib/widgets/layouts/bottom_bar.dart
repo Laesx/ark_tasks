@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({
+    super.key,
     required this.current,
     required this.items,
     required this.onChanged,
@@ -54,7 +55,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 }
 
 class BottomBar extends StatelessWidget {
-  const BottomBar(this.items);
+  const BottomBar(this.items, {super.key});
 
   final List<Widget> items;
 
@@ -87,6 +88,7 @@ class BottomBar extends StatelessWidget {
 
 class BottomBarButton extends StatelessWidget {
   const BottomBarButton({
+    super.key,
     required this.text,
     required this.icon,
     required this.onTap,

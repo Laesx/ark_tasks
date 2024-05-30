@@ -1,6 +1,4 @@
 class UserItem {
-  UserItem._({required this.id, required this.name, required this.imageUrl});
-
   UserItem({required this.id, required this.name, required this.imageUrl});
 
   // factory UserItem(Map<String, dynamic> map) => UserItem._(
@@ -16,13 +14,6 @@ class UserItem {
 
 class User {
   User({
-    required this.id,
-    required this.name,
-    required this.imageUrl,
-    required this.bannerUrl,
-  });
-
-  User._({
     required this.id,
     required this.name,
     required this.imageUrl,

@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 class ScheduleView extends StatelessWidget {
   final ScrollController scrollCtrl;
 
-  ScheduleView(this.scrollCtrl, {super.key});
+  const ScheduleView(this.scrollCtrl, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -52,11 +52,11 @@ class ScheduleView extends StatelessWidget {
 
                 if (selectedDay != null) {
                   // Use the selected day
-                  print('Selected day: $selectedDay');
+                  // print('Selected day: $selectedDay');
                   schedules.weekday = selectedDay;
                 }
               },
-              icon: Icon(Icons.calendar_month))
+              icon: const Icon(Icons.calendar_month))
         ],
       ),
       floatingBar: FloatingBar(scrollCtrl: scrollCtrl, children: [

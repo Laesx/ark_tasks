@@ -55,18 +55,18 @@ class Task extends HiveObject {
   });
 
   void updateWith(Task other) {
-    this.id = other.id;
-    this.title = other.title;
-    this.description = other.description;
-    this.createdAt = other.createdAt;
-    this.lastUpdated = other.lastUpdated;
-    this.isComplete = other.isComplete;
-    this.priority = other.priority;
-    this.dueDate = other.dueDate;
-    this.startDate = other.startDate;
-    this.reminder = other.reminder;
-    this.notes = other.notes;
-    this.subtasks = List<Subtask>.from(other.subtasks);
+    id = other.id;
+    title = other.title;
+    description = other.description;
+    createdAt = other.createdAt;
+    lastUpdated = other.lastUpdated;
+    isComplete = other.isComplete;
+    priority = other.priority;
+    dueDate = other.dueDate;
+    startDate = other.startDate;
+    reminder = other.reminder;
+    notes = other.notes;
+    subtasks = List<Subtask>.from(other.subtasks);
   }
 
   factory Task.fromJson(Map<String, dynamic> json) => _$TaskFromJson(json);

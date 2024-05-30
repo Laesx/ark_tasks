@@ -13,47 +13,50 @@ class ScheduleCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final schedules = context.watch<ScheduleProvider>();
 
-    return GestureDetector(
-      onTap: () {
-        schedules.selectedSchedule = schedule;
-        Navigator.pushNamed(context, "/schedule");
-      },
-      onLongPress: () {
-        showDialog(
-            context: context,
-            builder: (BuildContext context) => AlertDialog(
-                  title: const Text("Borrar Horario"),
-                  content: const Text(
-                      "¿Estás seguro de que quieres borrar este horario?"),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        schedules.removeSchedule(schedule);
-                        Navigator.pop(context);
-                      },
-                      child: const Text("Borrar"),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Text("Cancelar"),
-                    ),
-                  ],
-                ));
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(5),
-        child: Card(
-          //margin: const EdgeInsets.only(top: 7, bottom: 7),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                _ScheduleColor(schedule),
-                _ScheduleDetails(schedule),
-              ],
+    return Hero(
+      tag: 'schedule-${schedule.key}',
+      child: GestureDetector(
+        onTap: () {
+          schedules.selectedSchedule = schedule;
+          Navigator.pushNamed(context, "/schedule");
+        },
+        onLongPress: () {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                    title: const Text("Borrar Horario"),
+                    content: const Text(
+                        "¿Estás seguro de que quieres borrar este horario?"),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          schedules.removeSchedule(schedule);
+                          Navigator.pop(context);
+                        },
+                        child: const Text("Borrar"),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text("Cancelar"),
+                      ),
+                    ],
+                  ));
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(5),
+          child: Card(
+            //margin: const EdgeInsets.only(top: 7, bottom: 7),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  _ScheduleColor(schedule),
+                  _ScheduleDetails(schedule),
+                ],
+              ),
             ),
           ),
         ),
@@ -107,14 +110,14 @@ class _ScheduleDetails extends StatelessWidget {
       children: [
         Text(
           schedule.name,
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           maxLines: 5,
           overflow: TextOverflow.ellipsis,
         ),
-        SizedBox(height: 5),
+        const SizedBox(height: 5),
         Text(
           "${schedule.timeStart} - ${schedule.timeEnd}",
-          style: TextStyle(fontSize: 14, color: Colors.grey),
+          style: const TextStyle(fontSize: 14, color: Colors.grey),
         ),
         if (schedule.description != null) ...[
           const SizedBox(height: 5),

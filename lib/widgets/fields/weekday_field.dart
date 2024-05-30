@@ -4,6 +4,7 @@ import 'package:ark_jots/utils/tools.dart';
 
 class WeekdayField extends StatefulWidget {
   const WeekdayField({
+    super.key,
     required this.label,
     required this.value,
     required this.onChanged,
@@ -86,7 +87,4 @@ class _WeekdayFieldState extends State<WeekdayField> {
       ),
     );
   }
-
-  String _dateToText(DateTime? date) =>
-      date != null ? '${date.year}-${date.month}-${date.day}' : '';
 }

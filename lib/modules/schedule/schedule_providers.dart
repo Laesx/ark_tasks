@@ -22,7 +22,7 @@ class ScheduleProvider extends ChangeNotifier {
 
   //Hive boxes and keys.
   static const _scheduleBoxKey = 'schedule';
-  static Box _scheduleBox = Hive.box<Schedule>(_scheduleBoxKey);
+  static final Box _scheduleBox = Hive.box<Schedule>(_scheduleBoxKey);
   // Consider using a LazyBox instead of a Box if it gets too big.
   // Maybe make a separate box for completed schedule.
   // or make it load only the first 10 schedule and load more as the user scrolls.

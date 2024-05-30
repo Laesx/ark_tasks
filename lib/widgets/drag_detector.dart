@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 // Detects horizontal swipes.
 class DragDetector extends StatelessWidget {
   const DragDetector({
+    super.key,
     required this.child,
     required this.onSwipe,
     this.triggerOffset = 30,

@@ -6,6 +6,7 @@ import 'package:ionicons/ionicons.dart';
 
 class UserHeader extends StatelessWidget {
   const UserHeader({
+    super.key,
     required this.id,
     required this.user,
     required this.imageUrl,

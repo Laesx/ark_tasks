@@ -13,7 +13,7 @@ class LoginView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Center(
+          const Center(
               child: Text("Iniciar Sesión", style: TextStyle(fontSize: 20))),
           Image.asset('assets/logo_transparent.png', width: 150),
           Flexible(

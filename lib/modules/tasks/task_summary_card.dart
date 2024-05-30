@@ -16,7 +16,7 @@ class _TaskSummaryCardState extends State<TaskSummaryCard> {
     final provider = context.watch<AiService>();
 
     return Card(
-      margin: EdgeInsets.only(top: 30, bottom: 30),
+      margin: const EdgeInsets.only(top: 30, bottom: 30),
       child: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Column(

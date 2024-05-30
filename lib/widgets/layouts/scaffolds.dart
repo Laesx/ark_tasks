@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 /// For top bars and floating bars, use [TabScaffold].
 class PageScaffold extends StatefulWidget {
   const PageScaffold({
+    super.key,
     required this.child,
     this.bottomBar,
   });
@@ -34,6 +35,7 @@ class _PageScaffoldState extends State<PageScaffold> {
 /// in a page with multiple tabs.
 class TabScaffold extends StatelessWidget {
   const TabScaffold({
+    super.key,
     required this.child,
     this.topBar,
     this.floatingBar,

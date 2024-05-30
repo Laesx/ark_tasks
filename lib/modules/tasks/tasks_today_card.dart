@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class TasksTodayCard extends StatelessWidget {
-  const TasksTodayCard({Key? key}) : super(key: key);
+  const TasksTodayCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,7 @@ class TasksTodayCard extends StatelessWidget {
 
     return ListView.builder(
       shrinkWrap: true,
-      physics: ClampingScrollPhysics(),
+      physics: const ClampingScrollPhysics(),
       itemCount: tasks.length,
       itemBuilder: (BuildContext context, int index) {
         if (tasks[index].dueDate != null &&

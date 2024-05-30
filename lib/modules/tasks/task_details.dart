@@ -15,7 +15,7 @@ import '../../services/ai_service.dart';
 
 // ignore: must_be_immutable
 class TaskDetailScreen extends StatefulWidget {
-  TaskDetailScreen({Key? key}) : super(key: key);
+  TaskDetailScreen({super.key});
 
   bool showAllSubtasks = false;
 
@@ -45,14 +45,7 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
     final xOffSet = screenSize.width * 0.25;
 
     return Scaffold(
-        appBar: TopBar(
-          trailing: [
-            IconButton(
-              icon: const Icon(Icons.bolt_outlined),
-              //onPressed: () => aiDialog(context, task)
-              onPressed: () => null,
-            )
-          ],
+        appBar: const TopBar(
           canPop: true,
           title: "Detalles de la Tarea",
         ),
@@ -113,7 +106,7 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  // TODO: Reminders Menu
+                  // Reminders Menu - DONE
                   _Reminders(
                       xOffSet: xOffSet, task: task, taskProvider: taskProvider),
                   TextFormField(
@@ -136,7 +129,6 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
 
 class _Reminders extends StatefulWidget {
   const _Reminders({
-    super.key,
     required this.xOffSet,
     required this.task,
     required this.taskProvider,
@@ -213,7 +205,6 @@ class _RemindersState extends State<_Reminders> {
 
 class _DueDate extends StatefulWidget {
   const _DueDate({
-    super.key,
     required this.xOffSet,
     required this.task,
   });
@@ -283,7 +274,6 @@ class _DueDateState extends State<_DueDate> {
 
 class _SubtasksSection extends StatefulWidget {
   const _SubtasksSection({
-    super.key,
     required this.widget,
     required this.task,
     required TextEditingController controller,
@@ -367,9 +357,8 @@ class _SubtasksSectionState extends State<_SubtasksSection> {
 
 class _SubtaskPrompt extends StatefulWidget {
   const _SubtaskPrompt(
-      {super.key,
-      required this.task,
-      required void Function() this.onUpdated,
+      {required this.task,
+      required this.onUpdated,
       required this.choicesMemoizer});
   final Task task;
   final void Function() onUpdated;
@@ -407,7 +396,7 @@ class _SubtaskPromptState extends State<_SubtaskPrompt> {
 
   Future<List<String>> getChoices() async {
     // return AiService.getSubtasks("Levantarme de la Cama");
-    print("Getting choices");
+    // print("Getting choices");
     return AiService.getSubtasks(widget.task.title);
   }
 

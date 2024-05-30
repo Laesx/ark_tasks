@@ -2,7 +2,6 @@ import 'package:ark_jots/widgets/fields/weekday_field.dart';
 import 'package:ark_jots/widgets/fields/time_field.dart';
 import 'package:ark_jots/widgets/layouts/top_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:ark_jots/utils/tools.dart';
 
@@ -10,7 +9,7 @@ import 'schedule.dart';
 
 // ignore: must_be_immutable
 class ScheduleDetailScreen extends StatefulWidget {
-  ScheduleDetailScreen({Key? key}) : super(key: key);
+  const ScheduleDetailScreen({super.key});
 
   @override
   State<ScheduleDetailScreen> createState() => _ScheduleDetailScreenState();
@@ -42,7 +41,7 @@ class _ScheduleDetailScreenState extends State<ScheduleDetailScreen> {
               child: ListView(
                 padding: const EdgeInsets.all(5),
                 children: [
-                  //const SizedBox(height: 20),
+                  const SizedBox(height: 5),
                   Row(children: [
                     Flexible(
                       child: TextFormField(
@@ -193,14 +192,6 @@ class ColorSelector extends StatelessWidget {
                   ),
                 ),
               ],
-              // children: colors.map((Color color) {
-              //   return SimpleDialogOption(
-              //     onPressed: () {
-              //       Navigator.pop(context, color);
-              //     },
-              //     child: CircleAvatar(backgroundColor: color),
-              //   );
-              // }).toList(),
             );
           },
         );
@@ -208,11 +199,11 @@ class ColorSelector extends StatelessWidget {
         if (selectedColor != null) {
           // Use the selected color
           schedule.color = selectedColor.value.toString();
-          print('Selected color: ${selectedColor.value.toString()}');
+          // print('Selected color: ${selectedColor.value.toString()}');
           schedules.updateOrCreateSchedule(schedule);
         }
       },
-      icon: Icon(Icons.color_lens),
+      icon: const Icon(Icons.color_lens),
       color: schedule.colorValue,
     );
   }

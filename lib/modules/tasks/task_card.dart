@@ -117,10 +117,7 @@ class _TaskCheckboxState extends State<TaskCheckbox> {
 class _TaskDetails extends StatelessWidget {
   final Task task;
 
-  const _TaskDetails(
-    this.task, {
-    super.key,
-  });
+  const _TaskDetails(this.task);
 
   @override
   Widget build(BuildContext context) {
@@ -154,8 +151,8 @@ class _TaskDetails extends StatelessWidget {
                   task.dueDate != null ? Tools.formatDate(task.dueDate!) : "",
                   style: TextStyle(
                     color: task.dueDate != null
-                        ? task.dueDate!.isBefore(
-                                DateTime.now().subtract(Duration(days: 1)))
+                        ? task.dueDate!.isBefore(DateTime.now()
+                                .subtract(const Duration(days: 1)))
                             ? Colors.red
                             : null
                         : null,

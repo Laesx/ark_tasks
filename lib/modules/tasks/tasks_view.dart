@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 class TasksView extends StatefulWidget {
   final ScrollController scrollCtrl;
 
-  TasksView(this.scrollCtrl, {super.key});
+  const TasksView(this.scrollCtrl, {super.key});
 
   @override
   State<TasksView> createState() => _TasksViewState();
@@ -25,7 +25,7 @@ class _TasksViewState extends State<TasksView> {
     final completedTasks =
         taskProvider.tasks.where((task) => task.isComplete).toList();
     // Create a special marker object for the divider
-    final dividerMarker = Divider();
+    const dividerMarker = Divider();
     // Combine the incomplete and completed tasks into a single list
     final allTasks = []
       ..addAll(incompleteTasks)
@@ -83,7 +83,7 @@ class _TasksViewState extends State<TasksView> {
                 // setState(() {});
               },
             ),
-          ], child: Icon(Icons.sort_outlined))
+          ], child: const Icon(Icons.sort_outlined))
         ],
       ),
       child: ListView.builder(
