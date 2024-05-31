@@ -54,9 +54,9 @@ class SettingsAppTab extends StatelessWidget {
         ElevatedButton(
             onPressed: () => TaskProvider.deleteTasksBox(),
             child: const Text('Delete Tasks Box')),
-        ElevatedButton(
-            onPressed: () => taskProvider.fillBoxWithDemoTasks(),
-            child: const Text('Fill Box with Demo Tasks')),
+        // ElevatedButton(
+        //     onPressed: () => taskProvider.fillBoxWithDemoTasks(),
+        //     child: const Text('Fill Box with Demo Tasks')),
         ElevatedButton(
             onPressed: () => LocalNotificationService()
                 .showNotificationAndroid("Title", "Value"),

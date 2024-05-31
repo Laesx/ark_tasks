@@ -156,7 +156,7 @@ class TaskProvider extends ChangeNotifier {
     }
   }
 
-  void fillBoxWithDemoTasks() {
+  /* void fillBoxWithDemoTasks() {
     final random = Random();
 
     //List<Task> tasks = [];
@@ -177,13 +177,13 @@ class TaskProvider extends ChangeNotifier {
     }
 
     //return demoTasks;
-  }
+  } */
 
   static DateTime now = DateTime.now();
   static DateTime oneMonthAgo = DateTime(now.year, now.month - 1, now.day);
   static DateTime oneMonthLater = DateTime(now.year, now.month + 1, now.day);
 
-  DateTime randomPastMonthDate = randomDate(oneMonthAgo, now);
+  /* DateTime randomPastMonthDate = randomDate(oneMonthAgo, now);
   DateTime randomThisMonthDate =
       randomDate(DateTime(now.year, now.month, 1), now);
   DateTime randomNextMonthDate = randomDate(now, oneMonthLater);
@@ -199,7 +199,7 @@ class TaskProvider extends ChangeNotifier {
 
     // Add the random number of days to the start date
     return startDate.add(Duration(days: daysToAdd));
-  }
+  } */
 
   // Section to task sort
   TaskSort _sort = TaskSort.dueDate;
