@@ -1,40 +1,6 @@
 import 'package:ark_jots/utils/consts.dart';
 import 'package:flutter/material.dart';
 
-class AppTheme {
-  static const Color primaryColor = Color.fromARGB(255, 36, 127, 255);
-  static const Color secondaryColor = Color.fromARGB(255, 145, 84, 251);
-  static const Color buttonColor = Colors.purple;
-  static const Color textColor = Colors.white;
-
-  static final ThemeData darkTheme = ThemeData.dark().copyWith(
-    appBarTheme: const AppBarTheme(color: primaryColor, elevation: 0),
-    listTileTheme: ListTileThemeData(
-      tileColor: Colors.grey[900],
-      selectedTileColor: Colors.grey[800],
-      selectedColor: Colors.white,
-      iconColor: Colors.white,
-      textColor: Colors.white,
-      contentPadding: const EdgeInsets.symmetric(horizontal: 20),
-    ),
-    inputDecorationTheme: const InputDecorationTheme(
-        border: OutlineInputBorder(
-          borderSide: BorderSide(color: primaryColor),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: secondaryColor),
-        ),
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: secondaryColor),
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(20),
-                bottomLeft: Radius.circular(20))),
-        floatingLabelStyle: TextStyle(color: Colors.white),
-        iconColor: secondaryColor,
-        suffixIconColor: secondaryColor),
-  );
-}
-
 class ColorSeed {
   const ColorSeed(this.seed);
 
@@ -45,14 +11,14 @@ class ColorSeed {
 }
 
 const colorSeeds = {
-  'Navy': ColorSeed(Color(0xFF45A0F2)),
-  'Mint': ColorSeed(Color(0xFF2AB8B8)),
-  'Lavender': ColorSeed(Color(0xFFB4ABF5)),
-  'Caramel': ColorSeed(Color(0xFFF78204)),
-  'Forest': ColorSeed(Color(0xFF00FFA9)),
-  'Wine': ColorSeed(Color(0xFF894771)),
-  'Mustard': ColorSeed(Color(0xFFFFBF02)),
-  'Deep Purple': ColorSeed(Color(0xFF5C6BC0)),
+  'Marino': ColorSeed(Color(0xFF45A0F2)),
+  'Menta': ColorSeed(Color(0xFF2AB8B8)),
+  'Abismo': ColorSeed(Color(0xFFB4ABF5)),
+  'Caramelo': ColorSeed(Color(0xFFF78204)),
+  'Bosque': ColorSeed(Color(0xFF00FFA9)),
+  'Vino': ColorSeed(Color(0xFF894771)),
+  'Mostaza': ColorSeed(Color(0xFFFFBF02)),
+  'Lavanda': ColorSeed(Color.fromARGB(255, 64, 34, 108)),
 };
 
 ThemeData themeDataFrom(ColorScheme scheme) => ThemeData(

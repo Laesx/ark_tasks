@@ -61,7 +61,7 @@ class _HomeViewState extends State<HomeView>
           ),
           TasksView(ScrollController()),
           ScheduleView(ScrollController()),
-          const Text("data"),
+          // const Text("data"),
           //const SettingsView(),
           const UserView(),
         ]));
@@ -126,8 +126,7 @@ class ShortcutButton extends StatelessWidget {
               Column(
                 children: [
                   const SizedBox(height: 15),
-                  Icon(HomeTab.values[index].iconData,
-                      size: 40, color: Colors.white),
+                  Icon(HomeTab.values[index].iconData, size: 40),
                   const SizedBox(height: 5),
                   Text(
                     HomeTab.values[index].title,
@@ -136,10 +135,7 @@ class ShortcutButton extends StatelessWidget {
                 ],
               ),
               const Positioned(
-                  right: 10,
-                  top: 10,
-                  child:
-                      Icon(Icons.arrow_outward_outlined, color: Colors.white))
+                  right: 10, top: 10, child: Icon(Icons.arrow_outward_outlined))
             ],
           ),
         ),

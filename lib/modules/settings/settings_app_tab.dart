@@ -1,5 +1,7 @@
+import 'package:ark_jots/modules/settings/theme_preview.dart';
 import 'package:ark_jots/modules/tasks/task_providers.dart';
 import 'package:ark_jots/utils/options.dart';
+import 'package:ark_jots/widgets/fields/stateful_tiles.dart';
 import 'package:ark_jots/widgets/layouts/top_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -26,33 +28,16 @@ class SettingsAppTab extends StatelessWidget {
       ),
       children: [
         ExpansionTile(
-          title: const Text('Appearance'),
+          title: const Text('Apariencia'),
           initiallyExpanded: true,
           expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 10, left: 10, right: 10),
-              child: SegmentedButton(
-                segments: const [
-                  ButtonSegment(
-                    value: ThemeMode.system,
-                    label: Text('System'),
-                    icon: Icon(Icons.sync_outlined),
-                  ),
-                  ButtonSegment(
-                    value: ThemeMode.light,
-                    label: Text('Light'),
-                    icon: Icon(Icons.wb_sunny_outlined),
-                  ),
-                  ButtonSegment(
-                    value: ThemeMode.dark,
-                    label: Text('Dark'),
-                    icon: Icon(Icons.mode_night_outlined),
-                  ),
-                ],
-                selected: {Options().themeMode},
-                onSelectionChanged: (v) => Options().themeMode = v.first,
-              ),
+            const _ThemeModeSelection(),
+            const ThemePreview(),
+            StatefulSwitchListTile(
+              title: const Text('Negro/Blanco Puro'),
+              value: Options().pureWhiteOrBlackTheme,
+              onChanged: (v) => Options().pureWhiteOrBlackTheme = v,
             ),
           ],
         ),
@@ -80,6 +65,45 @@ class SettingsAppTab extends StatelessWidget {
             onPressed: () => LocalNotificationService().showTimedNotification(),
             child: const Text('Test Scheduled Notification'))
       ],
+    );
+  }
+}
+
+class _ThemeModeSelection extends StatefulWidget {
+  const _ThemeModeSelection();
+
+  @override
+  State<_ThemeModeSelection> createState() => __ThemeModeSelectionState();
+}
+
+class __ThemeModeSelectionState extends State<_ThemeModeSelection> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10, left: 10, right: 10),
+      child: SegmentedButton(
+        segments: const [
+          ButtonSegment(
+            value: ThemeMode.system,
+            label: Text('Sistema'),
+            icon: Icon(Icons.sync_outlined),
+          ),
+          ButtonSegment(
+            value: ThemeMode.light,
+            label: Text('Luz'),
+            icon: Icon(Icons.wb_sunny_outlined),
+          ),
+          ButtonSegment(
+            value: ThemeMode.dark,
+            label: Text('Oscuridad'),
+            icon: Icon(Icons.mode_night_outlined),
+          ),
+        ],
+        selected: {Options().themeMode},
+        onSelectionChanged: (v) => setState(
+          () => Options().themeMode = v.first,
+        ),
+      ),
     );
   }
 }
