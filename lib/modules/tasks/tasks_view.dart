@@ -32,7 +32,7 @@ class _TasksViewState extends State<TasksView> {
       ..add(dividerMarker)
       ..addAll(completedTasks);
 
-    final topOffset = MediaQuery.paddingOf(context).top + TopBar.height + 10;
+    // final topOffset = MediaQuery.paddingOf(context).top + TopBar.height + 10;
 
     return TabScaffold(
       floatingBar: FloatingBar(scrollCtrl: widget.scrollCtrl, children: [
@@ -86,27 +86,30 @@ class _TasksViewState extends State<TasksView> {
           ], child: const Icon(Icons.sort_outlined))
         ],
       ),
-      child: ListView.builder(
-        //TODO: Adjust the top padding to account for the top bar
-        padding: EdgeInsets.only(top: topOffset, bottom: 100),
-        shrinkWrap: true,
-        itemCount: allTasks.length,
-        itemBuilder: (context, index) {
-          // All this uglyness is to add a Divider as the 1st item
-          // and between the incomplete and completed tasks
-          // if (index == 0) {
-          //   return const Divider(height: 30);
-          //}
-          if (allTasks[index] is Divider) {
-            return const Divider();
-          } else if (allTasks[index] is Task) {
-            final task = allTasks[index];
-            return TaskCard(task: task);
-          }
-          return null;
-          //final task = taskProvider.tasks[index];
-          //return TaskCard(task: task);
-        },
+      child: Padding(
+        padding: const EdgeInsets.only(top: TopBar.height),
+        child: ListView.builder(
+          //TODO: Adjust the top padding to account for the top bar
+          // padding: EdgeInsets.only(top: topOffset, bottom: 100),
+          shrinkWrap: true,
+          itemCount: allTasks.length,
+          itemBuilder: (context, index) {
+            // All this uglyness is to add a Divider as the 1st item
+            // and between the incomplete and completed tasks
+            // if (index == 0) {
+            //   return const Divider(height: 30);
+            //}
+            if (allTasks[index] is Divider) {
+              return const Divider();
+            } else if (allTasks[index] is Task) {
+              final task = allTasks[index];
+              return TaskCard(task: task);
+            }
+            return Container();
+            //final task = taskProvider.tasks[index];
+            //return TaskCard(task: task);
+          },
+        ),
       ),
     );
   }

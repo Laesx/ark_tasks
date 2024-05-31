@@ -2,7 +2,9 @@ import 'dart:math';
 
 import 'package:ark_jots/models/priority.dart';
 import 'package:ark_jots/modules/tasks/task_model.dart';
+import 'package:ark_jots/services/ai_service.dart';
 import 'package:ark_jots/services/firestore_service.dart';
+import 'package:ark_jots/utils/tools.dart';
 import 'package:hive/hive.dart';
 
 import 'package:flutter/material.dart';
@@ -29,6 +31,8 @@ class TaskProvider extends ChangeNotifier {
     // Load tasks from Hive.
     Hive.openBox<Task>(_tasksBoxKey).then((box) {
       _tasks.addAll(box.values);
+      AiService().parsedTasks = overdueAndTwoWeeksTasks;
+      // print("Tasks loaded from Hive: ${_tasks.length}");
       notifyListeners();
     });
   }
@@ -86,6 +90,34 @@ class TaskProvider extends ChangeNotifier {
     return _tasks.where((task) => task.dueDate != null).toList()
       ..sort((a, b) => a.dueDate!.compareTo(b.dueDate!))
       ..take(count).toList();
+  }
+
+  // This will give a String of all the overdue tasks, and all the tasks 2 weeks from now separated by a new line.
+  String get overdueAndTwoWeeksTasks {
+    DateTime now = DateTime.now();
+    DateTime twoWeeksFromNow = now.add(Duration(days: 14));
+
+    List<Task> twoWeeksTasks = _tasks.where((task) {
+      if (task.dueDate != null) {
+        if (task.dueDate!.isBefore(now)) {
+          return true;
+        } else if (task.dueDate!.isAfter(now) &&
+            task.dueDate!.isBefore(twoWeeksFromNow)) {
+          return true;
+        }
+        // return task.dueDate!.isAfter(now) && task.dueDate!.isBefore(twoWeeksFromNow);
+      }
+      return false;
+    }).toList();
+
+    String tasksSummary = twoWeeksTasks.map((e) {
+      return e.title +
+          (e.dueDate != null ? " - ${Tools.formatDate(e.dueDate)}" : "");
+    }).join('\n');
+
+    // print(tasksSummary);
+
+    return tasksSummary;
   }
 
   void addTask(Task task) {

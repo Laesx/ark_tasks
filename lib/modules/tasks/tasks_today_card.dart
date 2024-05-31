@@ -13,13 +13,17 @@ class TasksTodayCard extends StatelessWidget {
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
       itemCount: tasks.length,
-      itemBuilder: (BuildContext context, int index) {
+      itemBuilder: (context, index) {
+        // print(index);
+        // print("Task: ${tasksProvider.tasks[index].title}");
         if (tasks[index].dueDate != null &&
-            tasks[index].dueDate!.difference(DateTime.now()).inDays <= 4 &&
+            tasks[index].dueDate!.difference(DateTime.now()).inDays <= 5 &&
             tasks[index].isComplete == false) {
+          // print("Task Cards: ${tasksProvider.tasks[index].title}");
           return TaskCard(task: tasks[index]);
         }
-        return null;
+        // print(index);
+        return Container();
       },
       //itemCount: 10,
     );

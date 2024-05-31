@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:ark_jots/utils/tools.dart';
 import 'package:dart_openai/dart_openai.dart';
 
 import '../env.dart';
@@ -125,8 +126,8 @@ class AiService extends ChangeNotifier {
     var completion = await OpenAI.instance.chat.createStream(
       model: "gpt-3.5-turbo",
       messages: requestMessages,
-      maxTokens: 200,
-      temperature: 0.2,
+      maxTokens: 500,
+      temperature: 1,
     );
 
     // Setting the last message and result for caching.
@@ -145,15 +146,30 @@ class AiService extends ChangeNotifier {
   }
 
   // SUMMARY SECTION
+
+  String? _parsedTasks;
+
+  // We reset everything here so the summary is recalculated.
+  set parsedTasks(String? value) {
+    _hasSummaryInit = false;
+    _summary = "";
+    _parsedTasks = value;
+    notifyListeners();
+  }
+
   bool _hasSummaryInit = false;
   String _summary = "";
   // This fills the summary with the data from the AI and stores it.
   // So we don't have to call it again everytime the widgets rebuild.
   get summary {
+    // print("Getting summary");
+    if (_parsedTasks == null) return "Loading...";
+
     if (!_hasSummaryInit) {
+      // print("Getting summary for the first time");
       _hasSummaryInit = true;
-      getSummaryStreamString(
-              "Dame un resumen de ejemplo de las tareas que quieras.")
+      getSummaryStreamString(_parsedTasks ??
+              "Dame un resumen de ejemplo de las tareas que quieras, especifica que esto es un ejemplo porque no existen datos ahora mismo.")
           .then((value) {
         value.listen((event) {
           _summary += event ?? "";
@@ -180,8 +196,12 @@ abstract class SystemMessages {
   static final summary = OpenAIChatCompletionChoiceMessageModel(
     content: [
       OpenAIChatCompletionChoiceMessageContentItemModel.text(
-        "I need you to make a short summary about what the user has to do today"
-        " from all these tasks. ",
+        "You will be provided a list of tasks, you have to make a summary "
+        "about what the user has to do today and in the coming days from all these tasks. "
+        "Today is ${Tools.formatDate(DateTime.now())} to have a point of reference for the dates provided with the tasks, "
+        "do not say the entire dates, try to answer with days of the week, "
+        "answer in the language the task titles are written in, most likely Spanish.",
+        // "(you will only receive tasks 2 weeks in advance, and tasks that are overdue), ",
       ),
     ],
     role: OpenAIChatMessageRole.assistant,

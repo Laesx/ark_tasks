@@ -48,9 +48,10 @@ class TaskCard extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(5),
           child: Card(
-            margin: const EdgeInsets.only(top: 7, bottom: 7),
+            // margin: const EdgeInsets.only(top: 7, bottom: 7),
             child: Padding(
-              padding: const EdgeInsets.all(7),
+              // padding: const EdgeInsets.all(7),
+              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
