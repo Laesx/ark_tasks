@@ -87,3 +87,17 @@ extension StringExtension on String {
     return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
   }
 }
+
+extension ScrollCommand on ScrollController {
+  Future<void> scrollToTop() async {
+    if (!hasClients || positions.last.pixels <= 0) return;
+
+    if (positions.last.pixels > 100) positions.last.jumpTo(100);
+
+    await positions.last.animateTo(
+      0,
+      duration: const Duration(milliseconds: 200),
+      curve: Curves.decelerate,
+    );
+  }
+}
