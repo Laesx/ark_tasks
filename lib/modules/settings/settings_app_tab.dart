@@ -4,7 +4,7 @@ import 'package:ark_jots/utils/options.dart';
 import 'package:ark_jots/widgets/fields/stateful_tiles.dart';
 import 'package:ark_jots/widgets/layouts/top_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 import 'package:ark_jots/services/local_notification_service.dart';
 
 class SettingsAppTab extends StatelessWidget {
@@ -18,7 +18,7 @@ class SettingsAppTab extends StatelessWidget {
     const tilePadding = EdgeInsets.only(bottom: 10, left: 10, right: 10);
     final listPadding = MediaQuery.paddingOf(context);
 
-    final taskProvider = context.watch<TaskProvider>();
+    // final taskProvider = context.watch<TaskProvider>();
 
     return ListView(
       controller: scrollCtrl,
