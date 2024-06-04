@@ -99,6 +99,7 @@ class HomeWidget extends StatelessWidget {
                 const Text("Tareas Pendientes Próximamente",
                     style: TextStyle(fontSize: 20)),
                 Container(height: 250, child: const TasksTodayCard()),
+                const SizedBox(height: 10),
               ],
             ))
           ]),

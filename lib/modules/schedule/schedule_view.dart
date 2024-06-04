@@ -76,13 +76,15 @@ class ScheduleView extends StatelessWidget {
       child: Padding(
         // This padding should be done more elegantly so I don't have to put it everywhere
         padding: const EdgeInsets.only(top: TopBar.height),
-        child: ListView.builder(
-          itemCount: schedules.scheduleToday.length,
-          itemBuilder: (context, index) {
-            //final task = schedule[index];
-            return ScheduleCard(schedule: schedules.scheduleToday[index]);
-          },
-        ),
+        child: schedules.scheduleToday.length == 0
+            ? const Center(child: Text("¡No tienes horario para hoy!🎉"))
+            : ListView.builder(
+                itemCount: schedules.scheduleToday.length,
+                itemBuilder: (context, index) {
+                  //final task = schedule[index];
+                  return ScheduleCard(schedule: schedules.scheduleToday[index]);
+                },
+              ),
       ),
     );
   }
