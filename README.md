@@ -1,6 +1,12 @@
+<div align="center">
+
+<a href="https://github.com/Laesx/ark_tasks">
+    <img src="assets/logo_transparent.png" alt="Ark logo" height="200px" width="200px" />
+</a>
+
 # Ark Tasks
 
-![](assets/logo_transparent.png)
+</div>
 
 To see the English version of this file, click [here](README.md).
 
