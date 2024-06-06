@@ -10,7 +10,7 @@
 
 To see the English version of this file, click [here](README.md).
 
-Ark es una aplicación de gestión de tareas que se centra en la simplicidad y la eficiencia, desarrollada en Flutter.
+Ark es una aplicación de gestión de tareas acelerada con Inteligencia Artifical que se centra en la simplicidad y la eficiencia, desarrollada en Flutter.
 
 ## Características
 
@@ -24,11 +24,12 @@ Ark es una aplicación de gestión de tareas que se centra en la simplicidad y l
 - **Temas**: Varios temas e integración de Material You para tener una aplicación adaptada al usuario.
 
 
-## Librerias utilizadas o que he intentado utilizar:
+## Algunas librerias utilizadas:
 
-https://pub.dev/packages/animated_reorderable_list
-https://pub.dev/packages/flutter_slidable
-https://pub.dev/packages/google_sign_in
+- https://pub.dev/packages/google_sign_in
+- https://pub.dev/packages/hive
+- https://pub.dev/packages/dart_openai
+- https://pub.dev/packages/choice
 
 
 
