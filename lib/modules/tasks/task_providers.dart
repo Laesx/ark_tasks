@@ -14,6 +14,12 @@ class TaskProvider extends ChangeNotifier {
 
   List<Task> get tasks => _tasks;
 
+  List<Task> get completedTasks =>
+      _tasks.where((task) => task.isComplete).toList();
+
+  List<Task> get pendingTasks =>
+      _tasks.where((task) => !task.isComplete).toList();
+
   //Hive boxes and keys.
   static const _tasksBoxKey = 'tasks';
   static final Box _tasksBox = Hive.box<Task>(_tasksBoxKey);

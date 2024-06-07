@@ -8,7 +8,9 @@ import 'package:ark_jots/utils/tools.dart';
 import 'package:ark_jots/widgets/layouts/constrained_view.dart';
 import 'package:ark_jots/widgets/layouts/scaffolds.dart';
 import 'package:ark_jots/widgets/shadowed_overflow_list.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class UserView extends StatelessWidget {
@@ -41,7 +43,7 @@ class UserView extends StatelessWidget {
             } else if (snapshot.hasData) {
               return CustomScrollView(slivers: [
                 UserHeader(id: user.id, user: user, imageUrl: user.imageUrl),
-                const _ButtonRow(),
+                _ButtonRow(taskProvider),
                 //SizedBox(height: 20),
                 SliverList(
                     delegate: SliverChildListDelegate([
@@ -115,7 +117,9 @@ class UserView extends StatelessWidget {
 }
 
 class _ButtonRow extends StatelessWidget {
-  const _ButtonRow();
+  const _ButtonRow(this.taskProvider);
+
+  final taskProvider;
 
   //final int id;
 
@@ -123,9 +127,33 @@ class _ButtonRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final buttons = [
       _Button(
-        label: 'Estadisticas',
+        label: 'Estadísticas',
         icon: Icons.bar_chart,
-        onTap: () => print('Settings'),
+        onTap: () => showDialog(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+                  title: const Text("Estadísticas"),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                          "Tareas Completadas: ${taskProvider.completedTasks.length}"),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                          "Tareas Pendientes: ${taskProvider.pendingTasks.length}"),
+                    ],
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text("Cerrar"),
+                    ),
+                  ],
+                )),
       ),
       _Button(
         label: 'Cerrar Sesión',

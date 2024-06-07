@@ -187,6 +187,8 @@ abstract class SystemMessages {
     content: [
       OpenAIChatCompletionChoiceMessageContentItemModel.text(
         "I need you to give me a list of subtasks to divide this task. "
+        "I only need the title of the subtasks, do not include anything else. "
+        "Answer in the language the task titles are written in, most likely Spanish. "
         "Give your answer as JSON.",
       ),
     ],
