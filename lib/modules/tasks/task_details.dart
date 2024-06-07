@@ -300,8 +300,17 @@ class _SubtasksSectionState extends State<_SubtasksSection> {
           itemBuilder: (context, index) {
             final subtask = widget.task.subtasks[index];
             return ListTile(
-                // TODO: Make this a TextField to be able to edit it
-                title: Text(subtask.title),
+                title: TextField(
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    counterText: '',
+                  ),
+                  minLines: 1,
+                  maxLines: 3,
+                  maxLength: 100,
+                  controller: TextEditingController(text: subtask.title),
+                  onChanged: (value) => subtask.title = value,
+                ),
                 leading: TaskCheckbox(widget.task, subtask: subtask),
                 trailing: IconButton(
                   onPressed: () {
