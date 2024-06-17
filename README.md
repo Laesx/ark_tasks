@@ -8,7 +8,7 @@
 
 </div>
 
-To see the English version of this file, click [here](README.md).
+To see the English version of this file, click [here](README_en.md).
 
 Ark es una aplicación de gestión de tareas acelerada con Inteligencia Artifical que se centra en la simplicidad y la eficiencia, desarrollada en Flutter.
 
