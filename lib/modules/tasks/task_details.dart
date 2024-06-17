@@ -97,10 +97,10 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                     onUpdated: () => taskProvider.updateOrCreateTask(task),
                     choicesMemoizer: choicesMemoizer,
                   ),
-                  ElevatedButton(
-                    onPressed: resetMemoizer,
-                    child: const Text('Refrescar Sugerencias por IA'),
-                  ),
+                  // ElevatedButton(
+                  //   onPressed: resetMemoizer,
+                  //   child: const Text('Refrescar Sugerencias por IA'),
+                  // ),
                   // Due Date Menu
                   _DueDate(xOffSet: xOffSet, task: task),
                   const SizedBox(
