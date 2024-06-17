@@ -1,5 +1,5 @@
 import 'package:ark_jots/modules/settings/theme_preview.dart';
-import 'package:ark_jots/modules/tasks/task_providers.dart';
+// import 'package:ark_jots/modules/tasks/task_providers.dart';
 import 'package:ark_jots/utils/options.dart';
 import 'package:ark_jots/widgets/fields/stateful_tiles.dart';
 import 'package:ark_jots/widgets/layouts/top_bar.dart';
@@ -51,19 +51,19 @@ class SettingsAppTab extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 20),
-        ElevatedButton(
-            onPressed: () => TaskProvider.deleteTasksBox(),
-            child: const Text('Delete Tasks Box')),
+        // ElevatedButton(
+        //     onPressed: () => TaskProvider.deleteTasksBox(),
+        //     child: const Text('Delete Tasks Box')),
         // ElevatedButton(
         //     onPressed: () => taskProvider.fillBoxWithDemoTasks(),
         //     child: const Text('Fill Box with Demo Tasks')),
         ElevatedButton(
             onPressed: () => LocalNotificationService()
                 .showNotificationAndroid("Title", "Value"),
-            child: const Text('Test Notification')),
+            child: const Text('Test Notificación')),
         ElevatedButton(
             onPressed: () => LocalNotificationService().showTimedNotification(),
-            child: const Text('Test Scheduled Notification'))
+            child: const Text('Test Notificación Programada')),
       ],
     );
   }

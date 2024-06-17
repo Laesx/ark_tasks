@@ -7,7 +7,7 @@ import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
 /// Current app version.
-const versionCode = '0.0.1';
+const versionCode = '1.0.1';
 
 /// General options keys.
 enum _OptionKey {
